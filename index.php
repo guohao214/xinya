@@ -293,4 +293,14 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
+
+// 自动加载
+spl_autoload_register(function($class) {
+    if (strpos($class, 'Controller') !== false) {
+        $classPath = APPPATH . DS . 'controllers' . DS . $class . '.php';
+        if (file_exists($classPath))
+            include $classPath;
+    }
+}, true, true);
+
 require_once BASEPATH.'core/CodeIgniter.php';

@@ -7,15 +7,15 @@
  * Date: 15-12-13
  * Time: 下午1:00
  */
-include 'Front.php';
 
-class Index extends Front
+class Index extends FrontController
 {
     /**
      * 首页
      */
     public function index1()
     {
+        $this->output->cache(100);
         $this->view('index/index');
     }
 
@@ -26,4 +26,5 @@ class Index extends Front
     {
 
     }
+
 }

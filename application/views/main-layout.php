@@ -1,3 +1,7 @@
+<?php
+    $this->load->helper('url');
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,9 +12,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/static/css/styles.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/static/css/footer.css" type="text/css"/>
-    <script type="text/javascript" src="<?php echo base_url(); ?>/static/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>static/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>static/css/footer.css" type="text/css"/>
+    <script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery.min.js"></script>
     <title>个人中心</title>
 </head>
 <body>
