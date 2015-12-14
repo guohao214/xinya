@@ -99,6 +99,7 @@ switch (ENVIRONMENT)
  * as this file.
  */
 	$system_path = 'system';
+    $system_path = __DIR__ . DS . 'system';
 
 /*
  *---------------------------------------------------------------
@@ -114,6 +115,7 @@ switch (ENVIRONMENT)
  * NO TRAILING SLASH!
  */
 	$application_folder = 'application';
+    $application_folder = __DIR__ . DS . 'application';
 
 /*
  *---------------------------------------------------------------
@@ -128,7 +130,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$view_folder = '';
+	$view_folder = $application_folder . DS . 'views';
 
 
 /*
