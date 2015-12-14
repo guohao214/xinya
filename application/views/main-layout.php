@@ -20,72 +20,7 @@
 <body>
 
 <div class="wrap">
-    <div class="title tc pr top">
-        <span class="back-btn"></span>今日特惠
-    </div>
-    <div class="list">
-        <ul>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-            <li>
-                <a href="pro_detail.html"><img src="uploads/product.gif"></a>
-                <h4><a href="pro_detail.html">四倍蚕丝凝白柔肤</a></h4>
-                <p>
-                    相宜本草百合三件套装（洁面130g+润养水150ml+润养乳120g +2个小样） (独家专供) 相宜本草 满100送100（赠完为止）
-                </p>
-                <h6>RMB 890</h6>
-            </li>
-        </ul>
-    </div>
+  <?php echo $content; ?>
 
 </div>
 

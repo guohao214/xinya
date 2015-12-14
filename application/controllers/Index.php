@@ -15,7 +15,6 @@ class Index extends FrontController
      */
     public function index1()
     {
-        $this->output->cache(100);
         $this->view('index/index');
     }
 
