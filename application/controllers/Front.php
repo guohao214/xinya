@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: GuoHao
  * Date: 15-12-13
  * Time: 下午1:01
  */
-
 abstract class Front extends CI_Controller
 {
     public function __construct()

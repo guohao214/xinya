@@ -9,12 +9,12 @@
  */
 include 'Front.php';
 
-class XinyaIndex extends Front
+class Index extends Front
 {
     /**
      * 首页
      */
-    public function index()
+    public function index1()
     {
         $this->view('index/index');
     }
