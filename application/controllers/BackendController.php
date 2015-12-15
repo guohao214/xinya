@@ -30,4 +30,9 @@ class BackendController extends CI_Controller
         $render = $this->load->view($layout . $view, $vars, true);
         $this->load->view($layout . 'layout', array('content' => $render));
     }
+
+    public function message($message)
+    {
+        $this->view('message', array('message' => $message));
+    }
 } 

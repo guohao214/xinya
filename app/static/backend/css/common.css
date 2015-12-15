@@ -691,3 +691,11 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     border: 1px solid #fe8101;
     color: #fff;
 }
+
+.tips {
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 16px;
+    color: gray;
+    margin: 0px auto;
+}
