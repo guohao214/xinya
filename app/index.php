@@ -6,6 +6,6 @@
  * Time: 上午11:56
  */
 
+    define('DOCUMENT_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
     include '../index.php';
-
-
+?>

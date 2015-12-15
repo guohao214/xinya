@@ -6,7 +6,7 @@
  * Time: 下午5:15
  */
 
-class Upload extends FrontController
+class Upload extends FrontendController
 {
     public function up()
     {

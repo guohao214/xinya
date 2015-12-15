@@ -7,15 +7,18 @@
  * Date: 15-12-13
  * Time: 下午1:00
  */
-
-class Index extends FrontController
+class Index extends FrontendController
 {
     /**
      * 首页
      */
     public function index1()
     {
-        $this->view('index/index');
+        $upload = new UploadUtil('image');
+
+        $data = $upload->upload('userfile');
+        var_dump($data);
+        $upload->resizeImage(array('resize_31x31', 'resize_100x100'), $data['data']['upload_data']);
     }
 
     /**
