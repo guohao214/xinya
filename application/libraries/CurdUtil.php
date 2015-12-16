@@ -28,10 +28,10 @@ class CurdUtil
     public function create($post = array())
     {
         $this->model->beforeInsert();
-        $query = $this->instance->db->insert($this->table, $post);
+        $this->instance->db->insert($this->table, $post);
         $this->model->afterInsert();
 
-        return $query;
+        return $this->instance->db->insert_id();
     }
 
     /**
@@ -46,10 +46,10 @@ class CurdUtil
         $this->instance->db->where($where);
 
         $this->model->beforeUpdate();
-        $query = $this->instance->db->update($this->table, $post);
+        $this->instance->db->update($this->table, $post);
         $this->model->afterUpdate();
 
-        return $query;
+        return $this->instance->db->affected_rows();
     }
 
     /**
@@ -90,7 +90,9 @@ class CurdUtil
     public function delete($get = array())
     {
         $this->model->beforeDelete();
-        $query = $this->instance->db->delete($this->table, $get);
+        $this->instance->db->delete($this->table, $get);
         $this->model->afterDelete();
+
+        return $this->instance->db->affected_rows();
     }
 } 

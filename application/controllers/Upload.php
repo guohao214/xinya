@@ -28,7 +28,7 @@ class Upload extends FrontendController
 
         $curd = new CurdUtil($this->category);
 
-        $curd->create($post);
+        var_dump($curd->create($post));
 
     }
 
@@ -37,6 +37,6 @@ class Upload extends FrontendController
         $this->load->model('Category', 'category');
         $curd = new CurdUtil($this->category);
 
-        $curd->delete(array('category_id' => $id));
+        var_dump($curd->delete(array('category_id' => $id)));
     }
 } 
