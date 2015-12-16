@@ -8,6 +8,11 @@
  */
 class FrontendController extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('security');
+    }
     /**
      * 用于layout布局的view操作
      * @param $view

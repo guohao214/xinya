@@ -10,12 +10,11 @@ class RequestUtil
 {
     public static function getParams()
     {
-        return array_filter($_GET, 'xss_clean');
+        return array_map('xss_clean', $_GET);
     }
 
     public static function postParams()
     {
-        return array_filter($_POST, 'xss_clean');
+        return array_map('xss_clean', $_POST);
     }
-
-} 
+}

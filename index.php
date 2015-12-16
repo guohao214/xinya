@@ -272,10 +272,14 @@ define('VIEWPATH', $view_folder);
 
 // 自动加载
 spl_autoload_register(function ($class) {
+    $classPath = '';
+
     if (preg_match('~^[a-zA-Z]+Controller$~', $class)) {
         $classPath = APPPATH . 'controllers' . DS . $class . '.php';
     } else if (preg_match('~^[a-zA-Z]+Util$~', $class)) {
         $classPath = APPPATH . 'libraries' . DS . $class . '.php';
+    } else if (preg_match('~^[a-zA-Z]+Model$~', $class)) {
+        $classPath = APPPATH . 'models' . DS . $class . '.php';
     } else {
         ;
     }

@@ -18,6 +18,8 @@ class CurdUtil
         $this->model = $model;
         $this->table = $this->model->table;
         $this->instance = get_instance();
+
+        $this->instance->load->database();
     }
 
     /**
