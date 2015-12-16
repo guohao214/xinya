@@ -34,5 +34,7 @@ class BackendController extends CI_Controller
     public function message($message)
     {
         $this->view('message', array('message' => $message));
+        $this->output->_display();
+        exit;
     }
 } 
