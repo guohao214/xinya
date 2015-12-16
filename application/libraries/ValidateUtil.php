@@ -10,9 +10,9 @@ class ValidateUtil
 {
     private $controller;
 
-    public function __construct(CI_Controller $controller)
+    public function __construct()
     {
-        $this->controller = $controller;
+        $this->controller = get_instance();
         $this->controller->load->library('form_validation', 'validation');
         $this->controller->validation->reset_validation();
     }
