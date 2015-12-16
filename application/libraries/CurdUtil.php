@@ -42,7 +42,6 @@ class CurdUtil
         if (empty($where))
             return false;
 
-        $this->instance->db->where(array());
         $this->instance->db->where($where);
 
         $this->model->beforeUpdate();
