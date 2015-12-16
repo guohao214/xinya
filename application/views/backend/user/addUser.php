@@ -7,13 +7,15 @@
 </div>
 <div class="result-wrap">
     <div class="result-content">
-        <form action="/jscss/admin/design/add" method="post" id="myform" name="myform" enctype="multipart/form-data">
+        <?php echo validation_errors(); ?>
+        <?php echo form_open('form'); ?>
+
             <table class="insert-tab" width="100%">
                 <tbody>
                 <tr>
                     <th><i class="require-red">*</i>分类标题：</th>
                     <td>
-                        <input class="common-text required" id="title" name="title" size="50" value="" type="text">
+                        <input class="common-text required"  name="category_name" size="50" value="" type="text">
                     </td>
                 </tr>
                 <tr>

@@ -1,6 +1,6 @@
 <?php
 
-class Category extends BaseModel
+class CategoryModel extends BaseModel
 {
 
     public function setTable()

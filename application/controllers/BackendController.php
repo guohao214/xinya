@@ -12,7 +12,7 @@ class BackendController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('url');
+        $this->load->helper(array('url',  'form', 'security'));
         $this->load->library('ViewUtil');
         $this->load->library('UrlUtil');
 

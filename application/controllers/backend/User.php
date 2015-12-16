@@ -18,8 +18,4 @@ class User extends BackendController
         $this->view('user/addUser');
     }
 
-    public function show()
-    {
-        $this->message('ddddddddd');
-    }
 } 

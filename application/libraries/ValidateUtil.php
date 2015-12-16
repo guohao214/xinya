@@ -13,8 +13,7 @@ class ValidateUtil
     public function __construct()
     {
         $this->controller = get_instance();
-        $this->controller->load->library('form_validation', 'validation');
-        $this->controller->validation->reset_validation();
+        $this->controller->load->library('form_validation');
     }
 
     /**
@@ -24,7 +23,7 @@ class ValidateUtil
      */
     public function required($attribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, 'trim|required');
+        $this->controller->form_validation->set_rules($attribute, $label, 'trim|required');
     }
 
     /**
@@ -35,7 +34,7 @@ class ValidateUtil
      */
     public function matches($attribute, $matchAttribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, "matches[{$matchAttribute}]");
+        $this->controller->form_validation->set_rules($attribute, $label, "matches[{$matchAttribute}]");
     }
 
     /**
@@ -47,7 +46,7 @@ class ValidateUtil
      */
     public function isUnique($attribute, $table, $field, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, "is_unique[{$table}.{$field}]");
+        $this->controller->form_validation->set_rules($attribute, $label, "is_unique[{$table}.{$field}]");
     }
 
     /**
@@ -58,7 +57,7 @@ class ValidateUtil
      */
     public function minLength($attribute, $length = 1, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, "min_length[{$length}]");
+        $this->controller->form_validation->set_rules($attribute, $label, "min_length[{$length}]");
     }
 
     /**
@@ -69,7 +68,7 @@ class ValidateUtil
      */
     public function maxLength($attribute, $length = 1, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, "max_length[{$length}]");
+        $this->controller->form_validation->set_rules($attribute, $label, "max_length[{$length}]");
     }
 
     /**
@@ -79,7 +78,7 @@ class ValidateUtil
      */
     public function numeric($attribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, 'numeric');
+        $this->controller->form_validation->set_rules($attribute, $label, 'numeric');
     }
 
     /**
@@ -89,7 +88,7 @@ class ValidateUtil
      */
     public function integer($attribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, 'integer');
+        $this->controller->form_validation->set_rules($attribute, $label, 'integer');
     }
 
     /**
@@ -99,7 +98,7 @@ class ValidateUtil
      */
     public function email($attribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, 'valid_email');
+        $this->controller->form_validation->set_rules($attribute, $label, 'valid_email');
     }
 
     /**
@@ -109,7 +108,7 @@ class ValidateUtil
      */
     public function url($attribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, 'valid_url');
+        $this->controller->form_validation->set_rules($attribute, $label, 'valid_url');
     }
 
     /**
@@ -119,7 +118,7 @@ class ValidateUtil
      */
     public function ip($attribute, $label = '')
     {
-        $this->controller->validation->set_rules($attribute, $label, 'valid_ip');
+        $this->controller->form_validation->set_rules($attribute, $label, 'valid_ip');
     }
 
 
@@ -127,8 +126,8 @@ class ValidateUtil
      * 验证
      * @return mixed
      */
-    public function validation()
+    public function run()
     {
-        return $this->controller->validation->run();
+        return $this->controller->form_validation->run();
     }
 } 
