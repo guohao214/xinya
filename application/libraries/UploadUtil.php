@@ -14,17 +14,11 @@ class UploadUtil
     public function __construct($uploadType)
     {
         $this->instance = get_instance();
-        $config = $this->loadConfig($uploadType);
+        $config = ConfigUtil::loadConfig($uploadType);
 
         $this->instance->load->library('upload', $config);
 
         $this->upload = $this->instance->upload;
-    }
-
-    private function loadConfig($config)
-    {
-        $configPath = APPPATH . 'config' . DS . 'upload' . DS . $config . '.php';
-        return include $configPath;
     }
 
     public function upload($uploadElement)
@@ -56,7 +50,7 @@ class UploadUtil
         $this->instance->load->library('image_lib');
 
         foreach ($resizeType as $type) {
-            $config = $this->loadConfig($type);
+            $config = ConfigUtil::loadConfig($type);
             $config['source_image'] = $upload['full_path'];
 
             $this->instance->image_lib->initialize($config);

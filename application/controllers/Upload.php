@@ -12,5 +12,9 @@ class Upload extends FrontendController
     {
         $this->load->helper('form');
         $this->view('upload');
+
+
+        $pagination = new PaginationUtil(300);
+        echo $pagination->pagination();
     }
 } 
