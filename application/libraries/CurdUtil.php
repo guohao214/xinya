@@ -12,86 +12,95 @@ class CurdUtil
     private $model;
     private $instance;
     private $table;
+
+    private $db;
     
     public function __construct(CI_Model $model)
     {
         $this->model = $model;
         $this->table = $this->model->table;
         $this->instance = get_instance();
-
         $this->instance->load->database();
+        $this->db = $this->instance->db;
     }
 
-    /**
-     * 从post里取数据，并过滤
-     */
-    public function create($post = array())
+    
+    public function create($data = array())
     {
         $this->model->beforeInsert();
-        $this->instance->db->insert($this->table, $post);
+        $this->db->insert($this->table, $data);
         $this->model->afterInsert();
 
-        return $this->instance->db->insert_id();
+        return $this->db->insert_id();
     }
 
-    /**
-     * 从post里取
-     */
-    public function update($where = array(), $post = array())
+    
+    public function update($where = array(), $data = array())
     {
         if (empty($where))
             return false;
 
-        $this->instance->db->where($where);
+        $this->db->where($where);
 
         $this->model->beforeUpdate();
-        $this->instance->db->update($this->table, $post);
+        $this->db->update($this->table, $data);
         $this->model->afterUpdate();
 
-        return $this->instance->db->affected_rows();
+        return $this->db->affected_rows();
     }
 
-    /**
-     * 从get里取
-     */
-    public function readOne($get = array())
+   
+    public function readOne($where = array())
     {
         $this->model->beforeRead();
-        $query = $this->instance->db->get_where($this->table, $get);
+        $query = $this->db->get_where($this->table, $where);
         $this->model->afterRead();
 
         return $query;
     }
 
-    public function readAll($get, $limit, $config = 'pagination')
+    public function readAll($order = '', $where = array())
+    {
+        if (!empty($order))
+            $this->db->order_by($order);
+
+        if (!empty($order))
+            $this->db->where($where);
+
+        return $this->result($this->db->get($this->table));
+    }
+
+    public function readOffset($where, $limit, $config = 'pagination')
     {
         $pagination = ConfigUtil::loadConfig($config);
         $offset = $pagination['per_page'];
 
         $this->model->beforeRead();
-        $query = $this->instance->db->get_where($this->table, $get, $limit, $offset);
+        $query = $this->db->get_where($this->table, $where, $limit, $offset);
         $this->model->afterRead();
 
-        return $query;
+        return $this->result($query);
     }
 
-    public function count($get = array())
+    public function count($where = array())
     {
-        $this->instance->db->where(array());
 
-        $this->instance->db->where($get);
-        return $this->instance->db->count_all_results();
+        $this->db->where($where);
+        return $this->db->count_all_results();
     }
 
-    /**
-     * 从get里取
-     */
-    public function delete($get = array())
+    
+    public function delete($where = array())
     {
         $this->model->beforeDelete();
-        $this->instance->db->delete($this->table, $get);
+        $this->db->delete($this->table, $where);
         $this->model->afterDelete();
 
-        return $this->instance->db->affected_rows();
+        return $this->db->affected_rows();
+    }
+
+    protected function result($query)
+    {
+        return $query->result_array();
     }
 } 

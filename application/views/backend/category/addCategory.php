@@ -7,7 +7,9 @@
 </div>
 <div class="result-wrap">
     <div class="result-content">
-        <?php echo validation_errors(); ?>
+        <div class="error">
+            <?php echo validation_errors(); ?>
+        </div>
         <?php echo form_open(RequestUtil::CM()); ?>
         <table class="insert-tab" width="100%">
             <tbody>
@@ -22,7 +24,7 @@
                 <th></th>
                 <td>
                     <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
-                    <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">
+                    <a class="btn btn6" href="<?php echo UrlUtil::createBackendUrl('category/index'); ?>">返回</a>
                 </td>
             </tr>
             </tbody>

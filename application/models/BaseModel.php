@@ -14,6 +14,8 @@ abstract class BaseModel extends CI_Model
     {
         parent::__construct();
         $this->setTable();
+
+        $this->load->database();
     }
 
     abstract public function setTable();

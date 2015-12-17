@@ -8,15 +8,25 @@
  */
 class Category extends BackendController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('CategoryModel', 'categoryModel');
+    }
+
     public function index()
     {
-        $this->view('category/index');
+      //  $categories = (new CurdUtil($this->categoryModel))->readAll('create_time desc', array('disabled' => 0));
+
+var_dump($this->categoryModel->readAll());
+
+        $this->view('category/index', array('categories' => $categories));
     }
 
     public function addCategory()
     {
         if (RequestUtil::isPost()) {
-            $this->load->model('CategoryModel', 'categoryModel');
+            
             // 添加验证
             $validate = new ValidateUtil();
             $validate->required('category_name');
