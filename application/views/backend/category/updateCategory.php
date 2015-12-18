@@ -10,14 +10,14 @@
         <div class="error">
             <?php echo validation_errors(); ?>
         </div>
-        <?php echo form_open(RequestUtil::CM()); ?>
+        <?php echo form_open(RequestUtil::CM(array($category_id))); ?>
         <table class="insert-tab" width="100%">
             <tbody>
             <tr>
                 <th><i class="require-red">*</i>分类标题：</th>
                 <td>
                     <input class="common-text required" name="category_name" size="50"
-                           value="<?php echo set_value('category_name'); ?>" type="text">
+                           value="<?php echo set_value('category_name') ? set_value('category_name') : $category_name; ?>" type="text">
                 </td>
             </tr>
             <tr>

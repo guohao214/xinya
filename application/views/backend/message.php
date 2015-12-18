@@ -7,7 +7,6 @@
     <div class="result-content">
         <div class="tips">
             <?php echo $message; ?>
-            <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">
         </div>
-
+        <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">
     </div>

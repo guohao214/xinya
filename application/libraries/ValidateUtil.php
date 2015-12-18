@@ -9,6 +9,7 @@
 class ValidateUtil
 {
     private $controller;
+    public $rules;
 
     public function __construct()
     {
@@ -16,25 +17,28 @@ class ValidateUtil
         $this->controller->load->library('form_validation');
     }
 
+    private function setRule($attribute, $rule)
+    {
+        $this->rules[$attribute][] = array('attribute' => $attribute, 'rule' => $rule);
+    }
+
     /**
      * 必填验证
      * @param $attribute
-     * @param $label
      */
-    public function required($attribute, $label = '')
+    public function required($attribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, 'trim|required');
+        $this->setRule($attribute, 'trim|required');
     }
 
     /**
      * 是否与表单中的另一元素相同
      * @param $attribute
      * @param $matchAttribute 要匹配的另一元素
-     * @param $label
      */
-    public function matches($attribute, $matchAttribute, $label = '')
+    public function matches($attribute, $matchAttribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, "matches[{$matchAttribute}]");
+        $this->setRule($attribute, "matches[{$matchAttribute}]");
     }
 
     /**
@@ -42,83 +46,75 @@ class ValidateUtil
      * @param $attribute
      * @param $table
      * @param $field
-     * @param $label
      */
-    public function isUnique($attribute, $table, $field, $label = '')
+    public function isUnique($attribute, $table, $field)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, "is_unique[{$table}.{$field}]");
+        $this->setRule($attribute, "is_unique[{$table}.{$field}]");
     }
 
     /**
      * 最小长度
      * @param $attribute
      * @param int $length
-     * @param string $label
      */
-    public function minLength($attribute, $length = 1, $label = '')
+    public function minLength($attribute, $length = 1)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, "min_length[{$length}]");
+        $this->setRule($attribute, "min_length[{$length}]");
     }
 
     /**
      * 最大长度
      * @param $attribute
      * @param int $length
-     * @param string $label
      */
-    public function maxLength($attribute, $length = 1, $label = '')
+    public function maxLength($attribute, $length = 1)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, "max_length[{$length}]");
+        $this->setRule($attribute, "max_length[{$length}]");
     }
 
     /**
      * 如果表单元素值包含除数字以外的字符，返回 FALSE
      * @param $attribute
-     * @param string $label
      */
-    public function numeric($attribute, $label = '')
+    public function numeric($attribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, 'numeric');
+        $this->setRule($attribute, 'numeric');
     }
 
     /**
      * 如果表单元素包含除整数以外的字符，返回 FALSE
      * @param $attribute
-     * @param string $label
      */
-    public function integer($attribute, $label = '')
+    public function integer($attribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, 'integer');
+        $this->setRule($attribute, 'integer');
     }
 
     /**
      * 验证邮箱
      * @param $attribute
-     * @param string $label
      */
-    public function email($attribute, $label = '')
+    public function email($attribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, 'valid_email');
+        $this->setRule($attribute, 'valid_email');
     }
 
     /**
      * 验证URL
      * @param $attribute
-     * @param string $label
      */
-    public function url($attribute, $label = '')
+    public function url($attribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, 'valid_url');
+        $this->setRule($attribute, 'valid_url');
     }
 
     /**
      * 验证IP地址
      * @param $attribute
-     * @param string $label
      */
-    public function ip($attribute, $label = '')
+    public function ip($attribute)
     {
-        $this->controller->form_validation->set_rules($attribute, $label, 'valid_ip');
+        $this->setRule($attribute, 'valid_ip');
     }
 
 
@@ -128,6 +124,21 @@ class ValidateUtil
      */
     public function run()
     {
+        $this->setValidationRules();
+
         return $this->controller->form_validation->run();
+    }
+
+    public function setValidationRules()
+    {
+        foreach ($this->rules as $key => $rules) {
+            $ruleList = array();
+            foreach ($rules as $rule) {
+                array_push($ruleList, $rule['rule']);
+            }
+
+            $this->controller->form_validation->set_rules($key, '', implode('|', $ruleList));
+
+        }
     }
 } 

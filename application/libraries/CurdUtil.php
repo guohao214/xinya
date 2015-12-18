@@ -56,7 +56,7 @@ class CurdUtil
         $query = $this->db->get_where($this->table, $where);
         $this->model->afterRead();
 
-        return $query;
+        return $this->result($query);
     }
 
     public function readAll($order = '', $where = array())
@@ -70,7 +70,7 @@ class CurdUtil
         return $this->result($this->db->get($this->table));
     }
 
-    public function readOffset($where, $limit, $config = 'pagination')
+    public function readLimit($where, $limit, $config = 'pagination')
     {
         $pagination = ConfigUtil::loadConfig($config);
         $offset = $pagination['per_page'];
@@ -86,6 +86,7 @@ class CurdUtil
     {
 
         $this->db->where($where);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 

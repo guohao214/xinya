@@ -38,7 +38,7 @@ class RequestUtil
      * 获得当前请求的控制器与方法
      * @return string
      */
-    public static function CM()
+    public static function CM($params = array())
     {
         $instance = get_instance();
         $segments = $instance->uri->segments;
@@ -50,6 +50,6 @@ class RequestUtil
             $baseUrl .= '/' . array_shift($segments);
         }
 
-        return $instance->config->base_url() . $baseUrl;
+        return $instance->config->base_url() . $baseUrl . '/' . implode('/', $params);
     }
 }
