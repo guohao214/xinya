@@ -11,18 +11,14 @@ class CategoryModel extends BaseModel
 
    	public function readAll()
     {
-    	$projectModel = new ProjectModel();
-    	
-    	$this->db->from($this->table);
-    	$this->db->order_by("{$this->table}.create_time desc");
+    	$project = new ProjectModel();
 
-		$join = "{$this->table}.category_id={$projectModel->table}.category_id";
-		$where = "{$this->table}.category_id=0 and {$projectModel->table}.category1_id=0";
-		$this->db->where($where);
-		$this->db->join($projectModel->table, $join);
-		$this->db->group_by('category_id');
+    	$sql = "SELECT *,(select count(*) from {$project->table} where 
+			{$project->table}.category_id={$this->table}.category_id and {$project->table}.disabled=0) as projects 
+    	 FROM `{$this->table}` where {$this->table}.disabled=0";
 
-    	$query = $this->db->get();
+
+    	$query = $this->db->query($sql);
     	return $query->result_array();
     }
 } 

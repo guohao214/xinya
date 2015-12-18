@@ -16,10 +16,7 @@ class Category extends BackendController
 
     public function index()
     {
-      //  $categories = (new CurdUtil($this->categoryModel))->readAll('create_time desc', array('disabled' => 0));
-
-var_dump($this->categoryModel->readAll());
-
+        $categories = $this->categoryModel->readAll();
         $this->view('category/index', array('categories' => $categories));
     }
 
