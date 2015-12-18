@@ -24,14 +24,14 @@ class Category extends BackendController
     {
         if (RequestUtil::isPost()) {
             if ($this->categoryModel->rules()->run()) {
-                $curd = new CurdUtil($this->categoryModel);
                 $params = RequestUtil::postParams();
-                $insertId = $curd->create(array('category_name' => $params['category_name'],
-                    'create_time' => DateUtil::now()));
+                $insertId = (new CurdUtil($this->categoryModel))->create(
+                    array('category_name' => $params['category_name'], 'create_time' => DateUtil::now()));
+
                 if ($insertId)
-                    $this->message('插入成功!');
+                    $this->message('新增分类成功!', 'category/index');
                 else
-                    $this->message('插入失败!');
+                    $this->message('新增分类失败!', 'category/index');
             }
 
         }
@@ -51,9 +51,9 @@ class Category extends BackendController
                     array('category_name' => $params['category_name']));
 
                 if ($affectedRows > 0)
-                    $this->message('修改分类信息成功!');
+                    $this->message('修改分类信息成功!', 'category/index');
                 else
-                    $this->message('修改分类信息失败!');
+                    $this->message('修改分类信息失败!', 'category/index');
             }
 
         }
@@ -62,7 +62,7 @@ class Category extends BackendController
         $category = array_pop($category);
 
         if (!$category)
-            $this->message('分类不存在！');
+            $this->message('分类不存在！', 'category/index');
 
         $this->view('category/updateCategory', $category);
     }
@@ -70,7 +70,7 @@ class Category extends BackendController
     public function deleteCategory($categoryId)
     {
         if (!$categoryId)
-            $this->message('分类ID错误!');
+            $this->message('分类ID错误!', 'category/index');
 
         $where = array('category_id' => $categoryId);
 
@@ -79,8 +79,8 @@ class Category extends BackendController
             $this->message('当前分类下还有未删除的项目！，请先删除项目再删除分类！');
 
         if ((new CurdUtil($this->categoryModel))->delete(array('category_id' => $categoryId)))
-            $this->message('删除分类成功！');
+            $this->message('删除分类成功！', 'category/index');
         else
-            $this->message('删除分类失败！');
+            $this->message('删除分类失败！', 'category/index');
     }
 } 

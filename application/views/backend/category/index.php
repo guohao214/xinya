@@ -20,7 +20,7 @@
                         <th width="10%">ID</th>
                         <th width="50%">标题</th>
                         <th width="10%">项目数</th>
-                        <th>更新时间</th>
+                        <th>添加时间</th>
                         <th>操作</th>
                     </tr>
 
@@ -52,7 +52,7 @@
 
             var $that = $(this);
 
-            if (confirm('确定删除当前分类?')) {
+            if (confirm('确定删除当前分类: ' + $that.parents('tr').children('td').eq(1).html())) {
                 window.location.href = $that.attr('href');
             }
         })

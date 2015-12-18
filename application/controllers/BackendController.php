@@ -31,9 +31,12 @@ class BackendController extends CI_Controller
         $this->load->view($layout . 'layout', array('content' => $render));
     }
 
-    public function message($message)
+    public function message($message, $returnBack = '')
     {
-        $this->view('message', array('message' => $message));
+        if ($returnBack)
+            $returnBack = UrlUtil::createBackendUrl($returnBack);
+
+        $this->view('message', array('message' => $message, 'returnBack' => $returnBack));
         $this->output->_display();
         exit;
     }
