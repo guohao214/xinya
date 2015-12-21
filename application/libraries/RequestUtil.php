@@ -10,12 +10,14 @@ class RequestUtil
 {
     public static function getParams()
     {
-        return array_map('xss_clean', $_GET);
+        get_instance()->load->helper('common');
+        return array_filter(array_map('xss_clean', $_GET), 'clearEmpty');
     }
 
     public static function postParams()
     {
-        return array_map('xss_clean', $_POST);
+        get_instance()->load->helper('common');
+        return array_filter(array_map('xss_clean', $_POST));
     }
 
     public static function isAjax()

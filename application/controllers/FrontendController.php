@@ -11,7 +11,7 @@ class FrontendController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('security');
+        $this->load->helper(array('url',  'form', 'security', 'common'));
     }
     /**
      * 用于layout布局的view操作

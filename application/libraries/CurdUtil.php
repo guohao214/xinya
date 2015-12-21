@@ -14,7 +14,7 @@ class CurdUtil
     private $table;
 
     private $db;
-    
+
     public function __construct(CI_Model $model)
     {
         $this->model = $model;
@@ -24,7 +24,7 @@ class CurdUtil
         $this->db = $this->instance->db;
     }
 
-    
+
     public function create($data = array())
     {
         $this->model->beforeInsert();
@@ -34,7 +34,7 @@ class CurdUtil
         return $this->db->insert_id();
     }
 
-    
+
     public function update($where = array(), $data = array())
     {
         if (empty($where))
@@ -49,9 +49,12 @@ class CurdUtil
         return $this->db->affected_rows();
     }
 
-   
+
     public function readOne($where = array())
     {
+        if (empty($where))
+            $where = '1=1';
+
         $this->model->beforeRead();
         $query = $this->db->get_where($this->table, $where);
         $this->model->afterRead();
@@ -64,19 +67,25 @@ class CurdUtil
         if (!empty($order))
             $this->db->order_by($order);
 
-        if (!empty($order))
+        if (!empty($where))
             $this->db->where($where);
 
         return $this->result($this->db->get($this->table));
     }
 
-    public function readLimit($where, $limit, $config = 'pagination')
+    public function readLimit($where, $limit = '', $config = 'pagination')
     {
+        if (!$limit)
+            $limit = 0;
+
+        if (empty($where))
+            $where = '1=1';
+
         $pagination = ConfigUtil::loadConfig($config);
         $offset = $pagination['per_page'];
 
         $this->model->beforeRead();
-        $query = $this->db->get_where($this->table, $where, $limit, $offset);
+        $query = $this->db->get_where($this->table, $where, $offset, $limit);
         $this->model->afterRead();
 
         return $this->result($query);
@@ -84,13 +93,15 @@ class CurdUtil
 
     public function count($where = array())
     {
+        if (empty($where))
+            $where = '1=1';
 
         $this->db->where($where);
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
-    
+
     public function delete($where = array())
     {
         $this->model->beforeDelete();
