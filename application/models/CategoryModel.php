@@ -24,7 +24,7 @@ class CategoryModel extends BaseModel
 
     public function readAllAssoc()
     {
-        $categories = (new CurdUtil($this))->readAll();
+        $categories = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
         $_categories = array();
 
         foreach($categories as $category) {

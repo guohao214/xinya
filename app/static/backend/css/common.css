@@ -767,4 +767,5 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 .project_cover {
     width: 100px;
     height: auto;
+    padding: 3px;
 }

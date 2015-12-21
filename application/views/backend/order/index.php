@@ -35,15 +35,15 @@
             <table class="result-tab" width="100%">
                 <tr>
                     <th>订单ID</th>
-                    <th>订单号</th>
+                    <th width="300">订单号</th>
                     <th>联系人</th>
-                    <th>联系方式</th>
-                    <th>微信订单ID</th>
+                    <th width="110">联系方式</th>
+<!--                    <th>微信订单ID</th>-->
                     <th>订单状态</th>
                     <th>订单金额</th>
                     <th width="150">下单时间</th>
-                    <th width="150">支付时间</th>
-                    <th width="150">完成时间</th>
+<!--                    <th width="150">支付时间</th>-->
+<!--                    <th width="150">完成时间</th>-->
                     <th width="100">操作</th>
                 </tr>
                 <?php foreach($orders as $order): ?>
@@ -52,12 +52,12 @@
                     <td><?php echo $order['order_no']; ?></td>
                     <td><?php echo $order['user_name']; ?></td>
                     <td><?php echo $order['phone']; ?></td>
-                    <td><?php echo $order['transaction_id']; ?></td>
+<!--                    <td>--><?php //echo $order['transaction_id']; ?><!--</td>-->
                     <td><?php echo $order['order_status']; ?></td>
                     <td><?php echo $order['total_fee']; ?></td>
                     <td><?php echo $order['create_time']; ?></td>
-                    <td><?php echo $order['pay_time']; ?></td>
-                    <td><?php echo $order['complete_time']; ?></td>
+<!--                    <td>--><?php //echo $order['pay_time']; ?><!--</td>-->
+<!--                    <td>--><?php //echo $order['complete_time']; ?><!--</td>-->
                     <td>
                         <a class="link-del" href="#">删除</a>
                         <a class="link-complete" href="#">已完成</a>

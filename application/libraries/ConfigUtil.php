@@ -13,7 +13,7 @@ class ConfigUtil
     {
         $congigPath = APPPATH . 'config' . DS . $config . '.php';
         if (!file_exists($congigPath))
-            show_404($congigPath . '不存在!');
+            show_error($congigPath . '不存在!');
 
         return include $congigPath;
     }

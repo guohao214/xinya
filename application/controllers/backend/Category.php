@@ -72,13 +72,13 @@ class Category extends BackendController
         if (!$categoryId)
             $this->message('分类ID错误!', 'category/index');
 
-        $where = array('category_id' => $categoryId);
+        $where = array('category_id' => $categoryId, 'disabled' => 0);
 
         //查询总数
         if ((new CurdUtil(new ProjectModel()))->count($where) > 0)
             $this->message('当前分类下还有未删除的项目！，请先删除项目再删除分类！');
 
-        if ((new CurdUtil($this->categoryModel))->delete(array('category_id' => $categoryId)))
+        if ((new CurdUtil($this->categoryModel))->update(array('category_id' => $categoryId), array('disabled' => 1)))
             $this->message('删除分类成功！', 'category/index');
         else
             $this->message('删除分类失败！', 'category/index');

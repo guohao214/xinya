@@ -10,7 +10,7 @@ return array(
     'image_library' => 'gd2',
     'create_thumb' => TRUE,
     'maintain_ratio' => TRUE,
-    'width' => 31,
-    'height' => 31,
-    'thumb_marker' => '_31x31'
+    'width' => 200,
+    'height' => 200,
+    'thumb_marker' => '_200x200'
 );

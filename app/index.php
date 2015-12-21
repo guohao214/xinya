@@ -9,6 +9,6 @@
     define('DOCUMENT_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
     define('UPLOAD_FOLDER', 'upload');
 
-    //$_SERVER['CI_ENV'] = 'production';
+    $_SERVER['CI_ENV'] = 'production';
     include '../index.php';
 ?>

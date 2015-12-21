@@ -4,20 +4,23 @@
 </div>
 <div class="search-wrap">
     <div class="search-content">
-        <form action="#" method="post">
+        <form action="<?php echo UrlUtil::createBackendUrl('project/index'); ?>?" method="get">
             <table class="search-tab">
                 <tr>
                     <th width="120">选择分类:</th>
                     <td>
-                        <select name="search-sort" id="">
+                        <select name="category_id">
                             <option value="">全部</option>
-                            <option value="19">精品界面</option>
-                            <option value="20">推荐界面</option>
+                            <?php foreach ($categories as $key => $category): ?>
+                                <option value="<?php echo $key; ?>"><?php echo $category; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </td>
-                    <th width="70">关键字:</th>
-                    <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
-                    <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
+                    <th width="70">项目标题:</th>
+                    <td><input class="common-text" placeholder="项目标题" type="text"
+                               name="project_name" value="<?php echo defaultValue($params['project_name']); ?>"></td>
+
+                    <td><input class="btn btn-primary btn2" type="submit"></td>
                 </tr>
             </table>
         </form>
@@ -32,32 +35,49 @@
             </div>
         </div>
         <div class="result-content">
-            <table class="result-tab" width="100%">
-                <tr>
-                    <th width="110">封面</th>
-                    <th>项目标题</th>
-                    <th>分类</th>
-                    <th width="100">使用时间</th>
-                    <th width="100">价格</th>
-                    <th width="100">操作</th>
-                </tr>
-                <?php foreach ($projects as $project): ?>
+            <?php if ($projects): ?>
+                <table class="result-tab" width="100%">
                     <tr>
-                        <td>
-                            <img class="project_cover" src="<?php echo UploadUtil::buildUploadDocPath($project['project_cover'], '100x100'); ?>">
-                        </td>
-                        <td><?php echo $project['project_name']; ?></td>
-                        <td><?php echo $categories[$project['category_id']]; ?></td>
-                        <td><?php echo $project['use_time']; ?> 分钟</td>
-                        <td><?php echo $project['price']; ?> 元</td>
-                        <td>
-                            <a class="link-update" href="#">修改</a>
-                            <a class="link-del" href="#">删除</a>
-                        </td>
+                        <th width="110">封面</th>
+                        <th>项目标题</th>
+                        <th>分类</th>
+                        <th width="100">使用时间</th>
+                        <th width="100">价格</th>
+                        <th width="100">操作</th>
                     </tr>
-                <?php endforeach; ?>
-            </table>
-            <div class="list-page"><?php echo $pages; ?></div>
+                    <?php foreach ($projects as $project): ?>
+                        <tr>
+                            <td>
+                                <img class="project_cover"
+                                     src="<?php echo UploadUtil::buildUploadDocPath($project['project_cover'], '200x200'); ?>">
+                            </td>
+                            <td><?php echo $project['project_name']; ?></td>
+                            <td><?php echo $categories[$project['category_id']]; ?></td>
+                            <td><?php echo $project['use_time']; ?> 分钟</td>
+                            <td><?php echo $project['price']; ?> 元</td>
+                            <td>
+                                <a class="link-update"
+                                   href="<?php echo UrlUtil::createBackendUrl('project/updateProject/' . $project['project_id']); ?>">修改</a>
+                                <a class="link-del"
+                                   href="<?php echo UrlUtil::createBackendUrl('project/deleteProject/' . $project['project_id']); ?>">删除</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+                <div class="list-page"><?php echo $pages; ?></div>
+            <?php endif; ?>
         </div>
     </form>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.link-del').on('click', function (e) {
+            e.preventDefault();
+
+            if (confirm('确定删除此项目？')) {
+                window.location.href = $(this).attr('href');
+            }
+        })
+    })
+</script>
