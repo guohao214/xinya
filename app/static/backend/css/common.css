@@ -758,3 +758,13 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     color:red;
     padding:5px 0px;
 }
+
+.common-textarea {
+    width: 98%;
+    margin: 5px 0px;
+}
+
+.project_cover {
+    width: 100px;
+    height: auto;
+}

@@ -22,6 +22,18 @@ class CategoryModel extends BaseModel
         return $query->result_array();
     }
 
+    public function readAllAssoc()
+    {
+        $categories = (new CurdUtil($this))->readAll();
+        $_categories = array();
+
+        foreach($categories as $category) {
+            $_categories[$category['category_id']] = $category['category_name'];
+        }
+
+        return $_categories;
+    }
+
     public function rules()
     {
         // 添加验证

@@ -27,11 +27,11 @@ class UploadUtil
 
         if (!$this->upload->do_upload($uploadElement)) {
             $return['error'] = 1;
-            $return['data'] = array('error' => $this->upload->display_errors());
+            $return['data'] = $this->upload->display_errors();
 
         } else {
             $return['error'] = 0;
-            $return['data'] = array('upload_data' => $this->upload->data());
+            $return['data'] = $this->upload->data();
         }
 
         return $return;
@@ -58,5 +58,28 @@ class UploadUtil
             $this->instance->image_lib->resize();
             $this->instance->image_lib->clear();
         }
+    }
+
+    /**
+     * 拼装并返回上传文件路径
+     * @param $imageString
+     * @param string $size
+     */
+    public static function buildUploadDocPath($imageString, $size = '')
+    {
+        $uploadDoc = json_decode($imageString, true);
+        if (json_last_error() != JSON_ERROR_NONE)
+            return '';
+
+        if ($size) {
+            $docPath = "{$uploadDoc['raw_name']}_{$size}{$uploadDoc['file_ext']}";
+        } else {
+            $docPath = "{$uploadDoc['raw_name']}{$uploadDoc['file_ext']}";
+        }
+
+        if (file_exists($uploadDoc['file_path'] . $docPath))
+            return get_instance()->config->base_url() . UPLOAD_FOLDER . '/' . $docPath;
+        else
+            return get_instance()->config->base_url() . UPLOAD_FOLDER . "/{$uploadDoc['file_name']}";
     }
 } 

@@ -7,6 +7,6 @@
  */
 
 return array(
-    'upload_path' => DOCUMENT_ROOT . 'upload'
+    'upload_path' => DOCUMENT_ROOT . UPLOAD_FOLDER
 
 );
