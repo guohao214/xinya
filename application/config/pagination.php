@@ -8,7 +8,7 @@
  */
 
 return array(
-    'per_page' => 10,
+    'per_page' => 3,
     'num_links' => 5,
 
     'num_tag_open' => '<li>',

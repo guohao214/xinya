@@ -4,7 +4,6 @@
 </div>
 
 <div class="result-wrap">
-    <form name="myform" id="myform" method="post">
         <div class="result-title">
             <div class="result-list">
                 <a href="<?php echo UrlUtil::createBackendUrl('category/addCategory') ?>">
@@ -44,7 +43,6 @@
         <?php else: ?>
             <div class="error">暂无分类</div>
         <?php endif; ?>
-    </form>
 </div>
 
 <script>

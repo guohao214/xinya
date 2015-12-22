@@ -27,7 +27,6 @@
     </div>
 </div>
 <div class="result-wrap">
-    <form name="myform" id="myform" method="post">
         <div class="result-title">
             <div class="result-list"></div>
         </div>
@@ -74,7 +73,6 @@
                 <div class="error">暂无订单</div>
             <?php endif; ?>
         </div>
-    </form>
 </div>
 
 
