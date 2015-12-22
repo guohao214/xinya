@@ -35,12 +35,12 @@
             <tr>
                 <th>使用时间：</th>
                 <td><input class="common-text" value="<?php echo set_value('use_time'); ?>"
-                           name="use_time" size="10" type="text"></td>
+                           name="use_time" size="10" type="text"> 分钟</td>
             </tr>
             <tr>
                 <th><i class="require-red">*</i>价格：</th>
                 <td><input class="common-text" value="<?php echo set_value('price'); ?>"
-                           name="price" size="10" type="text"></td>
+                           name="price" size="10" type="text"> 元</td>
             </tr>
 
             <tr>
