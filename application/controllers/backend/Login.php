@@ -6,8 +6,14 @@
  * Date: 15-12-14
  * Time: 下午10:35
  */
-class Login extends BackendController
+class Login extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('url');
+    }
+    
     public function index()
     {
         $this->load->view('backend/login');

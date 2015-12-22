@@ -45,8 +45,8 @@
                         <li><a href="<?php echo UrlUtil::createBackendUrl('user/index') ?>"><i class="icon-font">
                                     &#xe014;</i>用户管理</a></li>
                         <!--<li><a href=""><i class="icon-font">&#xe004;</i>留言管理</a></li>
-                        <li><a href=""><i class="icon-font">&#xe052;</i>友情链接</a></li>
                         <li><a href=""><i class="icon-font">&#xe033;</i>广告管理</a></li>-->
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('article/index') ?>"><i class="icon-font">&#xe052;</i>文章管理</a></li>
                     </ul>
                 </li>
                 <li>

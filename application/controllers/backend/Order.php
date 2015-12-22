@@ -17,20 +17,12 @@ class Order extends BackendController
     public function index($limit = '')
     {
         // 获得查询参数， 查询参数都为like模糊查询
-        $params = $_params = RequestUtil::getParams();
-        if ($params) {
-            array_walk($params, function(&$item, $key) {
-                $item = "{$key} like '%{$item}%'";
-            });
-        }
-
-        $params['disabled'] = 'disabled=0';
-        $where = implode('and ', $params);
+        $where = RequestUtil::likeParamsWithDisabled();
 
         $orders = (new CurdUtil($this->orderModel))->readLimit($where, $limit);
         $ordersCount = (new CurdUtil($this->orderModel))->count($where);
         $pages = (new PaginationUtil($ordersCount))->pagination();
-        $this->view('order/index', array('orders' => $orders, 'pages' => $pages, 'params' => $_params));
+        $this->view('order/index', array('orders' => $orders, 'pages' => $pages, 'params' => RequestUtil::getParams()));
     }
 
     public function orderDetail($order_id = '')

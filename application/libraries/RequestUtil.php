@@ -54,4 +54,24 @@ class RequestUtil
 
         return $instance->config->base_url() . $baseUrl . '/' . implode('/', $params);
     }
+
+    public static function likeParams()
+    {
+        $params = self::getParams();
+        if ($params) {
+            array_walk($params, function (&$item, $key) {
+                $item = "{$key} like '%{$item}%'";
+            });
+        }
+
+        return $params;
+    }
+
+    public static function likeParamsWithDisabled()
+    {
+        $params = self::likeParams();
+        $params['disabled'] = 'disabled=0';
+
+        return implode('and ', $params);
+    }
 }

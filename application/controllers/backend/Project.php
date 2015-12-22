@@ -17,15 +17,7 @@ class Project extends BackendController
 
     public function index($limit = '')
     {
-        $params = $_params = RequestUtil::getParams();
-        if ($params) {
-            array_walk($params, function (&$item, $key) {
-                $item = "{$key} like '%{$item}%'";
-            });
-        }
-
-        $params['disabled'] = 'disabled=0';
-        $where = implode('and ', $params);
+        $where = RequestUtil::likeParamsWithDisabled();
 
         $projects = (new CurdUtil($this->projectModel))->readLimit($where, $limit);
         $projectsCount = (new CurdUtil($this->projectModel))->count($where);
@@ -33,7 +25,7 @@ class Project extends BackendController
         $categories = (new CategoryModel())->readAllAssoc();
 
         $this->view('project/index', array('projects' => $projects,
-            'pages' => $pages, 'categories' => $categories, 'params' => $_params));
+            'pages' => $pages, 'categories' => $categories, 'params' => RequestUtil::getParams()));
     }
 
     public function deleteProject($project_id)

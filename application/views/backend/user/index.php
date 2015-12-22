@@ -1,72 +1,68 @@
 <div class="crumb-wrap">
     <div class="crumb-list"><i class="icon-font"></i><a href="index.html">首页</a><span
-            class="crumb-step">&gt;</span><span class="crumb-name">项目管理</span></div>
+            class="crumb-step">&gt;</span><span class="crumb-name">账户管理</span></div>
 </div>
+<div class="search-wrap">
+    <div class="search-content">
+        <form action="<?php echo UrlUtil::createBackendUrl('user/index'); ?>?" method="get">
+            <table class="search-tab">
+                <tr>
+                    <th width="70">账户名:</th>
+                    <td><input class="common-text" placeholder="账户名" type="text"
+                               name="user_name" value="<?php echo defaultValue($params['user_name']); ?>"></td>
 
+                    <td><input class="btn btn-primary btn2" type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
 <div class="result-wrap">
-    <form name="myform" id="myform" method="post">
         <div class="result-title">
             <div class="result-list">
                 <a href="<?php echo UrlUtil::createBackendUrl('user/addUser') ?>">
-                    <i class="icon-font"></i>新增用户</a>
-                <!--<a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>-->
+                    <i class="icon-font"></i>新增账户</a>
             </div>
         </div>
         <div class="result-content">
-            <table class="result-tab" width="100%">
-                <tr>
-                    <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th>
-                    <th>排序</th>
-                    <th>ID</th>
-                    <th>标题</th>
-                    <th>审核状态</th>
-                    <th>点击</th>
-                    <th>发布人</th>
-                    <th>更新时间</th>
-                    <th>评论</th>
-                    <th>操作</th>
-                </tr>
-                <tr>
-                    <td class="tc"><input name="id[]" value="59" type="checkbox"></td>
-                    <td>
-                        <input name="ids[]" value="59" type="hidden">
-                        <input class="common-input sort-input" name="ord[]" value="0" type="text">
-                    </td>
-                    <td>59</td>
-                    <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">发哥经典</a> …
-                    </td>
-                    <td>0</td>
-                    <td>2</td>
-                    <td>admin</td>
-                    <td>2014-03-15 21:11:01</td>
-                    <td></td>
-                    <td>
-                        <a class="link-update" href="#">修改</a>
-                        <a class="link-del" href="#">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tc"><input name="id[]" value="58" type="checkbox"></td>
-                    <td>
-                        <input name="ids[]" value="58" type="hidden">
-                        <input class="common-input sort-input" name="ord[]" value="0" type="text">
-                    </td>
-                    <td>58</td>
-                    <td title="黑色经典"><a target="_blank" href="#" title="黑色经典">黑色经典</a> …
-                    </td>
-                    <td>0</td>
-                    <td>35</td>
-                    <td>admin</td>
-                    <td>2013-12-30 22:34:00</td>
-                    <td></td>
-                    <td>
-                        <a class="link-update" href="#">修改</a>
-                        <a class="link-del" href="#">删除</a>
-                    </td>
-                </tr>
-            </table>
-            <div class="list-page"> 2 条 1/1 页</div>
+            <?php if ($users): ?>
+                <table class="result-tab" width="100%">
+                    <tr>
+                        <th>账户名</th>
+                        <th width="300">创建时间</th>
+                        <th width="300">最后登录时间</th>
+                        <th width="200">操作</th>
+                    </tr>
+                    <?php foreach ($users as $user): ?>
+                        <tr>
+                            <td><?php echo $user['user_name']; ?></td>
+                            <td><?php echo $user['create_time']; ?></td>
+                            <td><?php echo $user['last_login_time']; ?></td>
+                            <td>
+                                <a class="link-change-password btn btn-warning"
+                                   href="<?php echo UrlUtil::createBackendUrl('user/changePassword/' . $user['user_id']); ?>">修改密码</a>
+
+                                <a class="link-del btn btn-danger"
+                                   href="<?php echo UrlUtil::createBackendUrl('user/deleteUser/' . $user['user_id']); ?>">删除</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+                <div class="list-page"><?php echo $pages; ?></div>
+            <?php else: ?>
+                <div class="error">暂无用户</div>
+            <?php endif; ?>
         </div>
-    </form>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.link-del').on('click', function (e) {
+            e.preventDefault();
+
+            if (confirm('确定删除此用户？')) {
+                window.location.href = $(this).attr('href');
+            }
+        })
+    })
+</script>
