@@ -44,7 +44,7 @@
                     <th width="150">下单时间</th>
 <!--                    <th width="150">支付时间</th>-->
 <!--                    <th width="150">完成时间</th>-->
-                    <th width="100">操作</th>
+                    <th width="150">操作</th>
                 </tr>
                 <?php foreach($orders as $order): ?>
                 <tr>
@@ -59,8 +59,8 @@
 <!--                    <td>--><?php //echo $order['pay_time']; ?><!--</td>-->
 <!--                    <td>--><?php //echo $order['complete_time']; ?><!--</td>-->
                     <td>
-                        <a class="link-del" href="#">删除</a>
-                        <a class="link-complete" href="#">已完成</a>
+                        <a class="link-del btn btn-danger" href="#">删除</a>
+                        <a class="link-complete btn btn-warning" href="#">已完成</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

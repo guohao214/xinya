@@ -17,7 +17,7 @@
             <tr>
                 <th width="120"><i class="require-red">*</i>分类：</th>
                 <td>
-                    <select name="category_id" class="required">
+                    <select name="category_id" class="required select">
                         <option value="">请选择分类</option>
                         <?php foreach($categories as $key=>$category): ?>
                             <?php $checked = ($key == $project['category_id']) ? ' selected' :'' ?>
@@ -50,7 +50,7 @@
                     <img class="project_cover"
                          src="<?php echo UploadUtil::buildUploadDocPath($project['project_cover'], '200x200'); ?>">
                     <br>
-                    <input name="pic" id="" type="file">
+                    <input name="pic" id="" type="file" class="common-text">
 
                 </td>
             </tr>

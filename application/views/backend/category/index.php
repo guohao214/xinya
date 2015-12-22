@@ -21,7 +21,7 @@
                         <th width="50%">标题</th>
                         <th width="10%">项目数</th>
                         <th>添加时间</th>
-                        <th>操作</th>
+                        <th width="120">操作</th>
                     </tr>
 
                     <?php foreach ($categories as $category): ?>
@@ -32,9 +32,9 @@
                             <td><?php echo $category['projects']; ?></td>
                             <td><?php echo $category['create_time']; ?></td>
                             <td>
-                                <a class="link-update"
+                                <a class="link-update btn btn-warning"
                                    href="<?php echo UrlUtil::createBackendUrl("category/updateCategory/{$categoryId}"); ?>"">修改</a>
-                                <a class="link-del"
+                                <a class="link-del btn btn-danger"
                                    href="<?php echo UrlUtil::createBackendUrl("category/deleteCategory/{$categoryId}"); ?>">删除</a>
                             </td>
                         </tr>

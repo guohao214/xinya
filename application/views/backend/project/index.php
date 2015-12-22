@@ -9,7 +9,7 @@
                 <tr>
                     <th width="120">选择分类:</th>
                     <td>
-                        <select name="category_id">
+                        <select name="category_id" class="select">
                             <option value="">全部</option>
                             <?php foreach ($categories as $key => $category): ?>
                                 <option value="<?php echo $key; ?>"><?php echo $category; ?></option>
@@ -43,7 +43,7 @@
                         <th>分类</th>
                         <th width="100">使用时间</th>
                         <th width="100">价格</th>
-                        <th width="100">操作</th>
+                        <th width="120">操作</th>
                     </tr>
                     <?php foreach ($projects as $project): ?>
                         <tr>
@@ -56,9 +56,9 @@
                             <td><?php echo $project['use_time']; ?> 分钟</td>
                             <td><?php echo $project['price']; ?> 元</td>
                             <td>
-                                <a class="link-update"
+                                <a class="link-update btn btn-warning"
                                    href="<?php echo UrlUtil::createBackendUrl('project/updateProject/' . $project['project_id']); ?>">修改</a>
-                                <a class="link-del"
+                                <a class="link-del btn btn-danger"
                                    href="<?php echo UrlUtil::createBackendUrl('project/deleteProject/' . $project['project_id']); ?>">删除</a>
                             </td>
                         </tr>

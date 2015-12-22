@@ -17,7 +17,7 @@
             <tr>
                 <th width="120"><i class="require-red">*</i>分类：</th>
                 <td>
-                    <select name="category_id" class="required">
+                    <select name="category_id" class="required select">
                         <option value="">请选择分类</option>
                         <?php foreach($categories as $key=>$category): ?>
                             <option value="<?php echo $key;?>"><?php echo $category;?></option>
@@ -45,7 +45,7 @@
 
             <tr>
                 <th><i class="require-red">*</i>缩略图：</th>
-                <td><input name="pic" id="" type="file"></td>
+                <td><input name="pic" id="" type="file" class="common-text"></td>
             </tr>
 
             <tr>
