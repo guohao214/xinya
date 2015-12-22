@@ -1,19 +1,44 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50617
-Source Host           : localhost:3306
+Source Server         : 127.0.0.1_3306
+Source Server Version : 50612
+Source Host           : 127.0.0.1:3306
 Source Database       : xinya
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2015-12-22 00:39:42
+Date: 2015-12-22 13:24:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `backup`
+-- ----------------------------
+DROP TABLE IF EXISTS `backup`;
+CREATE TABLE `backup` (
+  `backup_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `file_path` varchar(1000) NOT NULL,
+  `disabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`backup_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of backup
+-- ----------------------------
+INSERT INTO `backup` VALUES ('1', 'E:\\htdocs\\project\\xinya\\\\data\\20151222111638.bak', '1', '2015-12-22 11:16:38');
+INSERT INTO `backup` VALUES ('2', 'E:\\htdocs\\project\\xinya\\\\data\\20151222111639.bak', '1', '2015-12-22 11:16:39');
+INSERT INTO `backup` VALUES ('3', 'E:\\htdocs\\project\\xinya\\\\data\\20151222111639.bak', '1', '2015-12-22 11:16:39');
+INSERT INTO `backup` VALUES ('4', 'E:\\htdocs\\project\\xinya\\\\data\\20151222111643.bak', '1', '2015-12-22 11:16:43');
+INSERT INTO `backup` VALUES ('5', 'E:\\htdocs\\project\\xinya\\\\data\\20151222111643.bak', '0', '2015-12-22 11:16:43');
+INSERT INTO `backup` VALUES ('6', 'E:\\htdocs\\project\\xinya\\\\data\\20151222111705.bak', '0', '2015-12-22 11:17:05');
+INSERT INTO `backup` VALUES ('7', 'E:\\htdocs\\project\\xinya\\\\data\\20151222112109.gz', '0', '2015-12-22 11:21:09');
+INSERT INTO `backup` VALUES ('8', 'E:\\htdocs\\project\\xinya\\data\\20151222114649.gz', '0', '2015-12-22 11:46:49');
+INSERT INTO `backup` VALUES ('9', 'E:\\htdocs\\project\\xinya\\data\\20151222114722.gz', '0', '2015-12-22 11:47:22');
 
 -- ----------------------------
 -- Table structure for `category`
@@ -69,6 +94,7 @@ CREATE TABLE `order` (
   `order_status` tinyint(2) unsigned NOT NULL COMMENT '订单状态',
   `pay_time` datetime DEFAULT NULL COMMENT '订单支付时间',
   `complete_time` datetime DEFAULT NULL COMMENT '订单完成时间（到店内进行了美容)',
+  `disabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `create_time` datetime NOT NULL COMMENT '下单时间',
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -76,9 +102,9 @@ CREATE TABLE `order` (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('2', 'abc987652147ddkopl9658www26593ee', 'dfsdergre', 'lfei', '13699854211', '11111111', '2222', '33.00', '1', '2015-12-21 10:35:53', null, '2015-12-21 10:35:57');
-INSERT INTO `order` VALUES ('3', 'y56754', 'rgg54y65', 'guohao', '1352268547', '3334', null, '0.00', '3', null, null, '0000-00-00 00:00:00');
-INSERT INTO `order` VALUES ('4', '54tyfr', 'dfbfd4343t4', 'zhouzhou', '13447854214', 'dddd', null, '0.00', '2', null, null, '0000-00-00 00:00:00');
+INSERT INTO `order` VALUES ('2', 'abc987652147ddkopl9658www26593ee', 'dfsdergre', 'lfei', '13699854211', '11111111', '2222', '33.00', '1', '2015-12-21 10:35:53', null, '0', '2015-12-21 10:35:57');
+INSERT INTO `order` VALUES ('3', 'y56754', 'rgg54y65', 'guohao', '1352268547', '3334', null, '0.00', '3', null, null, '0', '0000-00-00 00:00:00');
+INSERT INTO `order` VALUES ('4', '54tyfr', 'dfbfd4343t4', 'zhouzhou', '13447854214', 'dddd', null, '0.00', '2', null, null, '0', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `order_project`
@@ -88,15 +114,19 @@ CREATE TABLE `order_project` (
   `order_project_id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `order_id` bigint(11) unsigned NOT NULL,
   `project_id` bigint(11) unsigned NOT NULL,
-  `fee` float(10,2) unsigned NOT NULL COMMENT '项目金额',
+  `project_use_time` int(10) NOT NULL,
+  `project_price` int(10) unsigned NOT NULL COMMENT '项目金额',
   `buy_counts` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '项目购买数量',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`order_project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单下的项目表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='订单下的项目表';
 
 -- ----------------------------
 -- Records of order_project
 -- ----------------------------
+INSERT INTO `order_project` VALUES ('1', '2', '1', '0', '10', '1', '0000-00-00 00:00:00');
+INSERT INTO `order_project` VALUES ('2', '3', '2', '0', '10', '1', '0000-00-00 00:00:00');
+INSERT INTO `order_project` VALUES ('3', '4', '5', '0', '60', '1', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `project`
