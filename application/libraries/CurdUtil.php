@@ -75,13 +75,16 @@ class CurdUtil
         return $this->result($this->db->get($this->table));
     }
 
-    public function readLimit($where, $limit = '', $config = 'pagination')
+    public function readLimit($where, $limit = '', $order = '',  $config = 'pagination')
     {
         if (!$limit)
             $limit = 0;
 
         if (empty($where))
             $where = '1=1';
+
+        if ($order)
+            $this->db->order_by($order);
 
         $pagination = ConfigUtil::loadConfig($config);
         $offset = $pagination['per_page'];

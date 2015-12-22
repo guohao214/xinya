@@ -17,7 +17,7 @@ class Tool extends BackendController
     public function index($limit = '')
     {
         $where = array('disabled' => 0);
-        $backups = (new CurdUtil($this->backupModel))->readLimit($where, $limit);
+        $backups = (new CurdUtil($this->backupModel))->readLimit($where, $limit, 'create_time desc');
         $backupsCount = (new CurdUtil($this->backupModel))->count($where);
         $pages = (new PaginationUtil($backupsCount))->pagination();
 
@@ -37,6 +37,8 @@ class Tool extends BackendController
         if (write_file($filePath, $backup)) {
             (new CurdUtil($this->backupModel))->
                 create(array('file_path' => $filePath, 'create_time' => DateUtil::now()));
+
+            $this->message('备份成功', 'tool/index');
         } else {
             $this->message('备份失败，请重试！');
         }
