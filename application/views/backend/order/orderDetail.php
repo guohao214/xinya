@@ -2,52 +2,90 @@
     <div class="crumb-list"><i class="icon-font"></i>
         <a href="<?php echo UrlUtil::createBackendUrl('project/index') ?>">首页</a>
         <span class="crumb-step">&gt;</span>
-        <a class="crumb-name" href="<?php echo UrlUtil::createBackendUrl('project/index') ?>">项目管理</a>
-        <span class="crumb-step">&gt;</span><span>新增项目</span></div>
+        <a class="crumb-name" href="<?php echo UrlUtil::createBackendUrl('project/index') ?>">订单管理</a>
+        <span class="crumb-step">&gt;</span><span>订单详情</span></div>
 </div>
 <div class="result-wrap">
     <div class="result-content">
-        <form action="/jscss/admin/design/add" method="post" id="myform" name="myform" enctype="multipart/form-data">
-            <table class="insert-tab" width="100%">
-                <tbody>
+        <h1 class="table-title">订单详情</h1>
+        <table class="insert-tab" width="100%">
+            <tbody>
+            <tr>
+                <th width="120">订单号：</th>
+                <td width="500">
+                    <?php echo $order['order_no']; ?>
+                </td>
+                <th width="120">微信订单号：</th>
+                <td>
+                    <?php echo $order['transaction_id']; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th>联系人：</th>
+                <td><?php echo $order['user_name']; ?></td>
+                <th>联系方式：</th>
+                <td><?php echo $order['phone']; ?></td>
+            </tr>
+
+            <tr>
+                <th>金额：</th>
+                <td><?php echo $order['total_fee']; ?></td>
+                <th>订单状态：</th>
+                <td><?php echo $order['order_status']; ?></td>
+            </tr>
+
+            <tr>
+                <th>下单时间：</th>
+                <td><?php echo $order['create_time']; ?></td>
+                <th>支付时间：</th>
+                <td><?php echo $order['pay_time']; ?></td>
+            </tr>
+
+            <tr>
+                <th>完成时间：</th>
+                <td colspan="3"><?php echo $order['complete_time'] ? $order['complete_time'] : '未完成'; ?></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <?php if ($orderProjects): ?>
+        <h1 class="table-title">订单项目</h1>
+        <?php foreach($orderProjects as $orderProject): ?>
+        <table class="insert-tab" width="100%">
                 <tr>
-                    <th width="120"><i class="require-red">*</i>分类：</th>
-                    <td>
-                        <select name="colId" id="catid" class="required">
-                            <option value="">请选择</option>
-                            <option value="19">精品界面</option>
-                            <option value="20">推荐界面</option>
-                        </select>
-                    </td>
+                    <th width="120">项目封面：</th>
+                    <td width="500"><img class="project_cover"
+                             src="<?php echo UploadUtil::buildUploadDocPath($orderProject['project_cover'], '200x200'); ?>"></td>
+                    <th width="120">项目名：</th>
+                    <td><?php echo $orderProject['project_name']; ?></td>
                 </tr>
+
                 <tr>
-                    <th><i class="require-red">*</i>标题：</th>
-                    <td>
-                        <input class="common-text required" id="title" name="title" size="50" value="" type="text">
-                    </td>
+                    <th width="120">所属分类：</th>
+                    <td width="500"><?php echo $orderProject['category_name']; ?></td>
+                    <th width="120">使用时间：</th>
+                    <td><?php echo $orderProject['project_use_time']; ?> 分钟</td>
                 </tr>
+
                 <tr>
-                    <th>作者：</th>
-                    <td><input class="common-text" name="author" size="50" value="admin" type="text"></td>
+                    <th width="120">价格：</th>
+                    <td width="500"><?php echo $orderProject['project_price']; ?> 元</td>
+                    <th width="120">购买数量：</th>
+                    <td colspan="3"><?php echo $orderProject['buy_counts']; ?></td>
                 </tr>
+
                 <tr>
-                    <th><i class="require-red">*</i>缩略图：</th>
-                    <td><input name="smallimg" id="" type="file"><!--<input type="submit" onclick="submitForm('/jscss/admin/design/upload')" value="上传图片"/>-->
-                    </td>
+                    <th width="120">使用皮肤：</th>
+                    <td colspan="3"><?php echo $orderProject['suitable_skin']; ?></td>
                 </tr>
+
                 <tr>
-                    <th>内容：</th>
-                    <td><textarea name="content" class="common-textarea" id="content" cols="30" style="width: 98%;"
-                                  rows="10"></textarea></td>
+                    <th width="120">功效：</th>
+                    <td  colspan="3"><?php echo $orderProject['effects']; ?></td>
                 </tr>
-                <tr>
-                    <th></th>
-                    <td>
-                        <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
-                        <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+        </table>
+        <?php endforeach; ?>
+        <?php endif; ?>
     </div>

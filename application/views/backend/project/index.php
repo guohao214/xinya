@@ -65,6 +65,8 @@
                     <?php endforeach; ?>
                 </table>
                 <div class="list-page"><?php echo $pages; ?></div>
+            <?php else: ?>
+                <div class="error">暂无项目</div>
             <?php endif; ?>
         </div>
     </form>

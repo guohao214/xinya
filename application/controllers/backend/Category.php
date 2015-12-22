@@ -59,7 +59,6 @@ class Category extends BackendController
         }
 
         $category = (new CurdUtil($this->categoryModel))->readOne(array('category_id' => $categoryId));
-        $category = array_pop($category);
 
         if (!$category)
             $this->message('分类不存在！', 'category/index');

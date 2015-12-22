@@ -41,6 +41,8 @@
                     <?php endforeach; ?>
                 </table>
             </div>
+        <?php else: ?>
+            <div class="error">暂无分类</div>
         <?php endif; ?>
     </form>
 </div>

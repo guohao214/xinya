@@ -790,3 +790,8 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+
+.table-title {
+    margin:10px 0px;
+    margin-left: 15px;
+}

@@ -32,6 +32,7 @@
             <div class="result-list"></div>
         </div>
         <div class="result-content">
+            <?php if ($orders): ?>
             <table class="result-tab" width="100%">
                 <tr>
                     <th>订单ID</th>
@@ -44,7 +45,7 @@
                     <th width="150">下单时间</th>
 <!--                    <th width="150">支付时间</th>-->
 <!--                    <th width="150">完成时间</th>-->
-                    <th width="150">操作</th>
+                    <th width="200">操作</th>
                 </tr>
                 <?php foreach($orders as $order): ?>
                 <tr>
@@ -59,13 +60,32 @@
 <!--                    <td>--><?php //echo $order['pay_time']; ?><!--</td>-->
 <!--                    <td>--><?php //echo $order['complete_time']; ?><!--</td>-->
                     <td>
-                        <a class="link-del btn btn-danger" href="#">删除</a>
+                        <a class="link-view btn btn-success"
+                           href="<?php echo UrlUtil::createBackendUrl('order/orderDetail/' . $order['order_id']); ?>">详情</a>
+                        <a class="link-del btn btn-danger"
+                           href="<?php echo UrlUtil::createBackendUrl('order/deleteOrder/' . $order['order_id']); ?>">删除</a>
                         <a class="link-complete btn btn-warning" href="#">已完成</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </table>
             <div class="list-page"><?php echo $pages; ?></div>
+                <?php else: ?>
+                <div class="error">暂无订单</div>
+            <?php endif; ?>
         </div>
     </form>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.link-del').on('click', function (e) {
+            e.preventDefault();
+
+            if (confirm('确定删除此订单？')) {
+                window.location.href = $(this).attr('href');
+            }
+        })
+    })
+</script>

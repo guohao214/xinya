@@ -59,7 +59,9 @@ class CurdUtil
         $query = $this->db->get_where($this->table, $where);
         $this->model->afterRead();
 
-        return $this->result($query);
+        $result = $this->result($query);
+
+        return array_pop($result);
     }
 
     public function readAll($order = '', $where = array())

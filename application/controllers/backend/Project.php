@@ -83,10 +83,10 @@ class Project extends BackendController
 
         $categories = (new CategoryModel())->readAllAssoc();
         $project = (new CurdUtil($this->projectModel))->readOne(array('project_id' => $project_id, 'disabled' => 0));
-        if (!isset($project[0]))
+        if (!$project)
             $this->message('项目不存在或者已被删除！', 'project/index');
 
-        $this->view('project/updateProject', array('categories' => $categories, 'project' => array_pop($project)));
+        $this->view('project/updateProject', array('categories' => $categories, 'project' => $project));
 
     }
 
