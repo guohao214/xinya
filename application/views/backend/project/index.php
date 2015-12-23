@@ -39,21 +39,25 @@
                     <tr>
                         <th width="110">封面</th>
                         <th>项目标题</th>
-                        <th>分类</th>
+                        <th>所属分类</th>
+                        <th>所属店铺</th>
                         <th width="100">使用时间</th>
                         <th width="100">价格</th>
+                        <th width="150">创建时间</th>
                         <th width="120">操作</th>
                     </tr>
                     <?php foreach ($projects as $project): ?>
                         <tr>
                             <td>
-                                <img class="project_cover"
+                                <img class="cover"
                                      src="<?php echo UploadUtil::buildUploadDocPath($project['project_cover'], '200x200'); ?>">
                             </td>
                             <td><?php echo $project['project_name']; ?></td>
                             <td><?php echo $categories[$project['category_id']]; ?></td>
+                            <td><?php echo $project['shop_id'] ? $shops[$project['shop_id']] : '所有门店' ; ?></td>
                             <td><?php echo $project['use_time']; ?> 分钟</td>
                             <td><?php echo $project['price']; ?> 元</td>
+                            <td><?php echo $project['create_time']; ?></td>
                             <td>
                                 <a class="link-update btn btn-warning"
                                    href="<?php echo UrlUtil::createBackendUrl('project/updateProject/' . $project['project_id']); ?>">修改</a>

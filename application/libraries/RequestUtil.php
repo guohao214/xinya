@@ -17,7 +17,7 @@ class RequestUtil
     public static function postParams()
     {
         get_instance()->load->helper('common');
-        return array_filter(array_map('xss_clean', $_POST));
+        return array_filter(array_map('xss_clean', $_POST), 'clearEmpty');
     }
 
     public static function isAjax()

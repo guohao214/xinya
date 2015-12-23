@@ -19,12 +19,13 @@ class Project extends BackendController
     {
         $where = RequestUtil::likeParamsWithDisabled();
 
-        $projects = (new CurdUtil($this->projectModel))->readLimit($where, $limit);
+        $projects = (new CurdUtil($this->projectModel))->readLimit($where, $limit, 'project_id desc');
         $projectsCount = (new CurdUtil($this->projectModel))->count($where);
         $pages = (new PaginationUtil($projectsCount))->pagination();
         $categories = (new CategoryModel())->readAllAssoc();
+        $shops = (new ShopModel())->getAllShops();
 
-        $this->view('project/index', array('projects' => $projects,
+        $this->view('project/index', array('projects' => $projects, 'shops' => $shops,
             'pages' => $pages, 'categories' => $categories, 'params' => RequestUtil::getParams()));
     }
 
@@ -60,7 +61,6 @@ class Project extends BackendController
         if (RequestUtil::isPost()) {
             if ($this->projectModel->rules()->run()) {
                 $params = RequestUtil::postParams();
-
                 $upload = $this->processUpload();
                 if ($upload)
                     $params['project_cover'] = $upload;
@@ -74,11 +74,12 @@ class Project extends BackendController
         }
 
         $categories = (new CategoryModel())->readAllAssoc();
+        $shops = (new ShopModel())->getAllShops();
         $project = (new CurdUtil($this->projectModel))->readOne(array('project_id' => $project_id, 'disabled' => 0));
         if (!$project)
             $this->message('项目不存在或者已被删除！', 'project/index');
 
-        $this->view('project/updateProject', array('categories' => $categories, 'project' => $project));
+        $this->view('project/updateProject', array('categories' => $categories, 'project' => $project, 'shops' => $shops));
 
     }
 
@@ -102,6 +103,7 @@ class Project extends BackendController
         }
 
         $categories = (new CategoryModel())->readAllAssoc();
-        $this->view('project/addProject', array('categories' => $categories));
+        $shops = (new ShopModel())->getAllShops();
+        $this->view('project/addProject', array('categories' => $categories, 'shops' => $shops));
     }
 } 

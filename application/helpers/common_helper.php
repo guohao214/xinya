@@ -10,8 +10,8 @@ function clearEmpty($var)
 {
     $var = trim($var);
 
-    if ($var != '')
-        return $var;
+    if ($var !== '')
+        return true;
 }
 
 function defaultValue($var, $defaultValue = '')

@@ -15,7 +15,7 @@
         <table class="insert-tab" width="100%">
             <tbody>
             <tr>
-                <th width="120"><i class="require-red">*</i>分类：</th>
+                <th width="120"><i class="require-red">*</i>所属分类：</th>
                 <td>
                     <select name="category_id" class="required select">
                         <option value="">请选择分类</option>
@@ -25,6 +25,19 @@
                     </select>
                 </td>
             </tr>
+
+            <tr>
+                <th width="120"><i class="require-red">*</i>所属店铺：</th>
+                <td>
+                    <select name="shop_id" class="required select">
+                        <option value="0">所有门店</option>
+                        <?php foreach($shops as $key=>$shop): ?>
+                            <option value="<?php echo $key;?>"><?php echo $shop;?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+
             <tr>
                 <th><i class="require-red">*</i>项目标题：</th>
                 <td>
