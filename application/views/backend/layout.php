@@ -5,7 +5,7 @@
     <title>后台管理</title>
     <link rel="stylesheet" type="text/css" href="<?php echo ViewUtil::getBackendStaticPath() ?>css/common.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo ViewUtil::getBackendStaticPath() ?>css/main.css"/>
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="<?php echo ViewUtil::getBackendStaticPath() ?>js/jquery.min.js"></script>
 </head>
 <body>
 <div class="topbar-wrap white">

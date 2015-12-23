@@ -701,11 +701,13 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     font-size: 11px;
     list-style: none; /* savers */
     float: left;
+    border-radius: 3px;
 }
 
 #pagination-digg a {
     border: solid 1px #9aafe5;
     margin-right: 2px;
+    border-radius: 3px;
 }
 
 #pagination-digg .previous-off, #pagination-digg .next-off {
