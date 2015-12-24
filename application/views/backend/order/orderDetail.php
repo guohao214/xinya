@@ -43,8 +43,10 @@
             </tr>
 
             <tr>
+                <th>订单门店：</th>
+                <td><?php echo $shops[$order['shop_id']]; ?></td>
                 <th>完成时间：</th>
-                <td colspan="3"><?php echo $order['complete_time'] ? $order['complete_time'] : '未完成'; ?></td>
+                <td><?php echo $order['complete_time'] ? $order['complete_time'] : '未完成'; ?></td>
             </tr>
 
             </tbody>

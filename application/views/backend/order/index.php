@@ -41,6 +41,7 @@
 <!--                    <th>微信订单ID</th>-->
                     <th>订单状态</th>
                     <th>订单金额</th>
+                    <th>订单门店</th>
                     <th width="150">下单时间</th>
 <!--                    <th width="150">支付时间</th>-->
 <!--                    <th width="150">完成时间</th>-->
@@ -55,6 +56,7 @@
 <!--                    <td>--><?php //echo $order['transaction_id']; ?><!--</td>-->
                     <td><?php echo $order['order_status']; ?></td>
                     <td><?php echo $order['total_fee']; ?></td>
+                    <td><?php echo $shops[$order['shop_id']]; ?></td>
                     <td><?php echo $order['create_time']; ?></td>
 <!--                    <td>--><?php //echo $order['pay_time']; ?><!--</td>-->
 <!--                    <td>--><?php //echo $order['complete_time']; ?><!--</td>-->

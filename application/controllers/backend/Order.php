@@ -22,7 +22,9 @@ class Order extends BackendController
         $orders = (new CurdUtil($this->orderModel))->readLimit($where, $limit);
         $ordersCount = (new CurdUtil($this->orderModel))->count($where);
         $pages = (new PaginationUtil($ordersCount))->pagination();
-        $this->view('order/index', array('orders' => $orders, 'pages' => $pages, 'params' => RequestUtil::getParams()));
+        $shops = (new ShopModel())->getAllShops();
+        $this->view('order/index', array('orders' => $orders, 'pages' => $pages,
+            'params' => RequestUtil::getParams(), 'shops' => $shops));
     }
 
     public function orderDetail($order_id = '')
@@ -35,8 +37,10 @@ class Order extends BackendController
             $this->message('订单信息获取失败，请重试！');
 
         // 获得订单商品
-        $orderProjects =  (new OrderProjectModel())->getOrderProject($order_id);
-        $this->view('order/orderDetail', array('order' => $order, 'orderProjects' => $orderProjects));
+        $orderProjects = (new OrderProjectModel())->getOrderProject($order_id);
+        $shops = (new ShopModel())->getAllShops();
+        $this->view('order/orderDetail', array('order' => $order, 'shops' => $shops,
+            'orderProjects' => $orderProjects));
     }
 
     /**

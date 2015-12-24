@@ -45,7 +45,7 @@
                         <li><a href="<?php echo UrlUtil::createBackendUrl('user/index') ?>"><i class="icon-font">
                                     &#xe014;</i>用户管理</a></li>
                         <!--<li><a href=""><i class="icon-font">&#xe033;</i>留言管理</a></li>-->
-                        <li><a href="<?php echo UrlUtil::createBackendUrl('shop/index') ?>"><i class="icon-font">&#xe031;</i>店铺管理</a></li>
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('shop/index') ?>"><i class="icon-font">&#xe031;</i>门店管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('article/index') ?>"><i class="icon-font">&#xe051;</i>文章管理</a></li>
                     </ul>
                 </li>
