@@ -30,7 +30,7 @@
 .result-list i{padding-right: 5px;}
 .result-tab{border-collapse:collapse;border: 1px solid #ddd;}
 .result-tab th{font-weight: normal;font-size: 12px;text-align: left;background: url(../images/tab-thbg.png) #f9f9f9 0 bottom repeat-x;}
-.result-tab th,.result-tab td{padding:5px;border-bottom: 1px solid #ddd;border-right: 1px solid #e1e1e1;}
+.result-tab th,.result-tab td{padding-left:5px;border-bottom: 1px solid #ddd;border-right: 1px solid #e1e1e1;}
 .result-tab tr{line-height:35px;}
 .result-tab th.tc,.result-tab td.tc{text-align: center;}
 .result-tab tr:nth-child(odd){background: #f9f9f9;}
