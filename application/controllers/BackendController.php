@@ -13,9 +13,6 @@ class BackendController extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(array('url',  'form', 'security', 'common'));
-        $this->load->library(array('ViewUtil', 'UrlUtil'));
-
-        ViewUtil::setBackendStaticPath(base_url() . 'static/backend/');
     }
 
     /**

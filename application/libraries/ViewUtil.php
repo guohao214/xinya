@@ -19,4 +19,5 @@ class ViewUtil
     {
         return self::$backendStaticPath;
     }
+
 } 

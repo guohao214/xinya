@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo ViewUtil::getBackendStaticPath() ?>css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo ViewUtil::getBackendStaticPath() ?>css/main.css"/>
-    <script src="<?php echo ViewUtil::getBackendStaticPath() ?>js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>/static/backend/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>/static/backend/css/main.css"/>
+    <script src="<?php echo get_instance()->config->base_url(); ?>/static/js/jquery.min.js"></script>
 </head>
 <body>
 <div class="topbar-wrap white">
