@@ -11,8 +11,19 @@
         <table class="insert-tab" width="100%">
             <tbody>
             <tr>
+                <th width="120">订单ID：</th>
+                <td width="400">
+                    <?php echo $order['order_id']; ?>
+                </td>
+                <th width="120">消费码：</th>
+                <td>
+                    <?php echo $order['consume_code']; ?>
+                </td>
+            </tr>
+
+            <tr>
                 <th width="120">订单号：</th>
-                <td width="500">
+                <td>
                     <?php echo $order['order_no']; ?>
                 </td>
                 <th width="120">微信订单号：</th>
@@ -58,7 +69,7 @@
         <table class="insert-tab" width="100%">
                 <tr>
                     <th width="120">项目封面：</th>
-                    <td width="500"><img class="project_cover"
+                    <td width="400"><img class="project_cover"
                              src="<?php echo UploadUtil::buildUploadDocPath($orderProject['project_cover'], '200x200'); ?>"></td>
                     <th width="120">项目名：</th>
                     <td><?php echo $orderProject['project_name']; ?></td>
@@ -66,14 +77,14 @@
 
                 <tr>
                     <th width="120">所属分类：</th>
-                    <td width="500"><?php echo $orderProject['category_name']; ?></td>
+                    <td width="400"><?php echo $orderProject['category_name']; ?></td>
                     <th width="120">使用时间：</th>
                     <td><?php echo $orderProject['project_use_time']; ?> 分钟</td>
                 </tr>
 
                 <tr>
                     <th width="120">价格：</th>
-                    <td width="500"><?php echo $orderProject['project_price']; ?> 元</td>
+                    <td width="400"><?php echo $orderProject['project_price']; ?> 元</td>
                     <th width="120">购买数量：</th>
                     <td colspan="3"><?php echo $orderProject['buy_counts']; ?></td>
                 </tr>

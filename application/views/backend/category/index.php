@@ -20,7 +20,7 @@
                         <th width="50%">标题</th>
                         <th width="10%">项目数</th>
                         <th>添加时间</th>
-                        <th width="120">操作</th>
+                        <th width="140">操作</th>
                     </tr>
 
                     <?php foreach ($categories as $category): ?>

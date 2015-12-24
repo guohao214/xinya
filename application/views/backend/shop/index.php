@@ -33,7 +33,7 @@
                     <th width="120">联系人</th>
                     <th width="120">联系电话</th>
                     <th>地址</th>
-                    <th width="130">操作</th>
+                    <th width="140">操作</th>
                 </tr>
                 <?php foreach ($shops as $shop): ?>
                     <tr>

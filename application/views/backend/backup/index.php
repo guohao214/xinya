@@ -18,7 +18,7 @@
                     <tr>
                         <th width="60%">文件地址</th>
                         <th width="100">备份时间</th>
-                        <th width="120">操作</th>
+                        <th width="140">操作</th>
                     </tr>
                     <?php foreach ($backups as $backup): ?>
                         <tr>

@@ -7,7 +7,18 @@
         <form action="<?php echo UrlUtil::createBackendUrl('order/index'); ?>?" method="get">
             <table class="search-tab">
                 <tr>
-                    <th width="120">订单号:</th>
+                    <th width="70">门店:</th>
+                    <td>
+                        <select name="shop_id" class="select">
+                        <?php $this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => $params['shop_id'])); ?>
+                        </select>
+                    </td>
+
+                    <th width="70">消费码:</th>
+                    <td><input class="common-text" placeholder="消费码" style="width: 100px;"
+                               name="consume_code" value="<?php echo defaultValue($params['consume_code']); ?>" type="text"></td>
+
+                    <th width="70">订单号:</th>
                     <td><input class="common-text" placeholder="订单号"
                                name="order_no" value="<?php echo defaultValue($params['order_no']); ?>" type="text"></td>
 
@@ -36,6 +47,7 @@
                 <tr>
                     <th>订单ID</th>
                     <th width="300">订单号</th>
+                    <th>消费码</th>
                     <th>联系人</th>
                     <th width="110">联系方式</th>
 <!--                    <th>微信订单ID</th>-->
@@ -45,12 +57,13 @@
                     <th width="150">下单时间</th>
 <!--                    <th width="150">支付时间</th>-->
 <!--                    <th width="150">完成时间</th>-->
-                    <th width="200">操作</th>
+                    <th width="210">操作</th>
                 </tr>
                 <?php foreach($orders as $order): ?>
                 <tr>
                     <td><?php echo $order['order_id']; ?></td>
                     <td><?php echo $order['order_no']; ?></td>
+                    <td><?php echo $order['consume_code']; ?></td>
                     <td><?php echo $order['user_name']; ?></td>
                     <td><?php echo $order['phone']; ?></td>
 <!--                    <td>--><?php //echo $order['transaction_id']; ?><!--</td>-->

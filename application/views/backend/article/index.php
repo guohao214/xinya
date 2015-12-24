@@ -34,7 +34,7 @@
                     <tr>
                         <th>标题</th>
                         <th width="300">别名</th>
-                        <th width="200">操作</th>
+                        <th width="210">操作</th>
                     </tr>
                     <?php foreach ($articles as $article): ?>
                         <tr>

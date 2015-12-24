@@ -31,11 +31,7 @@
                 <th width="120"><i class="require-red">*</i>所属店铺：</th>
                 <td>
                     <select name="shop_id" class="required select">
-                        <option value="0">所有门店</option>
-                        <?php foreach($shops as $key=>$shop): ?>
-                            <?php $checked = ($key == $project['shop_id']) ? ' selected' :'' ?>
-                            <option value="<?php echo $key;?>"<?php echo $checked; ?>><?php echo $shop;?></option>
-                        <?php endforeach; ?>
+                        <?php $this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => $project['shop_id'])); ?>
                     </select>
                 </td>
             </tr>

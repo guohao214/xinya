@@ -7,6 +7,12 @@
         <form action="<?php echo UrlUtil::createBackendUrl('project/index'); ?>?" method="get">
             <table class="search-tab">
                 <tr>
+                    <th width="70">门店:</th>
+                    <td>
+                        <select name="shop_id" class="select">
+                            <?php $this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => $params['shop_id'])); ?>
+                        </select>
+                    </td>
                     <th width="120">选择分类:</th>
                     <td>
                         <select name="category_id" class="select">
@@ -44,7 +50,7 @@
                         <th width="100">使用时间</th>
                         <th width="100">价格</th>
                         <th width="150">创建时间</th>
-                        <th width="120">操作</th>
+                        <th width="140">操作</th>
                     </tr>
                     <?php foreach ($projects as $project): ?>
                         <tr>
