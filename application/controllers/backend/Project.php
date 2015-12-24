@@ -49,7 +49,7 @@ class Project extends BackendController
         $data = $upload->upload($pic);
         if ($data['error'] == 0) {
             // 缩略图
-            $upload->resizeImage(array('upload/resize_200x200'), $data['data']);
+            $upload->resizeImage(array('upload/resize_200x200', 'upload/resize_100x100'), $data['data']);
             return json_encode($data['data']);
         } else {
             $this->message('图片上传失败，请重试！' . $data['data']);

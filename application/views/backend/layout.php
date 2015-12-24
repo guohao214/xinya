@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>/static/backend/css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>/static/backend/css/main.css"/>
-    <script src="<?php echo get_instance()->config->base_url(); ?>/static/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/main.css"/>
+    <script src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
 </head>
 <body>
 <div class="topbar-wrap white">
     <div class="topbar-inner clearfix">
         <div class="topbar-logo-wrap clearfix">
-            <h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">后台管理</a></h1>
             <ul class="navbar-list clearfix">
-                <li><a class="on" href="index.html">首页</a></li>
-                <li><a href="http://www.17sucai.com/" target="_blank">网站首页</a></li>
+                <li><a class="on" href="<?php echo UrlUtil::createBackendUrl('project/index'); ?>">首页</a></li>
+                <li><a href="<?php echo UrlUtil::createUrl('front/index'); ?>" target="_blank">网站首页</a></li>
             </ul>
         </div>
         <div class="top-info-wrap">

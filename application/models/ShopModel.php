@@ -8,9 +8,14 @@ class ShopModel extends BaseModel
         $this->table = 'shop';
     }
 
+    public function allShops()
+    {
+        return (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
+    }
+
     public function getAllShops()
     {
-        $shops = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
+        $shops = $this->allShops();
         $_shops = array();
 
         foreach($shops as $shop) {

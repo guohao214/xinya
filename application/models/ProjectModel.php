@@ -33,5 +33,29 @@ class ProjectModel extends BaseModel
 
         return $validate;
     }
+
+    public function allProjects()
+    {
+        // 可以做缓存
+        return (new CurdUtil($this))->readAll('project_id desc', array('disabled' => 0));
+    }
+
+    /**
+     * 获得所有的项目
+     */
+    public function allProjectsGroupByCategoryId()
+    {
+        // 可以做缓存
+        $projects =  $this->allProjects();
+        $_projects = array();
+        foreach($projects as $project)
+        {
+            $shopId = $project['category_id'];
+            $_projects[$shopId][] = $project;
+        }
+
+        unset($project, $projects, $shopId);
+        return $_projects;
+    }
  
 } 
