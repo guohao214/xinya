@@ -34,22 +34,36 @@ class ProjectModel extends BaseModel
         return $validate;
     }
 
-    public function allProjects()
+    /**
+     * @param array $where
+     * @return mixed
+     */
+    public function allProjects($where = array())
     {
+        if ($where) {
+            $this->db->where($where);
+        }
+
+        $this->db->where(array('disabled' => 0));
+
         // 可以做缓存
-        return (new CurdUtil($this))->readAll('project_id desc', array('disabled' => 0));
+        return (new CurdUtil($this))->readAll('project_id desc');
     }
 
     /**
      * 获得所有的项目
+     * @param string $shopId
+     * @return array
      */
-    public function allProjectsGroupByCategoryId()
+    public function allProjectsGroupByCategoryId($shopId = '')
     {
+        if ($shopId)
+            $this->db->where_in('shop_id', array(0, $shopId));
+
         // 可以做缓存
-        $projects =  $this->allProjects();
+        $projects = $this->allProjects();
         $_projects = array();
-        foreach($projects as $project)
-        {
+        foreach ($projects as $project) {
             $shopId = $project['category_id'];
             $_projects[$shopId][] = $project;
         }
@@ -57,5 +71,11 @@ class ProjectModel extends BaseModel
         unset($project, $projects, $shopId);
         return $_projects;
     }
- 
+
+    public function readOne($projectId)
+    {
+        return (new CurdUtil($this))->
+            readOne(array('project_id' => $projectId, 'disabled' => 0));
+    }
+
 } 

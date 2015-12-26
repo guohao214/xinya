@@ -49,7 +49,7 @@ class Project extends BackendController
         $data = $upload->upload($pic);
         if ($data['error'] == 0) {
             // 缩略图
-            $upload->resizeImage(array('upload/resize_200x200', 'upload/resize_100x100'), $data['data']);
+            $upload->resizeImage(array('upload/resize_200x200', 'upload/resize_600x600'), $data['data']);
             return json_encode($data['data']);
         } else {
             $this->message('图片上传失败，请重试！' . $data['data']);
@@ -75,7 +75,7 @@ class Project extends BackendController
 
         $categories = (new CategoryModel())->readAllAssoc();
         $shops = (new ShopModel())->getAllShops();
-        $project = (new CurdUtil($this->projectModel))->readOne(array('project_id' => $project_id, 'disabled' => 0));
+        $project = $this->projectModel->readOne($project_id);
         if (!$project)
             $this->message('项目不存在或者已被删除！', 'project/index');
 

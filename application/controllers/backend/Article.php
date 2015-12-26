@@ -68,7 +68,7 @@ class Article extends BackendController
 
         }
 
-        $article = (new CurdUtil($this->articleModel))->readOne(array('article_id' => $article_id, 'disabled' => 0));
+        $article = $this->articleModel->readOne($article_id);
         if (!$article)
             $this->message('文章不存在或者已被删除！', 'article/index');
 
@@ -78,7 +78,7 @@ class Article extends BackendController
 
     public function articleDetail($article_id)
     {
-        $article = (new CurdUtil($this->articleModel))->readOne(array('article_id' => $article_id, 'disabled' => 0));
+        $article = $this->articleModel->readOne($article_id);
         if (!$article)
             $this->message('文章不存在或者已被删除！', 'article/index');
 

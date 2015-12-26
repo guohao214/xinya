@@ -1,5 +1,10 @@
 <header>
-    <h2>项目预约</h2>
+    <h2>
+        项目预约
+        <?php if ($shopId) {
+            echo "（{$shops[$shopId]}）";
+        }?>
+    </h2>
 </header>
 <section>
     <div class="items">
@@ -10,7 +15,7 @@
             </div>
             <?php foreach($project as $pj):?>
             <div class="item ">
-                <a href="project_details.html" title="测试1">
+                <a href="<?php echo UrlUtil::createUrl('project/detail/' . $pj['project_id']); ?>" title="测试1">
                     <dl>
                         <dt>
                             <img

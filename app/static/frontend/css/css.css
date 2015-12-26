@@ -4,7 +4,7 @@
 * html iframe, * html frame {overflow:auto;}
 * html frameset {overflow:hidden;}
 body {color:#000; background:#eff2f7;; font-size: 12px;}
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,menu,nav,section,summary,time,mark,audio,video{margin:0; padding:0; font-family:'Microsoft YaHei',arial,helvetica,sans-serif; color:#626262; font-style:normal; line-height:15px;}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0; padding:0; font-family:'Microsoft YaHei',arial,helvetica,sans-serif; color:#626262; font-style:normal; line-height:15px;}
 input, select {font-size:12px; vertical-align:middle;}
 body div {text-align:left;}
 textarea, input {word-wrap:break-word; word-break:break-all; padding:0px;}
@@ -34,7 +34,7 @@ header h2{text-align:center;font-size:17px;height:50px;line-height:50px;font-wei
 .prev{position:absolute;left:0;top:0;display:block;width:50px;height:50px;background:url(../images/all_book.png) no-repeat;background-size:40px auto;background-position:15px -22px}
 .pkg{position:absolute;right:0;top:0;display:block;width:50px;height:50px;background:url(../images/all_520.png) no-repeat;background-size:100px auto;background-position:15px 16px}
 
-section{padding: 49px 0 50px; overflow:hidden;}
+section{padding:49px 0 50px; overflow:hidden;}
 
 /*项目列表详情*/
 .items{ background: #fff; overflow: hidden;}
@@ -42,7 +42,7 @@ section{padding: 49px 0 50px; overflow:hidden;}
 .item{ border-bottom: 1px solid #ececec; padding: 10px 10px 12px; position: relative; background: #fff;}
 .item a{ display: block;}
 .item dt{ float: left;}
-.item dt img{ width:84px; /*height:84px;*/}
+.item dt img{ width:84px; height:84px;}
 .item dd{ margin-left:95px;}
 .item dd:first-of-type{ min-height: 80px;}
 .item dd h3{ font-size: 16px; color: #626262; font-weight: normal; height: 22px; line-height: 22px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
@@ -56,7 +56,7 @@ section{padding: 49px 0 50px; overflow:hidden;}
 .item dd .out i{ background: #dadada; color: #fff;}
 .title_index{background:white; padding:5px 8% 10PX 8%; margin-top:10px; color:white; border-top:1px solid #FF8CB3;}
 .title_index div{color:#999;width: 100%;text-align: center;margin-bottom: 10px;}
-.title_index span{/*border-top:1px #CCC solid; */display:block; text-align:center;}
+.title_index span{border-top:1px #CCC solid; display:block; text-align:center;}
 .title_index span p{margin:auto;margin-top:-12px; display:table; padding:0 10px; background:white; color:#FF8CB3;}
 .address{text-overflow:initial !important;white-space: initial !important;display: block;/*height: 50px;*/ margin-top:10px;}
 .shop_name{height:25px !important}
@@ -78,7 +78,7 @@ section{padding: 49px 0 50px; overflow:hidden;}
 .project_footer{height:100%; width:100%;color:white;background:#FF8CB3; text-align:center; line-height:50px; display:block}
 .item_b p i{display:inline-block;width:20px;height:20px;vertical-align:middle;background:url(../images/all_project.png) no-repeat;background-size:25px auto;background-position:-2px -31px}
 
-/* 个人中心*/ 
+/* 个人中心*/
 .my_page_mainbody{ width: 90%; margin: 0 auto; margin-top: 1rem; -webkit-border-radius: 10px; border:1px #ccc solid; background:white;}
 .my_page_mainbody li{padding:12px 10px; color:#626262; text-align:left; font-size:18px; border-bottom:1px #ccc solid;}
 .my_page_mainbody li:last-child{font-size:14px; color:#999; border:none; padding:15px 10px}
@@ -98,7 +98,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .agreement{ padding: 0 30px; font-size: 12px; color: #626262;}
 
 /*我的订单*/
-.order_list{padding:10px 20px; margin-bottom:20px; background:white; border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
+.order_list{padding:10px 15px; margin-bottom:20px; background:white; border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
 .order_list:first-child{border-top:none;}
 .order_list dd:first-child{border-bottom:#ececec 1px solid; height:40px; display:block}
 .order_list dd:first-child div{height:25px; width:20px;background:url(../images/all_520.png) no-repeat right; background-position: -38px -130px;background-size: 100px auto; float:left; }
@@ -110,7 +110,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .order_list dt .order_list_dtDiv p{color:#7D7D7D; padding:5px 0px;}
 
 .order_list dt .order_list_dtDiv p span{margin-left:5px;}
-.order_list dt .order_list_dtDiv img{width:60px; height:60px; float:left; margin-right:10px;}
+.order_list dt .order_list_dtDiv img{width:75px; height:75px; float:left; margin-right:10px;}
 .order_list dt .order_list_dtDiv samp{}
 .order_list dt .order_list_dtDiv i strong b{margin-left:5px;}
 .order_list dt .order_list_dtDiv i samp{float:right; padding:1px 5px; background:#FF8CB3;  -webkit-border-radius:5px;}
@@ -118,6 +118,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .order_list dt .order_list_dtDiv i .count a{font-size:25px; float:left; display:block; display:block; height:25px; line-height:25px;width: 20px;text-align: center; color:white;}
 .order_list dt .order_list_dtDiv i .count input{width:35px; line-height:25px; text-align:center; overflow:hidden; border:none; float:left;}
 .order_list dt .order_list_dtDiv i .count_ON{background:#CCC; padding:5px 10px;}
+.order_list dt .order_list_dtDiv .add{ display:block; margin-top:5px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
 .order_list dd:last-child{display:block; clear:both; border-top:1px #ececec solid;; text-align:right; padding-top:15PX;}
 .order_list dd:last-child i strong{margin-left:5px;}
@@ -131,6 +132,33 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .tabs .cur{border-bottom:3px solid #FF8CB3 !important;}
 .tabs li.cur a{color:#fe6672}
 
+/*确认订单*/
+.confirmation_footer p{display:block; float:right; margin-right:15px; line-height:50px;}
+.confirmation_footer a{background:#FF8CB3; width:100px; height:100%; line-height:50px; float:right; text-align:center; display:block;}
+
+/*支付弹窗*/
+/*屏蔽背景层*/
+#divMsgBack{display:none; position:fixed; _position:absolute; top:0px; left:0px; width:100%; height:100%; background-color:#fff; background:-moz-radial-gradient(50% 50%, #fff, #000); /*gradient for firefox*/background:-webkit-radial-gradient(50% 50%, #fff, #000); /*new gradient for webkit */background:-webkit-gradient(radial, 0 50%, 0 50%, from(#fff), to(#000)); /*the old grandient for webkit*/opacity:0.5; filter:Alpha(opacity=50); _display:block; _left:-10000px; z-index:9999; }
+
+/*弹出层*/
+#divMsg{display:none; position:fixed; background:white; bottom:0; left:0;  width:100%; height:70%; z-index:10000; }
+
+/*关闭按钮*/
+#divMsg #aClose{float:left; display:block; width:20px; height:20px; line-height:20px; -webkit-border-radius:20px; margin-top:13px;background:url(../images/all_520.png) no-repeat right; background-position:-39px -413px;background-size: 100px auto;}
+
+/*设置显示*/
+#msgBody #divMsgBack{display:block; _left:0px; }
+#msgBody #divMsg{display:block; _left:50%; }
+#msgBody{_overflow:hidden; }
+
+.pay strong{display:block; height:50px; margin:0 10px; border-bottom:1px solid #ececec; text-align:center; line-height:50px;}
+.pay strong a{}
+.pay strong samp{float:right; display:block; border:1px solid #FF8CB3; width:20px; height:20px; line-height:20px; -webkit-border-radius:20px; margin-top:13px; color:#FF8CB3}
+.pay ul{margin:10px;}
+.pay ul li{ line-height:50px; border-bottom:1px solid #ececec;}
+.pay ul li span{float:right; font-size:14px; line-height:50px;}
+.pay ul li span i{height:16px; width:10px; display:block; background:url(../images/all_520.png) no-repeat right; background-position:-2px -315px;background-size: 100px auto; float:right; margin:17px 0 0 5px;}
+.pay .payment{display:block; padding:10px; width:80%; position:absolute; bottom:10px; left:10%; text-align:center; background:#FF8CB3;-webkit-border-radius:5px; color:white;}
 
 /**********All CSS**************/
 .FB { font-weight:bold; }

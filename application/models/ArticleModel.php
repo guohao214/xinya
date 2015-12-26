@@ -26,4 +26,10 @@ class ArticleModel extends BaseModel
 
         return $validate;
     }
+
+    public function readOne($article_id)
+    {
+        return (new CurdUtil($this))->readOne(array('article_id' => $article_id, 'disabled' => 0));
+    }
+
 } 
