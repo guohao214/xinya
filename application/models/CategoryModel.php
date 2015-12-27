@@ -2,10 +2,16 @@
 
 class CategoryModel extends BaseModel
 {
+    private $cacheName = 'categories';
 
     public function setTable()
     {
         $this->table = 'category';
+    }
+
+    public function deleteCategories()
+    {
+        $this->deleteCache($this->cacheName);
     }
 
 
@@ -24,14 +30,20 @@ class CategoryModel extends BaseModel
 
     public function readAllAssoc()
     {
-        $categories = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
-        $_categories = array();
+        $categories = $this->getCache($this->cacheName);
+        if ($categories)
+            return $categories;
+        else {
+            $categories = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
+            $_categories = array();
 
-        foreach($categories as $category) {
-            $_categories[$category['category_id']] = $category['category_name'];
+            foreach ($categories as $category) {
+                $_categories[$category['category_id']] = $category['category_name'];
+            }
+
+            $this->setCache($this->cacheName, $_categories);
+            return $_categories;
         }
-
-        return $_categories;
     }
 
     public function rules()

@@ -78,4 +78,11 @@ class ProjectModel extends BaseModel
             readOne(array('project_id' => $projectId, 'disabled' => 0));
     }
 
+    public function readByProjectIds($projectIds)
+    {
+        $this->db->where_in('project_id', $projectIds);
+
+        return $this->allProjects();
+    }
+
 } 

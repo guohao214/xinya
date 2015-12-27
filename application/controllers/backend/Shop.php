@@ -12,6 +12,8 @@ class Shop extends BackendController
     {
         parent::__construct();
         $this->load->model('ShopModel', 'shopModel');
+        // 删除所有的缓存
+        $this->shopModel->deleteShopCache();
     }
 
 

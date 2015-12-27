@@ -9,13 +9,32 @@
 abstract class BaseModel extends CI_Model
 {
     public $table;
+    private $cacheTime = 604800;
 
     public function __construct()
     {
         parent::__construct();
+        $this->load->driver('cache', array('adapter' => 'file', 'backup' => 'file',
+        'key_prefix' => '__xinya_cache'));
+
         $this->setTable();
 
         $this->load->database();
+    }
+
+    public function setCache($key, $value)
+    {
+        $this->cache->save($key, $value, $this->cacheTime);
+    }
+
+    public function getCache($key)
+    {
+        return $this->cache->get($key);
+    }
+
+    public function deleteCache($key)
+    {
+        return $this->cache->delete($key);
     }
 
     abstract public function setTable();

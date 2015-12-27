@@ -2,15 +2,27 @@
 
 class ShopModel extends BaseModel
 {
+    private $cacheName = 'shops';
 
     public function setTable()
     {
         $this->table = 'shop';
     }
 
+    public function deleteShopCache()
+    {
+        $this->deleteCache($this->cacheName);
+    }
+
     public function allShops()
     {
-        return (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
+        $shops = $this->getCache($this->cacheName);
+        if ($shops)
+            return $shops;
+        else {
+            $shops = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
+            $this->setCache($this->cacheName, $shops);
+        }
     }
 
     public function getAllShops()
@@ -18,7 +30,7 @@ class ShopModel extends BaseModel
         $shops = $this->allShops();
         $_shops = array();
 
-        foreach($shops as $shop) {
+        foreach ($shops as $shop) {
             $_shops[$shop['shop_id']] = $shop['shop_name'];
         }
 
@@ -44,7 +56,6 @@ class ShopModel extends BaseModel
 
         $validate->minLength('contact_number', 1);
         $validate->maxLength('contact_number', 32);
-
 
 
         return $validate;

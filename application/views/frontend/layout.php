@@ -7,14 +7,27 @@
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/css.css">
     <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/default.css">
+    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/loading.css">
     <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/footer.js"></script>
 </head>
+<script>
+    document_root = '/';
+</script>
 <body>
 
 <div class="content">
     <?php echo $content; ?>
 </div>
+
+<div id="load" align="center">
+    <img src="<?php echo get_instance()->config->base_url(); ?>static/frontend/images/loading.gif"
+         width="60" height="60" align="absmiddle"/>
+</div>
+
+
+<div id="message" align="absmiddle">操作完成</div>
+
 <footer>
     <a class="cur" href="<?php echo UrlUtil::createUrl('project/index'); ?>" data-path="project">
         <i></i>
@@ -34,7 +47,11 @@
     </a>
 </footer>
 
-
 </body>
 
+<script>
+    var screen = $(window).width() - $('#message').width();
+    $('#message').css('left', screen/2+'px')
+    $('#message').fadeIn();
+</script>
 </html>

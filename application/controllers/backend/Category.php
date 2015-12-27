@@ -12,6 +12,7 @@ class Category extends BackendController
     {
         parent::__construct();
         $this->load->model('CategoryModel', 'categoryModel');
+        $this->categoryModel->deleteCategories();
     }
 
     public function index()

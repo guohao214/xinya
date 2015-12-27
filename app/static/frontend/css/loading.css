@@ -1,0 +1,39 @@
+#load {
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 200px;
+    background-color:#000000;
+    opacity: 0.8;
+    width: 80px;
+    color: #999;
+    font-size: 18px;
+    height: 50px;
+    font-weight: 300;
+    padding-top: 15px;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+
+#message {
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 200px;
+    background-color:#000000;
+    opacity: 0.8;
+    width: 160px;
+    color: #999;
+    font-size: 18px;
+    height: 50px;
+    font-weight: 300;
+    border-radius: 10px;
+    text-align:center;
+    line-height: 50px;
+}
+
+.loading-text {
+    color: white;
+    padding-top: 3px;
+}
