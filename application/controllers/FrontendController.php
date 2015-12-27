@@ -8,6 +8,8 @@
  */
 class FrontendController extends BaseController
 {
+    public $pageTitle = '心雅美容';
+
     public function __construct()
     {
         parent::__construct();

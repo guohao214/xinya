@@ -45,7 +45,7 @@
                 <a class="colorW" href="confirmation.html">去结算</a>
                 <i class="colorH">总金额:<strong
                         class="F18 colorR totalAmount"><?php echo number_format($totalAmount, 2); ?></strong></i>
-                <P><samp class="colorH">支付状态：</samp>未支付</P>
+                <!--<P><samp class="colorH">支付状态：</samp>未支付</P>-->
             </dd>
         </dl>
 

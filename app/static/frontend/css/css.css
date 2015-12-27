@@ -120,7 +120,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .order_list dt .order_list_dtDiv i .count_ON{background:#CCC; padding:5px 10px;}
 .order_list dt .order_list_dtDiv .add{ display:block; margin-top:5px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
-.order_list dd:last-child{display:block; clear:both; border-top:1px #ececec solid;; text-align:right; padding-top:15PX;}
+.order_list dd:last-child{display:block; clear:both; border-top:1px #ececec solid;; text-align:right; padding-top:15PX;padding-bottom: 15px;}
 .order_list dd:last-child i strong{margin-left:5px;}
 .order_list dd:last-child i p{display:block; margin-top:50px;}
 .order_list dd:last-child a{padding:5px; margin-top:5px; background:#FF8CB3; display:block; width:80px; -webkit-border-radius:5px; float:left; text-align:center;}
