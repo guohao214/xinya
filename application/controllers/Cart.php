@@ -16,6 +16,8 @@ class Cart extends FrontendController
         if (!empty($cart) && !empty($projectIds)) {
             // 查询所有的项目
             $projects = (new ProjectModel())->readByProjectIds($projectIds);
+        } else {
+            $this->message('购物车为空！');
         }
 
         $shops = (new ShopModel())->getAllShops();

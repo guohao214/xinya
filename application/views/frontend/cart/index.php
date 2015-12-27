@@ -30,10 +30,10 @@
                     <!--<strong class="FN colorH">金额:<b
                             class="F14">￥<?php echo number_format($inCartPrice, 2); ?></b></strong>-->
                     <samp class="colorW count">
-                        <a href="#" data-price="<?php echo $project['price']; ?>" class="subProject"
+                        <a data-price="<?php echo $project['price']; ?>" class="subProject"
                            data-id="<?php echo $project['project_id']; ?>">-</a>
                         <input class="projectNum" type="text" value="<?php echo $inCartNum; ?>" maxlength="3">
-                        <a href="#" data-price="<?php echo $project['price']; ?>" class="incProject"
+                        <a data-price="<?php echo $project['price']; ?>" class="incProject"
                            data-id="<?php echo $project['project_id']; ?>">+</a>
                     </samp>
                 </i>
@@ -44,6 +44,7 @@
             <dd>
                 <a class="colorW" href="confirmation.html">去结算</a>
                 <i class="colorH">总金额:<strong
+                        class="F18 colorR">￥</strong> <strong
                         class="F18 colorR totalAmount"><?php echo number_format($totalAmount, 2); ?></strong></i>
                 <!--<P><samp class="colorH">支付状态：</samp>未支付</P>-->
             </dd>
@@ -55,21 +56,28 @@
 <script>
     $(document).ready(function () {
         $('.subProject, .incProject').on('click', function () {
-            var $project = $(this).siblings('.projectNum'),
+            var $that = $(this);
+
+            var $project = $that.siblings('.projectNum'),
                 $projectNum = parseInt($project.val()),
-                $projectId = parseInt($(this).attr('data-id')),
-                $price = parseFloat($(this).attr('data-price')),
+                $projectId = parseInt($that.attr('data-id')),
+                $price = parseFloat($that.attr('data-price')),
                 $totalAmount = $('.totalAmount'),
                 $totalFee = parseFloat($totalAmount.html());
 
             // 减
-            if ($(this).hasClass('subProject')) {
+            if ($that.hasClass('subProject')) {
                 if ($projectNum <= 0) {
                     return false;
                 } else {
                     $.getJSON(document_root + 'cart/deleteCart/' + $projectId, {}, function (data) {
                         if (data.status == 1) {
-                            $project.val(--$projectNum);
+                            --$projectNum;
+                            if ($projectNum == 0) {
+                                $that.parents('.order_list_dtDiv').fadeOut('slow').remove();
+                            }
+
+                            $project.val($projectNum);
                             $totalFee -= $price;
                             $totalAmount.html($totalFee.toFixed(2));
                         }
@@ -78,7 +86,7 @@
             }
 
             // 加
-            if ($(this).hasClass('incProject')) {
+            if ($that.hasClass('incProject')) {
                 $.getJSON(document_root + 'cart/addCart/' + $projectId, {}, function (data) {
                     if (data.status == 1) {
                         $project.val(++$projectNum);
