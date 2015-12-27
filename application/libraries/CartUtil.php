@@ -35,10 +35,16 @@ class CartUtil
     {
         $cart = &$this->cart[$this->cartSign];
 
-        if (isset($cart[$projectId]) && $cart[$projectId] > 0)
-            return $cart[$projectId] -= 1;
-        else
-            return $cart[$projectId] = 0;
+        if (isset($cart[$projectId]) && $cart[$projectId] > 0) {
+            $cart[$projectId] -= 1;
+            if ($cart[$projectId] == 0) {
+                unset($cart[$projectId]);
+            }
+            return true;
+        } else {
+            unset($cart[$projectId]);
+            return true;
+        }
     }
 
     public function cart()
