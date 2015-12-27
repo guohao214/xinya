@@ -39,18 +39,18 @@ section{padding:49px 0 50px; overflow:hidden;}
 /*项目列表详情*/
 .items{ background: #fff; overflow: hidden;}
 .itemlist{ position: relative; background: #eee;}
-.item{ border-bottom: 1px solid #ececec; padding: 10px 10px 12px; position: relative; background: #fff;}
+.item{ border-bottom: 1px solid #ececec; padding: 10px 10px 7px;  background: #fff;}
 .item a{ display: block;}
 .item dt{ float: left;}
-.item dt img{ width:84px; height:84px;}
-.item dd{ margin-left:95px;}
-.item dd:first-of-type{ min-height: 80px;}
+.item dt img{ width:100px; height:100px;}
+.item dd{ margin-left:105px;}
+.item dd:first-of-type{ min-height: 80px; position: relative;}
 .item dd h3{ font-size: 16px; color: #626262; font-weight: normal; height: 22px; line-height: 22px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-.item dd .effects, .item dd .price{color: #acacac; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-.item dd .price{}
-.item dd .price i{display: inline-block; width:auto; height: 11px; margin-right: 2px;}
-.appointment{ display: block; float: right; -webkit-border-radius:5px; font-style: normal; width: 25px; height: 15px; line-height: 15px; text-align: center; font-size: 10px; color: #fff; background:#FF8CB3; padding:5px 15px;}
-.item dd .price{ color: #fe6672; font-weight: 600; position: relative;}
+.item dd .effects{color: #acacac; overflow: hidden; margin:5px 0; text-overflow: ellipsis; white-space: nowrap;}
+.item dd  p:nth-child(4){ height:33px; white-space:normal; margin-bottom:none !important;line-height:18px;}
+.item dd .price i{display:inline-block; width:auto; height: 11px; margin-right: 2px;}
+.appointment{ display: block; position:absolute; right:0px; top:0px; -webkit-border-radius:5px; font-style: normal; width: 25px; height: 15px; line-height: 15px; text-align: center; font-size: 10px; color: #fff; background:#FF8CB3; padding:5px 15px;}
+.item dd .price{ color: #fe6672; font-weight: 600; }
 .item dd .price i{color: #fe6672; font-style: normal;}
 .item dd .price span{ color: #acacac; text-decoration: line-through; vertical-align: 1px;}
 .item dd .out i{ background: #dadada; color: #fff;}
