@@ -160,6 +160,11 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .pay ul li span i{height:16px; width:10px; display:block; background:url(../images/all_520.png) no-repeat right; background-position:-2px -315px;background-size: 100px auto; float:right; margin:17px 0 0 5px;}
 .pay .payment{display:block; padding:10px; width:80%; position:absolute; bottom:10px; left:10%; text-align:center; background:#FF8CB3;-webkit-border-radius:5px; color:white;}
 
+/*提示*/
+.result-content{margin:auto;position: fixed;left: 50%;top: 40%;}
+.result-content .tips{color:red; width:130px; height:20px; margin-left:-65px;}
+.result-content .btn{color:white; font-size:16px; background-color:#FF8CB3; width:100px; height:40px; border:none; -webkit-border-radius:5px; margin-left:-50px; margin-top:20px;}
+
 /**********All CSS**************/
 .FB { font-weight:bold; }
 .FN { font-weight:normal; }
