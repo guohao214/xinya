@@ -25,7 +25,9 @@
                             <h3><?php echo $pj['project_name'];?></h3>
                             <p class="effects F13">服务时限：<?php echo $pj['use_time'];?>分钟</p>
                             <p class="price F18">
-                                <i class="F12 FN">价格</i>￥<?php echo $pj['price'];?><cite class="appointment FN">预约</cite><!--<b>103人推荐</b>-->
+                                <i class="F12 FN">价格</i>￥<?php echo $pj['price'];?>
+
+                                <!--<cite class="appointment FN">预约</cite><!--<b>103人推荐</b>-->
                             </p>
                             <p class="effects F13">适用皮肤：<?php echo (new StringUtil())->substr($pj['suitable_skin'], 30);?></p>
                         </dd>

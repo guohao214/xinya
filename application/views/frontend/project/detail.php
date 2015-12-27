@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?php echo $project['project_name']; ?></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/css.css">
-    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/default.css">
-    <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/footer.js"></script>
-</head>
+<?php $this->pageTitle = $project['project_name']; ?>
+<?php $this->load->view('frontend/header'); ?>
 <body>
 <header>
     <a class="prev j_prePage" href="javascript:window.history.back();"></a>
@@ -43,7 +33,21 @@
     </div>
 </section>
 <footer>
-    <a href="#" class="project_footer F18">预约</a>
+    <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>">预约</a>
 </footer>
+
+<script>
+    $(document).ready(function () {
+        $('.project_footer').on('click', function () {
+            var $projectId = parseInt($(this).attr('data-id'));
+
+            $.getJSON(document_root + 'cart/addCart/' + $projectId, {}, function (data) {
+                if (data.status == 1) {
+                    messageTool.show('谢谢,预约成功！');
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>
