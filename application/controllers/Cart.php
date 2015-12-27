@@ -49,4 +49,86 @@ class Cart extends FrontendController
         session_write_close();
         ResponseUtil::executeSuccess('从购物车删除成功!');
     }
+
+    /**
+     * 下单
+     */
+    public function order()
+    {
+        // 验证是否已授权
+
+
+        $cart = (new CartUtil())->cart();
+        $projectIds = array_keys($cart);
+        $cartCounts = array_sum($cart);
+        $consumeCode = array();
+
+        if (empty($cart) || empty($projectIds)) {
+            $this->message('购物车为空！');
+        }
+
+        // 生成多少个消费码
+        for ($i = 0; $i < $cartCounts; $i++) {
+            $generateConsumeCode = StringUtil::generateConsumeCode();
+            while (in_array($generateConsumeCode, $consumeCode)) {
+                $generateConsumeCode = StringUtil::generateConsumeCode();
+            }
+            $consumeCode[] = $generateConsumeCode;
+        }
+
+        // 生成订单号
+        $orderNo = StringUtil::generateOrderNo();
+        $orderModel = new OrderModel();
+        while ((new CurdUtil($orderModel))->readOne(array('order_no' => $orderNo))) {
+            $orderNo = StringUtil::generateOrderNo();
+        }
+
+        $orderProjectModel = new OrderProjectModel();
+
+        // 获得购物车的项目
+        $projects = (new ProjectModel())->readByProjectIds($projectIds);
+
+        // 事务开始
+        $this->db->trans_start();
+        foreach ($projects as $project) {
+            $projectCounts = $cart[$project['project_id']];
+            for ($i = 0; $i < $projectCounts; $i++) {
+                $orderData = array(
+                    'order_no' => $orderNo,
+                    'consume_code' => array_pop($consumeCode),
+                    'shop_id' => $project['shop_id'],
+                    'create_time' => DateUtil::now(),
+                    'total_fee' => $project['price'],
+                    'open_id' => 'ttt',
+                    'order_status' => OrderModel::ORDER_NOT_PAY
+                );
+
+                $insertOrderNo = (new CurdUtil($orderModel))->create($orderData);
+
+                $orderProjectData = array(
+                    'order_id' => $insertOrderNo,
+                    'project_id' => $project['project_id'],
+                    'project_use_time' => $project['use_time'],
+                    'project_price' => $project['price'],
+                    'create_time' => DateUtil::now(),
+                    'project_name' => $project['project_name'],
+                    'project_cover' => $project['project_cover']
+                );
+
+                (new CurdUtil($orderProjectModel))->create($orderProjectData);
+            }
+        }
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $this->message('提交订单失败，请重试!');
+        } else {
+            $this->db->trans_commit();
+            // 清空购物车
+            // 跳到 订单显示
+            ResponseUtil::redirect(UrlUtil::createUrl('order/pay/'. $orderNo));
+        }
+    }
 }

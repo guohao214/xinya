@@ -42,7 +42,7 @@
 
             </dt>
             <dd>
-                <a class="colorW" href="confirmation.html">去结算</a>
+                <a class="colorW" href="<?php echo UrlUtil::createUrl('cart/order'); ?>">去结算</a>
                 <i class="colorH">总金额:<strong
                         class="F18 colorR">￥</strong> <strong
                         class="F18 colorR totalAmount"><?php echo number_format($totalAmount, 2); ?></strong></i>

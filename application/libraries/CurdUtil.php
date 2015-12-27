@@ -120,4 +120,10 @@ class CurdUtil
     {
         return $query->result_array();
     }
+
+    public function query($sql)
+    {
+        $query = $this->db->query($sql);
+        return $this->result($query);
+    }
 } 

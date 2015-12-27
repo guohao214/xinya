@@ -116,4 +116,12 @@ class ResponseUtil
         self::$ResponseStructure['detail'] = $detail;
     }
 
+    public static function redirect($url)
+    {
+        ob_start();
+        header('location:'. $url);
+        ob_end_flush();
+        exit;
+    }
+
 }
