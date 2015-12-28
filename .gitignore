@@ -7,6 +7,6 @@
 /.idea
 /application/cache
 xinya.geany
-upload
+/upload
 /session
 online_database.php
