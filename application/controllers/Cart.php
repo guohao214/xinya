@@ -58,23 +58,31 @@ class Cart extends FrontendController
         // 验证是否已授权
         $weixin = new WeixinUtil();
 
+        // 是否刚授权，刚授权不需要刷新accessToken
+        $justAuthorize = false;
+
         // 如果是微信授权后返回
-        if (isset($_GET['code']))
-        {
+        if (isset($_GET['code'])) {
             // 获得accessToken
             $callback = $weixin->loginCallback($_GET['code']);
             if (!$callback)
                 $this->message('获得微信授权失败，请重试！');
+            else
+                $justAuthorize = true;
         }
 
         // 检测是否已经授权
-        if ($weixin->getOpenId()) {
+        $openId = $weixin->getOpenId();
+        if ($openId) {
             // 刷新token过期
+            if (!$justAuthorize) {
+                
+            }
         } else {
             // 去微信授权
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/order')));
         }
-var_dump($_SESSION);
+
         $cart = (new CartUtil())->cart();
         $projectIds = array_keys($cart);
         $cartCounts = array_sum($cart);
@@ -116,7 +124,7 @@ var_dump($_SESSION);
                     'shop_id' => $project['shop_id'],
                     'create_time' => DateUtil::now(),
                     'total_fee' => $project['price'],
-                    'open_id' => 'ttt',
+                    'open_id' => $openId,
                     'order_status' => OrderModel::ORDER_NOT_PAY
                 );
 
@@ -145,7 +153,7 @@ var_dump($_SESSION);
             $this->db->trans_commit();
             // 清空购物车
             // 跳到 订单显示
-            ResponseUtil::redirect(UrlUtil::createUrl('order/pay/'. $orderNo));
+            ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
         }
     }
 }
