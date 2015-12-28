@@ -33,7 +33,7 @@ class Tool extends BackendController
         $backup = $this->dbutil->backup();
 
         $this->load->helper('file');
-        $filePath = MAIN_ROOT . 'data' . DS . date('YmdHis') . '.gz';
+        $filePath = MAIN_ROOT . 'backup' . DS . date('YmdHis') . '.gz';
         if (write_file($filePath, $backup)) {
             (new CurdUtil($this->backupModel))->
                 create(array('file_path' => $filePath, 'create_time' => DateUtil::now()));

@@ -2,3 +2,4 @@
 2.创建 application/cache目录
 3.创建session目录
 4.运行app/session.php并删除
+5. application/database.php 不要提交

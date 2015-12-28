@@ -45,7 +45,7 @@
                 <a class="colorW" href="<?php echo UrlUtil::createUrl('cart/order'); ?>">去结算</a>
                 <i class="colorH">总金额:<strong
                         class="F18 colorR">￥</strong> <strong
-                        class="F18 colorR totalAmount"><?php echo number_format($totalAmount, 2); ?></strong></i>
+                        class="F18 colorR totalAmount"><?php echo $totalAmount; ?></strong></i>
                 <!--<P><samp class="colorH">支付状态：</samp>未支付</P>-->
             </dd>
         </dl>
@@ -55,15 +55,17 @@
 
 <script>
     $(document).ready(function () {
-        $('.subProject, .incProject').on('click', function () {
-            var $that = $(this);
+        var $totalAmount = $('.totalAmount'),
+            $totalFee = parseFloat($totalAmount.html());
 
-            var $project = $that.siblings('.projectNum'),
+        $totalAmount.html($totalFee.toFixed(2));
+
+        $('.subProject, .incProject').on('click', function () {
+            var $that = $(this),
+                $project = $that.siblings('.projectNum'),
                 $projectNum = parseInt($project.val()),
                 $projectId = parseInt($that.attr('data-id')),
-                $price = parseFloat($that.attr('data-price')),
-                $totalAmount = $('.totalAmount'),
-                $totalFee = parseFloat($totalAmount.html());
+                $price = parseFloat($that.attr('data-price'));
 
             // 减
             if ($that.hasClass('subProject')) {

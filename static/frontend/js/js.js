@@ -61,7 +61,7 @@ ajaxNoticeTool = {
         $('#load').fadeIn();
     },
     hide: function () {
-        $('#load').hide();
+        $('#load').fadeOut();
     }
 }
 
