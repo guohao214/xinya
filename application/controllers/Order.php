@@ -15,9 +15,13 @@ class Order extends FrontendController
     public function pay($orderNo)
     {
         // 是否授权
+        $weixin = new WeixinUtil();
+        $openId = $weixin->getOpenId();
+        if (!$openId)
+            $this->message('错误的授权!');
 
         // 获得订单信息
-        $where = array('order_no' => $orderNo);
+        $where = array('order_no' => $orderNo, 'open_id' => $openId);
 
         $orders = (new OrderModel())->getNotPayOrders($where);
 

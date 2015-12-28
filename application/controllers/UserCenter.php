@@ -13,7 +13,7 @@ class UserCenter extends FrontendController
         $this->view('userCenter/index');
     }
 
-    public function order()
+    public function order($offset = 0, $orderStatus = 0)
     {
         // 验证是否已授权
         $weixin = new WeixinUtil();
@@ -43,7 +43,29 @@ class UserCenter extends FrontendController
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('userCenter/order')));
         }
 
+        $orderModel = new OrderModel();
 
-        $this->view('userCenter/order');
+        // 获得订单信息
+        $where = array('open_id' => $openId);
+        if ($orderStatus)
+            $where['order_status'] = $orderStatus;
+
+        $orders = $orderModel->userOrders($openId, $orderStatus, $offset);
+
+        $_orders = array();
+        foreach ($orders as $order) {
+            $_orders[$order['order_no']][] = $order;
+        }
+
+        unset($orders, $order);
+        $orderCounts = $orderModel->userOrderCounts($openId, $orderStatus);
+        if (isset($orderCounts[0]))
+            $orderCounts = array_pop($orderCounts);
+
+        $orderCounts = (isset($orderCounts['rowCounts'])) ? $orderCounts['rowCounts'] : 0;
+        $pages = (new PaginationUtil($orderCounts))->pagination();
+        $shops = (new ShopModel())->getAllShops();
+
+        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $_orders, 'shops' => $shops));
     }
 }
