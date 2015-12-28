@@ -83,6 +83,7 @@ class Cart extends FrontendController
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/order')));
         }
 
+        //**********处理下单************//
         $cart = (new CartUtil())->cart();
         $projectIds = array_keys($cart);
         $cartCounts = array_sum($cart);
