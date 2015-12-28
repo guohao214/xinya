@@ -21,7 +21,7 @@ class Cart extends FrontendController
         }
 
         $shops = (new ShopModel())->getAllShops();
-        $categories = (new CategoryModel())->readAllAssoc();
+        $categories = (new CategoryModel())->getAllCategories();
         $this->view('cart/index', array('shops' => $shops, 'projects' => $projects,
             'categories' => $categories, 'cart' => $cart));
     }

@@ -22,7 +22,7 @@ class Project extends BackendController
         $projects = (new CurdUtil($this->projectModel))->readLimit($where, $limit, 'project_id desc');
         $projectsCount = (new CurdUtil($this->projectModel))->count($where);
         $pages = (new PaginationUtil($projectsCount))->pagination();
-        $categories = (new CategoryModel())->readAllAssoc();
+        $categories = (new CategoryModel())->getAllCategories();
         $shops = (new ShopModel())->getAllShops();
 
         $this->view('project/index', array('projects' => $projects, 'shops' => $shops,
@@ -73,7 +73,7 @@ class Project extends BackendController
 
         }
 
-        $categories = (new CategoryModel())->readAllAssoc();
+        $categories = (new CategoryModel())->getAllCategories();
         $shops = (new ShopModel())->getAllShops();
         $project = $this->projectModel->readOne($project_id);
         if (!$project)
@@ -102,7 +102,7 @@ class Project extends BackendController
 
         }
 
-        $categories = (new CategoryModel())->readAllAssoc();
+        $categories = (new CategoryModel())->getAllCategories();
         $shops = (new ShopModel())->getAllShops();
         $this->view('project/addProject', array('categories' => $categories, 'shops' => $shops));
     }
