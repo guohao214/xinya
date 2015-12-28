@@ -76,8 +76,8 @@
             <tr>
                 <th>功效：</th>
                 <td>
-                    <textarea name="effects"
-                              class="common-textarea" rows="5" maxlength="500"><?php echo $project['effects']; ?></textarea></td>
+                    <?php echo $this->view('backend/editor', array('editorName' =>'effects',
+                        'content' =>$project['effects'])); ?></textarea></td>
             </tr>
             <tr>
                 <th></th>

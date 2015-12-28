@@ -10,11 +10,20 @@ class UploadUtil
 {
     private $upload;
     private $instance;
+    private $date;
 
     public function __construct($uploadType)
     {
         $this->instance = get_instance();
         $config = ConfigUtil::loadConfig($uploadType);
+
+        // 设置保存目录
+        $this->date = date('Y-m-d');
+        $uploadPath = $config['upload_path'] . DIRECTORY_SEPARATOR . $this->date;
+        if (!is_dir($uploadPath) || !file_exists($uploadPath))
+            mkdir($uploadPath);
+
+        $config['upload_path'] = $uploadPath;
 
         $this->instance->load->library('upload', $config);
 
@@ -32,6 +41,7 @@ class UploadUtil
         } else {
             $return['error'] = 0;
             $return['data'] = $this->upload->data();
+            $return['data']['raw_name'] = $this->date . '/' . $return['data']['raw_name'];
         }
 
         return $return;
@@ -67,9 +77,13 @@ class UploadUtil
      */
     public static function buildUploadDocPath($imageString, $size = '')
     {
-        $uploadDoc = json_decode($imageString, true);
-        if (json_last_error() != JSON_ERROR_NONE)
-            return '';
+        if (!is_array($imageString)) {
+            $uploadDoc = json_decode($imageString, true);
+            if (json_last_error() != JSON_ERROR_NONE)
+                return '';
+        } else {
+            $uploadDoc = $imageString;
+        }
 
         if ($size) {
             $docPath = "{$uploadDoc['raw_name']}_{$size}{$uploadDoc['file_ext']}";
@@ -77,7 +91,7 @@ class UploadUtil
             $docPath = "{$uploadDoc['raw_name']}{$uploadDoc['file_ext']}";
         }
 
-        if (file_exists($uploadDoc['file_path'] . $docPath))
+        if (file_exists(UPLOAD_FOLDER . DIRECTORY_SEPARATOR . $docPath))
             return get_instance()->config->base_url() . UPLOAD_FOLDER . '/' . $docPath;
         else
             return get_instance()->config->base_url() . UPLOAD_FOLDER . "/{$uploadDoc['file_name']}";

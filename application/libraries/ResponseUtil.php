@@ -13,6 +13,9 @@ class ResponseUtil
 
     public static function output($data, $outputType = 'json')
     {
+        if (!is_string($data))
+            $data = json_encode($data);
+
         //在页面执行没有问题的情况下，避免在开发环境下，将调试信息输出。
         $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
 
