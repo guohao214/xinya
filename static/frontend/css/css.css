@@ -162,7 +162,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 
 /*提示*/
 .result-content{margin:auto;position: fixed;left: 50%;top: 40%;}
-.result-content .tips{color:red; width:130px; height:20px; margin-left:-65px;}
+.result-content .tips{color:red; width:130px; height:20px; margin-left:-65px;text-align: center}
 .result-content .btn{color:white; font-size:16px; background-color:#FF8CB3; width:100px; height:40px; border:none; -webkit-border-radius:5px; margin-left:-55px; margin-top:20px;}
 
 /**********All CSS**************/
