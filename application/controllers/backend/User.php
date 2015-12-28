@@ -17,7 +17,7 @@ class User extends BackendController
 
     public function index($limit = '')
     {
-        $where = RequestUtil::likeParamsWithDisabled();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
 
         $users = (new CurdUtil($this->userModel))->readLimit($where, $limit);
         $usersCount = (new CurdUtil($this->userModel))->count($where);

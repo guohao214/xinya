@@ -17,7 +17,7 @@ class Article extends BackendController
 
     public function index($limit = '')
     {
-        $where = RequestUtil::likeParamsWithDisabled();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
 
         $articles = (new CurdUtil($this->articleModel))->readLimit($where, $limit);
         $articlesCount = (new CurdUtil($this->articleModel))->count($where);

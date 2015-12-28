@@ -17,7 +17,7 @@ class Project extends BackendController
 
     public function index($limit = '')
     {
-        $where = RequestUtil::likeParamsWithDisabled();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
 
         $projects = (new CurdUtil($this->projectModel))->readLimit($where, $limit, 'project_id desc');
         $projectsCount = (new CurdUtil($this->projectModel))->count($where);

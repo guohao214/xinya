@@ -23,7 +23,7 @@ class Order extends BackendController
             $this->db->where_in('shop_id',array(0, $shopId));
 
         // 获得查询参数， 查询参数都为like模糊查询
-        $where = RequestUtil::likeParamsWithDisabled();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
         $orders = (new CurdUtil($this->orderModel))->readLimit($where, $limit);
         $ordersCount = (new CurdUtil($this->orderModel))->count($where);
         $pages = (new PaginationUtil($ordersCount))->pagination();

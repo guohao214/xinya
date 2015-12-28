@@ -55,7 +55,7 @@ class RequestUtil
         return $instance->config->base_url() . $baseUrl . '/' . implode('/', $params);
     }
 
-    public static function likeParams()
+    public static function buildLikeQueryParams()
     {
         $params = self::getParams();
         if ($params) {
@@ -67,11 +67,69 @@ class RequestUtil
         return $params;
     }
 
-    public static function likeParamsWithDisabled()
+    public static function buildLikeQueryParamsWithDisabled()
     {
-        $params = self::likeParams();
+        $params = self::buildLikeQueryParams();
         $params['disabled'] = 'disabled=0';
 
         return implode('and ', $params);
+    }
+
+    public static function post($url, $data)
+    {
+        $curl = curl_init(); // 启动一个CURL会话
+        curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址
+
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //SSL 报错时使用
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false); //SSL 报错时使用
+
+        curl_setopt($curl, CURLOPT_POST, 1); // 发送一个常规的Post请求
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30); // 设置超时限制防止死循环
+        curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
+
+        $tmpInfo = curl_exec($curl); // 执行操作
+        if (curl_errno($curl)) {
+            echo 'Errno' . curl_error($curl); //捕抓异常
+        }
+        curl_close($curl); // 关闭CURL会话
+
+        $jsonData = json_decode($tmpInfo);
+        if (json_last_error() != JSON_ERROR_NONE)
+            return '';
+
+        return $jsonData;
+    }
+
+
+    public static function get($url)
+    {
+        $curl = curl_init(); // 启动一个CURL会话
+        curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址
+
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //SSL 报错时使用
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false); //SSL 报错时使用
+
+        //curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器
+        //curl_setopt($curl, CURLOPT_COOKIE, $cookie);
+        //curl_setopt($curl, CURLOPT_REFERER,'https://www.baidu.com');// 设置Referer
+        //curl_setopt($curl, CURLOPT_POST, 1); // 发送一个常规的Post请求
+        //curl_setopt($curl, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30); // 设置超时限制防止死循环
+        curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
+
+        $tmpInfo = curl_exec($curl); // 执行操作
+        if (curl_errno($curl)) {
+            echo 'Errno' . curl_error($curl); //捕抓异常
+        }
+        curl_close($curl); // 关闭CURL会话
+
+        $jsonData = json_decode($tmpInfo, true);
+        if (json_last_error() != JSON_ERROR_NONE)
+            return '';
+
+        return $jsonData;
     }
 }

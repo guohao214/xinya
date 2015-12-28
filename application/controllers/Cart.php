@@ -56,8 +56,25 @@ class Cart extends FrontendController
     public function order()
     {
         // 验证是否已授权
+        $weixin = new WeixinUtil();
 
+        // 如果是微信授权后返回
+        if (isset($_GET['code']))
+        {
+            // 获得accessToken
+            $callback = $weixin->loginCallback($_GET['code']);
+            if (!$callback)
+                $this->message('获得微信授权失败，请重试！');
+        }
 
+        // 检测是否已经授权
+        if ($weixin->getOpenId()) {
+            // 刷新token过期
+        } else {
+            // 去微信授权
+            ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/order')));
+        }
+var_dump($_SESSION);
         $cart = (new CartUtil())->cart();
         $projectIds = array_keys($cart);
         $cartCounts = array_sum($cart);

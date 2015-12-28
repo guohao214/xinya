@@ -19,7 +19,7 @@ class Shop extends BackendController
 
     public function index($limit = '')
     {
-        $where = RequestUtil::likeParamsWithDisabled();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
 
         $shops = (new CurdUtil($this->shopModel))->readLimit($where, $limit);
         $shopsCount = (new CurdUtil($this->shopModel))->count($where);
