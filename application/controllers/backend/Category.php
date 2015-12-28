@@ -12,12 +12,12 @@ class Category extends BackendController
     {
         parent::__construct();
         $this->load->model('CategoryModel', 'categoryModel');
-        $this->categoryModel->deleteCategories();
+        $this->categoryModel->deleteCacheCategories();
     }
 
     public function index()
     {
-        $categories = $this->categoryModel->readAll();
+        $categories = $this->categoryModel->getAllCategoriesWithProjectCounts();
         $this->view('category/index', array('categories' => $categories));
     }
 

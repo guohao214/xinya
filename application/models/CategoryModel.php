@@ -9,13 +9,13 @@ class CategoryModel extends BaseModel
         $this->table = 'category';
     }
 
-    public function deleteCategories()
+    public function deleteCacheCategories()
     {
         $this->deleteCache($this->cacheName);
     }
 
 
-    public function readAll()
+    public function getAllCategoriesWithProjectCounts()
     {
         $project = new ProjectModel();
 
@@ -28,7 +28,7 @@ class CategoryModel extends BaseModel
         return $query->result_array();
     }
 
-    public function readAllAssoc()
+    public function getAllCategories()
     {
         $categories = $this->getCache($this->cacheName);
         if ($categories)
