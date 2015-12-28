@@ -21,7 +21,7 @@ class BackendController extends BaseController
      */
     public function view($view, $vars = array())
     {
-        parent::view('backend', $view, $vars);
+        parent::see('backend', $view, $vars);
     }
 
 } 

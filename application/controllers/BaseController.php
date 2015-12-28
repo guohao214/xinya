@@ -15,7 +15,7 @@ abstract class BaseController extends CI_Controller
         load_class('Model', 'core');
     }
 
-    public function view($layout, $view, $vars = array())
+    public function see($layout, $view, $vars = array())
     {
         $layout = $layout . DS;
         $render = $this->load->view($layout . $view, $vars, true);

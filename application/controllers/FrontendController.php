@@ -21,7 +21,7 @@ class FrontendController extends BaseController
      */
     public function view($view, $vars = array())
     {
-       parent::view('frontend', $view, $vars);
+       parent::see('frontend', $view, $vars);
     }
 
 }

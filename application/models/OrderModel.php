@@ -68,18 +68,19 @@ class OrderModel extends BaseModel
         $rows = $paginationConfig['per_page'];
 
         $sql = "select a.*, b.*, a.order_status+0 as order_sign from `order` as a right
-                join (select distinct(order_no) from `order` limit {$offset}, {$rows}) as c on a.order_no=c.order_no
+                join (select distinct(order_no) from `order` where `order`.open_id='{$openId}' limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
                 left join order_project as b on a.order_id=b.order_id where a.disabled=0 and a.open_id='{$openId}'";
 
         if ($orderStatus)
             $sql .= ' and a.order_status=' . $orderStatus;
+
         return (new CurdUtil($this))->query($sql);
     }
 
     public function userOrderCounts($openId, $orderStatus = 0)
     {
         $sql = "select count(distinct(a.order_no)) as `rowCounts` from `order` as a right
-                join (select distinct(order_no) from `order`) as c on a.order_no=c.order_no
+                join (select distinct(order_no) from `order` where `order`.open_id='{$openId}') as c on a.order_no=c.order_no
                 left join order_project as b on a.order_id=b.order_id where a.disabled=0 and a.open_id='{$openId}'";
 
         if ($orderStatus)
