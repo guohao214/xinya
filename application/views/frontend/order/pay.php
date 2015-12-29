@@ -48,11 +48,10 @@
     function weixin_pay() {
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest',
-            <?php echo $params; ?>,
+            <?php echo $payParams; ?>,
             function (res) {
-                alert(res.err_msg);
                 if (res.err_msg == 'get_brand_wcpay_request:ok') {
-                    // 支付返回
+                    window.location.href = "<?php echo UrlUtil::createUrl('userCenter/order'); ?>";
                 } else if (res.err_msg == 'get_brand_wcpay_request:cancel') {
                     alert('取消支付');
                 } else if (res.err_msg == 'get_brand_wcpay_request:fail') {

@@ -8,11 +8,11 @@
  */
 class WeixinPayUtil
 {
-    private $appId;
-    private $appSecret;
-    private $mchId;
-    private $apiKey;
-    private $noticeUrl;
+    public $appId;
+    public $appSecret;
+    public $mchId;
+    public $apiKey;
+    public $noticeUrl;
 
     public function __construct($config = 'weixin')
     {
