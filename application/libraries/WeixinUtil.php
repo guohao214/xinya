@@ -74,7 +74,7 @@ class WeixinUtil
         $refreshUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={$this->appId}&grant_type=refresh_token&refresh_token={$refreshToken}";
 
         $newAuthorize = RequestUtil::get($refreshUrl);
-        LogUtil::weixinLog('刷新accessToken：' . $newAuthorize);
+        LogUtil::weixinLog('刷新accessToken：', $newAuthorize);
 
         if (!$newAuthorize || $newAuthorize['errcode'])
             return false;
@@ -105,7 +105,7 @@ class WeixinUtil
 
         $accessToken = RequestUtil::get($accessTokenUrl);
 
-        LogUtil::weixinLog('授权登录：' . $accessToken);
+        LogUtil::weixinLog('授权登录：', $accessToken);
 
         if (!$accessToken || $accessToken['error'])
             return false;

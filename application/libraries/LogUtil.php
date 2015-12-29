@@ -10,7 +10,7 @@ class LogUtil
 {
     public static $weinxi = 'weixin-log';
 
-    public static function log($message, $file = 'log')
+    public static function log($mainTitle, $message, $file = 'log')
     {
         $saveFile = APPPATH . DIRECTORY_SEPARATOR . 'cache';
         $saveFile = $saveFile . DIRECTORY_SEPARATOR . $file . date('Y-m-d');
@@ -18,12 +18,12 @@ class LogUtil
         if (!is_string($message))
             $message = json_encode($message);
 
-        file_put_contents($saveFile, $message . "\n\n" . str_repeat('-', 80) ."\n", FILE_APPEND);
+        file_put_contents($saveFile, $mainTitle . $message . "\n\n" . str_repeat('-', 80) ."\n", FILE_APPEND);
     }
 
-    public static function weixinLog($message)
+    public static function weixinLog($mainTitle, $message)
     {
-        self::log($message, self::$weinxi);
+        self::log($mainTitle, $message, self::$weinxi);
     }
 
 }
