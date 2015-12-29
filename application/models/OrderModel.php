@@ -12,51 +12,29 @@ class OrderModel extends BaseModel
         $this->table = 'order';
     }
 
-    private function forQueryOrders()
+    /**
+     * @param $where
+     * @return mixed
+     */
+    public function getOrder($where = array(), $orderStatus = 0)
     {
         $this->db->from($this->table);
         $orderProject = (new OrderProjectModel())->table;
         $this->db->select("{$this->table}.*, {$orderProject}.*");
-        $this->db->select("{$this->table}.order_status+0 as order_sign", false);
         $this->db->join($orderProject, "{$this->table}.order_id={$orderProject}.order_id");
         $this->db->where("{$this->table}.disabled=0");
         $this->db->order_by("{$this->table}.order_id desc");
-    }
 
-    /**
-     * 获取未支付的订单
-     * @param $orderNo
-     */
-    public function getNotPayOrders($where)
-    {
-        $this->db->where("{$this->table}.order_status=" . self::ORDER_NOT_PAY);
+        if ($where)
+            $this->db->where($where);
 
-        return $this->getOrders($where);
-    }
-
-    /**
-     * 获得订单
-     * @param $where
-     * @param string $offset
-     * @param int $rows
-     * @return mixed
-     */
-    public function getOrders($where, $offset = 0, $rows = 10)
-    {
-        $this->forQueryOrders();
-        $this->db->where($where);
-        $this->db->limit($rows, $offset);
+        if ($orderStatus)
+            $this->db->where("{$this->table}.order_status=" . $orderStatus);
 
         $sql = $this->db->get_compiled_select();
         return (new CurdUtil($this))->query($sql);
     }
 
-    public function getOrderCounts($where)
-    {
-        $this->forQueryOrders();
-        $this->db->where($where);
-        return $this->db->count_all_results();
-    }
 
     /**
      * 上面的方法有问题，此处用sql语句
@@ -78,7 +56,7 @@ class OrderModel extends BaseModel
         if ($orderStatus)
             $sql .= " and `order`.order_status={$orderStatus}";
 
-        $sql.= " and `order`.disabled=0 limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
+        $sql .= " and `order`.disabled=0 limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
                 left join order_project as b on a.order_id=b.order_id";
 
         return (new CurdUtil($this))->query($sql);

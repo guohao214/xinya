@@ -23,7 +23,7 @@ class Order extends FrontendController
         // 获得订单信息
         $where = array('order_no' => $orderNo, 'open_id' => $openId);
 
-        $orders = (new OrderModel())->getNotPayOrders($where);
+        $orders = (new OrderModel())->getOrder($where, OrderModel::ORDER_NOT_PAY);
 
         if (!$orders)
             $this->message('订单不存在！');
