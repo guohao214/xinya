@@ -45,8 +45,16 @@ class Order extends FrontendController
         }
 
         // 获得预付款ID
+        $weixinPay = new WeixinPayUtil();
+        $prePayId = $weixinPay->fetchPrepayId($openId, '购买不期而遇美容产品', $orderNo, $totalAmount);
+        if (!$prePayId)
+            $this->message('获得微信预付款ID失败，请重试！');
 
-        $this->view('order/pay', array('orders' => $_orders, 'orderNo' => $orderNo, 'totalAmount' => $totalAmount));
+        //生成支付参数
+        $payParams = $weixinPay->getParameters($prePayId);
+
+        $this->view('order/pay', array('orders' => $_orders, 'payParams' => $payParams,
+            'orderNo' => $orderNo, 'totalAmount' => $totalAmount));
 
     }
 }

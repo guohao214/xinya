@@ -11,12 +11,18 @@ class WeixinUtil
     private $appId;
     private $appSecret;
     private $accessTokenSign = '_weixin_accesstoken';
+    private $mchId ;
+    private $apiKey;
+    private $noticeUrl;
 
     public function __construct($config = 'weixin')
     {
         $weixinConfig = ConfigUtil::loadConfig($config);
         $this->appId = $weixinConfig['appId'];
         $this->appSecret = $weixinConfig['appSecret'];
+        $this->mchId = $weixinConfig['mchId'];
+        $this->apiKey = $weixinConfig['apiKey'];
+        $this->noticeUrl = $weixinConfig['noticeUrl'];
     }
 
     public function saveAuthorize($accessToken)
