@@ -61,6 +61,10 @@ class OrderModel extends BaseModel
     /**
      * 上面的方法有问题，此处用sql语句
      * 我的订单
+     * @param $openId
+     * @param int $orderStatus
+     * @param int $offset
+     * @return mixed
      */
     public function userOrders($openId, $orderStatus = 0, $offset = 0)
     {
@@ -68,23 +72,33 @@ class OrderModel extends BaseModel
         $rows = $paginationConfig['per_page'];
 
         $sql = "select a.*, b.*, a.order_status+0 as order_sign from `order` as a right
-                join (select distinct(order_no) from `order` where `order`.open_id='{$openId}' limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
-                left join order_project as b on a.order_id=b.order_id where a.disabled=0 and a.open_id='{$openId}'";
+                join (select distinct(order_no) from `order` where `order`.open_id='{$openId}'";
+
 
         if ($orderStatus)
-            $sql .= ' and a.order_status=' . $orderStatus;
+            $sql .= " and `order`.order_status={$orderStatus}";
+
+        $sql.= " and `order`.disabled=0 limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
+                left join order_project as b on a.order_id=b.order_id";
 
         return (new CurdUtil($this))->query($sql);
     }
 
+    /**
+     * 计算我的订单总数
+     * @param $openId
+     * @param int $orderStatus
+     * @return mixed
+     */
     public function userOrderCounts($openId, $orderStatus = 0)
     {
-        $sql = "select count(distinct(a.order_no)) as `rowCounts` from `order` as a right
-                join (select distinct(order_no) from `order` where `order`.open_id='{$openId}') as c on a.order_no=c.order_no
-                left join order_project as b on a.order_id=b.order_id where a.disabled=0 and a.open_id='{$openId}'";
+        $sql = "select (count(distinct(order_no))) from `order` where open_id='{$openId}'";
 
         if ($orderStatus)
-            $sql .= ' and a.order_status=' . $orderStatus;
+            $sql .= ' and `order`.order_status=' . $orderStatus;
+
+        $sql .= ' and `order`.disabled=0';
+
         return (new CurdUtil($this))->query($sql);
     }
 
