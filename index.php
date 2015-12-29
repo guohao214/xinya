@@ -6,6 +6,7 @@ ini_set('session.gc_maxlifetime', ini_get('session.cookie_lifetime') - 1440);
 set_time_limit(60);
 session_start();
 
+
 define('DOCUMENT_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
 define('UPLOAD_FOLDER', 'upload');
 

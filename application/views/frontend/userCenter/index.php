@@ -29,7 +29,7 @@
             </a>
         </li>
         <li>
-            <a href="http://eqxiu.com/s/fMQtct5P">
+            <a href="<?php echo UrlUtil::createUrl('xinya/ruhuitehui'); ?>">
                 <div></div>
                 入会特惠
             </a>

@@ -19,20 +19,67 @@ class WeixinUtil
         $this->appSecret = $weixinConfig['appSecret'];
     }
 
-    public function saveAccessToken($accessToken)
+    public function saveAuthorize($accessToken)
     {
-        $_SESSION[$this->accessTokenSign] =  $accessToken;
+        // 保存授权信息的时间
+        $accessToken['saveTime'] = time();
+        $_SESSION[$this->accessTokenSign] = $accessToken;
     }
 
-    public function getAccessToken()
+    public function getAuthorize()
     {
         return $_SESSION[$this->accessTokenSign];
     }
 
     public function getOpenId()
     {
-        $accessToken = $this->getAccessToken();
+        $accessToken = $this->getAuthorize();
         return $accessToken['openid'];
+    }
+
+    public function getRefreshToken()
+    {
+        $accessToken = $this->getAuthorize();
+        return $accessToken['refresh_token'];
+    }
+
+    public function getAccessToken()
+    {
+        $accessToken = $this->getAuthorize();
+        return $accessToken['access_token'];
+    }
+
+    public function getSaveTime()
+    {
+        $accessToken = $this->getAuthorize();
+        return $accessToken['saveTime'];
+    }
+
+    /**
+     * 是否需要刷新fresh
+     */
+    public function isNeedRefreshAccessToken()
+    {
+        $saveTime = $this->getSaveTime();
+        // expires_in为7200
+        return time() > $saveTime + 7200;
+    }
+
+    /**
+     * 刷新accessToken
+     */
+    public function refreshAccessToken()
+    {
+        $refreshToken = $this->getRefreshToken();
+        $refreshUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={$this->appId}&grant_type=refresh_token&refresh_token={$refreshToken}";
+
+        $newAuthorize = RequestUtil::get($refreshUrl);
+        LogUtil::weixinLog('刷新accessToken：' . $newAuthorize);
+
+        if (!$newAuthorize || $newAuthorize['errcode'])
+            return false;
+
+        $this->saveAuthorize($newAuthorize);
     }
 
     /**
@@ -58,10 +105,12 @@ class WeixinUtil
 
         $accessToken = RequestUtil::get($accessTokenUrl);
 
-        if ($accessToken['error'])
+        LogUtil::weixinLog('授权登录：' . $accessToken);
+
+        if (!$accessToken || $accessToken['error'])
             return false;
 
-        $this->saveAccessToken($accessToken);
+        $this->saveAuthorize($accessToken);
         return true;
     }
 
