@@ -57,7 +57,7 @@ class OrderModel extends BaseModel
             $sql .= " and `order`.order_status={$orderStatus}";
 
         $sql .= " and `order`.disabled=0 limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
-                left join order_project as b on a.order_id=b.order_id";
+                left join order_project as b on a.order_id=b.order_id order by a.order_id desc";
 
         return (new CurdUtil($this))->query($sql);
     }
