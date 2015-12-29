@@ -42,7 +42,7 @@
 
             </dt>
             <dd>
-                <a class="colorW" href="<?php echo UrlUtil::createUrl('cart/order'); ?>">去结算</a>
+                <a class="colorW" href="javascript:; " onclick="document.body.id = 'msgBody'; ">去结算</a>
                 <i class="colorH">总金额:<strong
                         class="F18 colorR">￥</strong> <strong
                         class="F18 colorR totalAmount"><?php echo $totalAmount; ?></strong></i>
@@ -52,6 +52,33 @@
 
     </div>
 </section>
+
+
+<div id="divMsg">
+    <form action="<?php echo UrlUtil::createUrl('cart/order'); ?>" id="create-order" method="post">
+        <div class="pay">
+            <strong>
+                <a id="aClose" href="javascript:; " onclick="document.body.id = ''; "></a>
+                <span class="F16">完善信息</span>
+            </strong>
+            <ul>
+                <li>
+                    <samp>联系人</samp>
+                    <span><input type="text" name="user_name" class="order-text"></span>
+                </li>
+                <li>
+                    <samp>手机号</samp>
+                    <span><input type="tel" name="phone" class="order-text"></span>
+                </li>
+                <!--<li>
+                    <samp class="F16"></samp>
+                    <span class="F18"></span>
+                </li>-->
+            </ul>
+            <a class="payment colorW F16" type="submit">提交订单</a>
+        </div>
+    </form>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -98,6 +125,25 @@
                 })
             }
 
+        })
+
+        //******* 支付 ***********//
+        $('.payment').on('click', function (e) {
+            e.preventDefault();
+            var $user_name = $.trim($('input[name="user_name"]').val()),
+                $phone = $.trim($('input[name="phone"]').val());
+
+            if (!$user_name) {
+                alert('请输入联系人');
+                return false;
+            }
+
+            if (!$phone) {
+                alert('请输入手机号');
+                return false;
+            }
+
+            $('#create-order').trigger('submit');
         })
     })
 </script>

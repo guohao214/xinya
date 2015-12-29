@@ -25,7 +25,7 @@ abstract class BaseController extends CI_Controller
     public function message($message, $returnBack = '')
     {
         if ($returnBack)
-            $returnBack = UrlUtil::createBackendUrl($returnBack);
+            $returnBack = UrlUtil::createUrl($returnBack);
 
         $this->view('message', array('message' => $message, 'returnBack' => $returnBack));
         $this->output->_display();

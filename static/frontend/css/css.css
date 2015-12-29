@@ -156,7 +156,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .pay strong samp{float:right; display:block; border:1px solid #FF8CB3; width:20px; height:20px; line-height:20px; -webkit-border-radius:20px; margin-top:13px; color:#FF8CB3}
 .pay ul{margin:10px;}
 .pay ul li{ line-height:50px; border-bottom:1px solid #ececec;}
-.pay ul li span{float:right; font-size:14px; line-height:50px;}
+.pay ul li span{font-size:14px; line-height:50px;}
 .pay ul li span i{height:16px; width:10px; display:block; background:url(../images/all_520.png) no-repeat right; background-position:-2px -315px;background-size: 100px auto; float:right; margin:17px 0 0 5px;}
 .pay .payment{display:block; padding:10px; width:80%; position:absolute; bottom:10px; left:10%; text-align:center; background:#FF8CB3;-webkit-border-radius:5px; color:white;}
 
@@ -191,3 +191,11 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 #pagination-digg a:link,
 #pagination-digg a:visited { color:#0063e3; display:block; float:left; padding:3px 6px; text-decoration:none; }
 #pagination-digg a:hover { border:solid 1px #000; background:#0063DC; color:#FFF; }
+
+.order-text {
+    border:0px;
+    border-bottom: 1px solid #CCC;
+    margin-left: 10px;
+    width: 80%;
+    padding:5px;
+}
