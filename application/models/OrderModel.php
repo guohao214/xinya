@@ -15,7 +15,7 @@ class OrderModel extends BaseModel
     public function orders($where = array())
     {
         $this->db->select('*');
-        $this->db->select('order_status+0 as order_sing', false);
+        $this->db->select('order_status+0 as order_sign', false);
         $this->db->from($this->table);
         $this->db->where($where);
 
@@ -80,7 +80,7 @@ class OrderModel extends BaseModel
      */
     public function userOrders($openId, $orderStatus = 0, $offset = 0)
     {
-        $paginationConfig = ConfigUtil::loadConfig('pagination');
+        $paginationConfig = ConfigUtil::loadConfig('user-center');
         $rows = $paginationConfig['per_page'];
 
         $sql = "select a.*, b.*, a.order_status+0 as order_sign from `order` as a right
@@ -90,8 +90,8 @@ class OrderModel extends BaseModel
         if ($orderStatus)
             $sql .= " and `order`.order_status={$orderStatus}";
 
-        $sql .= " and `order`.disabled=0 limit {$offset}, {$rows} ) as c on a.order_no=c.order_no
-                left join order_project as b on a.order_id=b.order_id order by a.order_id desc";
+        $sql .= " and `order`.disabled=0 order by order.order_id desc limit {$offset}, {$rows}) as c on a.order_no=c.order_no
+                left join order_project as b on a.order_id=b.order_id";
 
         return (new CurdUtil($this))->query($sql);
     }
@@ -104,7 +104,7 @@ class OrderModel extends BaseModel
      */
     public function userOrderCounts($openId, $orderStatus = 0)
     {
-        $sql = "select (count(distinct(order_no))) from `order` where open_id='{$openId}'";
+        $sql = "select (count(distinct(order_no))) as rowCounts from `order` where open_id='{$openId}'";
 
         if ($orderStatus)
             $sql .= ' and `order`.order_status=' . $orderStatus;

@@ -110,7 +110,7 @@ class Order extends FrontendController
 
         // 判断是否已经支付
         $order = array_pop($orders);
-        if ($order['order_sing'] == OrderModel::ORDER_PAYED)
+        if ($order['order_sign'] == OrderModel::ORDER_PAYED)
             exit($weixin->notifyPayed());
 
         //更新订单信息

@@ -15,11 +15,9 @@ class UserCenter extends FrontendController
 
     public function order($offset = 0, $orderStatus = 0)
     {
+        
         // 验证是否已授权
         $weixin = new WeixinUtil();
-
-        // 是否刚授权，刚授权不需要刷新accessToken
-        $justAuthorize = false;
 
         // 如果是微信授权后返回
         if (isset($_GET['code'])) {
@@ -27,17 +25,14 @@ class UserCenter extends FrontendController
             $callback = $weixin->loginCallback($_GET['code']);
             if (!$callback)
                 $this->message('获得微信授权失败，请重试！');
-            else
-                $justAuthorize = true;
         }
 
         // 检测是否已经授权
         $openId = $weixin->getOpenId();
         if ($openId) {
             // 刷新token过期
-            if (!$justAuthorize) {
-
-            }
+            if ($weixin->isNeedRefreshAccessToken())
+                $weixin->refreshAccessToken();
         } else {
             // 去微信授权
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('userCenter/order')));
@@ -59,13 +54,14 @@ class UserCenter extends FrontendController
 
         unset($orders, $order);
         $orderCounts = $orderModel->userOrderCounts($openId, $orderStatus);
+
         if (isset($orderCounts[0]))
             $orderCounts = array_pop($orderCounts);
 
         $orderCounts = (isset($orderCounts['rowCounts'])) ? $orderCounts['rowCounts'] : 0;
-        $pages = (new PaginationUtil($orderCounts))->pagination();
+        $pages = (new PaginationUtil($orderCounts, 'user-center'))->pagination();
         $shops = (new ShopModel())->getAllShops();
 
-        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $_orders, 'shops' => $shops));
+        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $_orders, 'shops' => $shops, 'offset' => $offset));
     }
 }

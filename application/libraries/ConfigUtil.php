@@ -11,9 +11,11 @@ class ConfigUtil
 {
     public static function loadConfig($config)
     {
+        $_config = $config;
+
         $congigPath = APPPATH . 'config' . DS . $config . '.php';
         if (!file_exists($congigPath))
-            show_error($congigPath . '不存在!');
+            show_error($_config . '不存在!');
 
         return include $congigPath;
     }
