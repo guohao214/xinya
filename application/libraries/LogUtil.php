@@ -17,7 +17,7 @@ class LogUtil
 
         if (!is_string($message))
             $message = json_encode($message);
-
+        $mainTitle = DateUtil::now() . ' ' . $mainTitle;
         file_put_contents($saveFile, $mainTitle . $message . "\n\n" . str_repeat('-', 80) ."\n", FILE_APPEND);
     }
 
