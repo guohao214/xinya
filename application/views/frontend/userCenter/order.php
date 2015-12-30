@@ -56,11 +56,11 @@
 
 
                                     <?php if ($od['order_sign'] == OrderModel::ORDER_PAYED): ?>
-                                    <samp class="colorW count_ON">待消费</samp>
+                                        <samp class="colorW count_ON">待消费</samp>
                                     <?php endif; ?>
 
                                     <?php if ($od['order_sign'] == OrderModel::ORDER_CONSUMED): ?>
-                                    <samp class="colorW count_ON">已消费</samp>
+                                        <samp class="colorW count_ON">已消费</samp>
                                     <?php endif; ?>
 
 
@@ -75,7 +75,7 @@
                            href="<?php echo UrlUtil::createUrl('order/pay/' . $od['order_no']); ?>">去支付</a>
                     <?php endif; ?>
                     <i class="colorH">总金额:<strong class="F18 colorR">￥<?php echo $totalAmount; ?></strong></i>
-                    <P><samp class="colorH">支付状态：</samp><?php echo $od['order_status']; ?></P>
+                    <P><samp class="colorH">订单状态：</samp><?php echo $od['order_status']; ?></P>
                     <?php if ($od['order_sign'] == OrderModel::ORDER_PAYED): ?>
                         <P><samp class="colorH">支付时间：</samp><?php echo $od['pay_time']; ?></P>
                     <?php endif; ?>
