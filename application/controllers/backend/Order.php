@@ -24,7 +24,9 @@ class Order extends BackendController
 
         // 获得查询参数， 查询参数都为like模糊查询
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
-        $orders = (new CurdUtil($this->orderModel))->readLimit($where, $limit);
+        $this->db->select('*');
+        $this->db->select('order_status+0 as order_sign', false);
+        $orders = (new CurdUtil($this->orderModel))->readLimit($where, $limit, 'order_id desc');
         $ordersCount = (new CurdUtil($this->orderModel))->count($where);
         $pages = (new PaginationUtil($ordersCount))->pagination();
         $shops = (new ShopModel())->getAllShops();
@@ -61,6 +63,22 @@ class Order extends BackendController
             $this->message('订单删除成功！', 'order/index');
         else
             $this->message('订单删除失败！', 'order/index');
+    }
+
+    /**
+     * 订单已消费
+     * @param string $order_id
+     */
+    public function completeOrder($order_id = '')
+    {
+        if (!$order_id)
+            $this->message('订单ID不能为空！');
+
+        if ((new CurdUtil($this->orderModel))->update(array('order_id' => $order_id),
+            array('order_status' => OrderModel::ORDER_CONSUMED, 'complete_time' => DateUtil::now())))
+            $this->message('订单已消费！', 'order/index');
+        else
+            $this->message('处理失败！', 'order/index');
     }
 
     /**

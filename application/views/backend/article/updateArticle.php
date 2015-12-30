@@ -30,8 +30,9 @@
             <tr>
                 <th><i class="require-red">*</i>内容：</th>
                 <td>
-                    <textarea name="content"
-                              class="common-textarea" rows="10"><?php echo $article['content']; ?></textarea></td>
+
+                <?php echo $this->view('backend/editor', array('editorName' =>'content',
+                    'content' => $article['content'])); ?>
             </tr>
 
             <tr>

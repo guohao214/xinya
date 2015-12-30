@@ -41,7 +41,7 @@
 
             <tr>
                 <th>金额：</th>
-                <td><?php echo $order['total_fee']; ?></td>
+                <td>￥<?php echo $order['total_fee']; ?></td>
                 <th>订单状态：</th>
                 <td><?php echo $order['order_status']; ?></td>
             </tr>
@@ -55,7 +55,7 @@
 
             <tr>
                 <th>订单门店：</th>
-                <td><?php echo $shops[$order['shop_id']]; ?></td>
+                <td><?php echo ($order['shop_id']) ?$shops[$order['shop_id']] : '所有门店'; ?></td>
                 <th>完成时间：</th>
                 <td><?php echo $order['complete_time'] ? $order['complete_time'] : '未完成'; ?></td>
             </tr>
