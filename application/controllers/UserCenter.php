@@ -15,7 +15,7 @@ class UserCenter extends FrontendController
 
     public function order($offset = 0, $orderStatus = 0)
     {
-        
+
         // 验证是否已授权
         $weixin = new WeixinUtil();
 

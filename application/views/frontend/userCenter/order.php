@@ -49,9 +49,11 @@
                                 <?php else: ?>
                                     <p>消费码:<span class="F14">无</span></p>
                                 <?php endif; ?>
+
                                 <i class="order_list_i">
                                     <strong class="FN colorH">价格:<b
                                             class="F14">￥<?php echo number_format($od['total_fee'], 2); ?></b></strong>
+
 
                                     <?php if ($od['order_sign'] == OrderModel::ORDER_PAYED): ?>
                                     <samp class="colorW count_ON">待消费</samp>
@@ -77,6 +79,7 @@
                     <?php if ($od['order_sign'] == OrderModel::ORDER_PAYED): ?>
                         <P><samp class="colorH">支付时间：</samp><?php echo $od['pay_time']; ?></P>
                     <?php endif; ?>
+                    <p><samp class="colorH">下单时间：</samp><?php echo $od['create_time']; ?></p>
                 </dd>
             </dl>
         <?php endforeach; ?>
