@@ -12,6 +12,40 @@ class OrderModel extends BaseModel
         $this->table = 'order';
     }
 
+    public function orders($where = array())
+    {
+        $this->db->select('*');
+        $this->db->select('order_status+0 as order_sing', false);
+        $this->db->from($this->table);
+        $this->db->where($where);
+
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    /**
+     * 设置订单为已支付
+     * @param $orderNo
+     * @param $openId
+     * @param $wxOrderNo 微信订单号
+     */
+    public function payed($orderNo, $wxOrderNo)
+    {
+        $where = array('order_no' => $orderNo);
+
+        $updateData = array(
+            'pay_time' => DateUtil::now(),
+            'order_status' => self::ORDER_PAYED,
+            'transaction_id' => $wxOrderNo,
+        );
+
+        $this->db->where($where);
+        $this->db->update($this->table, $updateData);
+
+        return $this->db->affected_rows();
+    }
+
     /**
      * @param $where
      * @return mixed

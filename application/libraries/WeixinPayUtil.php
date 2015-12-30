@@ -71,21 +71,21 @@ class WeixinPayUtil
      */
     public function notifyData()
     {
-        $notify = new Notify_pub();
+        $notify = new Notify_pub($this);
 
         $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
 
         $notify->saveData($xml);
 
-        if ($notify->checkSign($this->apiKey) == FALSE) {
+        LogUtil::weixinLog('异步回调参数：', $notify->data);
+
+        if ($notify->checkSign() == FALSE) {
             $notify->setReturnParameter("return_code", "FAIL"); //返回状态码
             $notify->setReturnParameter("return_msg", "签名失败"); //返回信息
             return $notify->returnXml();
         }
 
-        $this->noticeData = $notify->data;
-
-        return true;
+        return $notify->data;
 
     }
 
@@ -94,7 +94,7 @@ class WeixinPayUtil
      */
     public function notifyFailure()
     {
-        $notify = new Notify_pub();
+        $notify = new Notify_pub($this);
         $notify->setReturnParameter("return_code", "FAIL"); //返回状态码
         $notify->setReturnParameter("return_msg", "处理失败"); //返回信息
 
@@ -109,7 +109,7 @@ class WeixinPayUtil
      */
     public function notifyPayed()
     {
-        $notify = new Notify_pub();
+        $notify = new Notify_pub($this);
         $notify->setReturnParameter("return_code", "SUCCESS"); //返回状态码
         $notify->setReturnParameter("return_msg", "已经支付"); //返回信息
 
