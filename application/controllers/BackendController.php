@@ -12,6 +12,10 @@ class BackendController extends BaseController
     public function __construct()
     {
         parent::__construct();
+
+        if (!UserUtil::getUserId())
+            ResponseUtil::redirect(UrlUtil::createBackendUrl('login'));
+
     }
 
     /**
@@ -22,6 +26,11 @@ class BackendController extends BaseController
     public function view($view, $vars = array())
     {
         parent::see('backend', $view, $vars);
+    }
+
+    public function message($message, $returnBack = '')
+    {
+        parent::message($message, 'backend/'. $returnBack);
     }
 
 } 

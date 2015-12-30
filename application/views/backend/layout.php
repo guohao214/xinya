@@ -13,14 +13,14 @@
         <div class="topbar-logo-wrap clearfix">
             <ul class="navbar-list clearfix">
                 <li><a class="on" href="<?php echo UrlUtil::createBackendUrl('project/index'); ?>">首页</a></li>
-                <li><a href="<?php echo UrlUtil::createUrl('front/index'); ?>" target="_blank">网站首页</a></li>
+                <li><a href="<?php echo UrlUtil::createUrl('project/index'); ?>" target="_blank">网站首页</a></li>
             </ul>
         </div>
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
-                <li><a href="#">管理员</a></li>
-                <li><a href="#">修改密码</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a><?php echo UserUtil::getUserName(); ?></a></li>
+                <li><a href="<?php echo UrlUtil::createBackendUrl('user/changePassword/' . UserUtil::getUserId()); ?>">修改密码</a></li>
+                <li><a href="<?php echo UrlUtil::createBackendUrl('login/logout'); ?>">退出</a></li>
             </ul>
         </div>
     </div>
