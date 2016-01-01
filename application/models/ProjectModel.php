@@ -28,8 +28,8 @@ class ProjectModel extends BaseModel
         $validate->maxLength('suitable_skin', 500);
 
         $validate->required('effects');
-        $validate->minLength('effects', 1);
-        $validate->maxLength('effects', 500);
+//        $validate->minLength('effects', 1);
+//        $validate->maxLength('effects', 500);
 
         return $validate;
     }
