@@ -20,9 +20,11 @@ class Project extends FrontendController
         $projects = (new ProjectModel())->allProjectsGroupByCategoryId($shopId);
         $shops = (new ShopModel())->getAllShops();
         $categories = (new CategoryModel())->getAllCategories();
+        $sliders = (new SliderModel())->getAllSlider();
+
 
         $this->view('project/index', array('shops' => $shops, 'projects' => $projects,
-            'categories' => $categories, 'shopId' => $shopId));
+            'categories' => $categories, 'shopId' => $shopId, 'sliders' => $sliders));
     }
 
     public function detail($projectId)
