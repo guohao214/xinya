@@ -36,25 +36,8 @@ $(document).ready(function () {
     })
 });
 
-positionTool = {
-    position: function ($ele) {
-        var $scrollTop = document.body.scrollTop,
-            $screenHeight = window.screen.height,
-            $screenWidth = window.screen.width;
-
-        var $eleWidth = $ele.width(),
-            $eleHeight = $ele.height();
-
-        $ele.css('top', ($scrollTop + $screenHeight / 2) - $eleHeight + 'px');
-        $ele.css('left', ($screenWidth - $eleWidth) / 2 + 'px');
-    }
-}
-
-
 messageTool = {
     show: function ($msg) {
-        //计算位置
-        positionTool.position($('#message'));
         ajaxNoticeTool.hide();
         $('#message').html($msg).fadeIn('normal', function () {
             messageTool.hide();
@@ -69,12 +52,9 @@ messageTool = {
 
 ajaxNoticeTool = {
     show: function () {
-        //计算位置
-        positionTool.position($('#load'));
         $('#load').fadeIn();
     },
     hide: function () {
         $('#load').fadeOut();
     }
 }
-
