@@ -35,6 +35,10 @@ class Order extends FrontendController
         if ($orders[0]['order_status'] == OrderModel::ORDER_PAYED)
             $this->message('订单已经支付！');
 
+        // 订单时间
+        if (!DateUtil::orderIsValidDate($orders[0]['create_time']))
+            $this->message('订单已经过期!');
+
         $_orders = array();
         $totalAmount = 0;
 
