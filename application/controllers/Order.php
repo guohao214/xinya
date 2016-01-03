@@ -28,6 +28,13 @@ class Order extends FrontendController
         if (!$orders)
             $this->message('订单不存在！');
 
+        if (!isset($orders[0])) {
+            $this->message('订单不存在！');
+        }
+
+        if ($orders[0]['order_status'] == OrderModel::ORDER_PAYED)
+            $this->message('订单已经支付！');
+
         $_orders = array();
         $totalAmount = 0;
 

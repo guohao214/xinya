@@ -115,7 +115,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .order_list dt .order_list_dtDiv img{width:75px; height:75px; float:left; margin-right:10px;}
 .order_list dt .order_list_dtDiv samp{}
 .order_list dt .order_list_dtDiv i strong b{margin-left:5px;}
-.order_list dt .order_list_dtDiv i samp{float:right; padding:1px 5px; background:#FF8CB3;  -webkit-border-radius:5px;}
+.order_list dt .order_list_dtDiv i samp{float:right; padding:1px 5px; background:#FF8CB3;  -webkit-border-radius:5px;margin-top: -30px;}
 .order_list dt .order_list_dtDiv i .count{width:75px; height:25px; line-height:25px; position:absolute; bottom:40px; right:0}
 .order_list dt .order_list_dtDiv i .count a{font-size:25px; float:left; display:block; display:block; height:25px; line-height:25px;width: 20px;text-align: center; color:white;}
 .order_list dt .order_list_dtDiv i .count input{width:35px; line-height:25px; text-align:center; overflow:hidden; border:none; float:left;}
