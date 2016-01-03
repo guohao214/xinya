@@ -17,12 +17,13 @@ class ShopModel extends BaseModel
     public function allShops()
     {
         $shops = $this->getCache($this->cacheName);
-        if ($shops)
-            return $shops;
-        else {
+
+        if (!$shops) {
             $shops = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
             $this->setCache($this->cacheName, $shops);
         }
+
+        return $shops;
     }
 
     public function getAllShops()

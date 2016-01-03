@@ -30,7 +30,7 @@
                 </div>
                 <?php foreach ($project as $pj): ?>
                     <div class="item ">
-                        <a href="<?php echo UrlUtil::createUrl('project/detail/' . $pj['project_id']); ?>" title="测试1">
+                        <a href="<?php echo UrlUtil::createUrl('project/detail/' . $pj['project_id']); ?>">
                             <dl>
                                 <dt>
                                     <img

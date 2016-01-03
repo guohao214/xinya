@@ -22,6 +22,7 @@ class Project extends FrontendController
         $categories = (new CategoryModel())->getAllCategories();
         $sliders = (new SliderModel())->getAllSlider();
 
+        $this->output->cache($this->cacheTime);
 
         $this->view('project/index', array('shops' => $shops, 'projects' => $projects,
             'categories' => $categories, 'shopId' => $shopId, 'sliders' => $sliders));
@@ -37,6 +38,8 @@ class Project extends FrontendController
         $project = (new ProjectModel())->readOne($projectId);
         if (!$project)
             $this->message('获取项目详情失败，请重试！');
+
+        $this->output->cache($this->cacheTime);
 
         $this->load->view('frontend/project/detail', array('project' => $project));
     }

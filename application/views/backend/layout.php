@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/common.css?v=2015010302"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/main.css?v=2015010302"/>
     <script src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
 </head>
 <body>

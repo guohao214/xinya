@@ -30,10 +30,8 @@ class CategoryModel extends BaseModel
 
     public function getAllCategories()
     {
-        $categories = $this->getCache($this->cacheName);
-        if ($categories)
-            return $categories;
-        else {
+        $_categories = $this->getCache($this->cacheName);
+        if (!$_categories) {
             $categories = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
             $_categories = array();
 
@@ -42,8 +40,9 @@ class CategoryModel extends BaseModel
             }
 
             $this->setCache($this->cacheName, $_categories);
-            return $_categories;
         }
+
+        return $_categories;
     }
 
     public function rules()

@@ -51,4 +51,9 @@ class CartUtil
     {
         return array_filter($this->cart[$this->cartSign]);
     }
+
+    public function emptyCart()
+    {
+        unset($this->cart[$this->cartSign]);
+    }
 }

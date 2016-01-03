@@ -17,7 +17,7 @@
 .crumb-wrap{height: 40px;line-height: 39px;border-bottom: 1px solid #e5e5e5;background: #f5f5f5;}
 .crumb-list{padding-left: 12px;}
 .crumb-list .icon-font{margin-right: 5px;}
-.crumb-step{margin: 0 5px;color: #b2c2e0;font-family: serif;}
+.crumb-step{margin: 0 5px;color: #b2c2e0;font-family: 'Microsoft YaHei',arial,helvetica,sans-serif;}
 .search-wrap{padding: 15px 0;border-bottom: 1px solid #e5e5e5;}
 .search-tab tr{line-height: 35px;}
 .search-tab th{text-align: right;padding-right:10px;font-weight: normal;}
