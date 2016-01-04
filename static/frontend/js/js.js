@@ -36,16 +36,11 @@ $(document).ready(function () {
     })
 });
 
-
 messageTool = {
-    show: function ($message) {
+    show: function ($msg) {
         ajaxNoticeTool.hide();
-
-        setTimeout(function () {
-            $('#message').html($message);
-            $('#message').fadeIn('normal', function () {
-                messageTool.hide();
-            })
+        $('#message').html($msg).fadeIn('normal', function () {
+            messageTool.hide();
         })
     },
     hide: function () {
@@ -55,7 +50,6 @@ messageTool = {
     }
 }
 
-
 ajaxNoticeTool = {
     show: function () {
         $('#load').fadeIn();
@@ -64,4 +58,3 @@ ajaxNoticeTool = {
         $('#load').fadeOut();
     }
 }
-

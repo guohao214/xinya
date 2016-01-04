@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    font: 14px '微软雅黑';
+    font: 14px 'Microsoft YaHei',arial,helvetica,sans-serif;
     word-wrap: break-word;
     word-break: break-all;
     -webkit-text-size-adjust: none;
@@ -777,7 +777,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 .select {
     display: block;
     width: auto;
-    height: 30px;
+    height: 33px;
     padding: 6px 14px;
     font-size: 14px;
     line-height: 1.42857143;

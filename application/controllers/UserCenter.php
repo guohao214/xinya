@@ -64,4 +64,16 @@ class UserCenter extends FrontendController
 
         $this->view('userCenter/order', array('pages' => $pages, 'orders' => $_orders, 'shops' => $shops, 'offset' => $offset));
     }
+
+
+    public function xinya($alias)
+    {
+        $article = (new CurdUtil(new ArticleModel()))
+            ->readOne(array('alias_name' => $alias, 'disabled' => 0));
+
+        if (!$article)
+            $this->message('信息不存在!');
+
+        $this->view('article/index', array('article' => $article));
+    }
 }

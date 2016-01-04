@@ -35,7 +35,6 @@ class Cart extends FrontendController
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));
         }
 
-
         $cart = (new CartUtil())->cart();
         $projectIds = array_keys($cart);
         $projects = array();
@@ -169,6 +168,7 @@ class Cart extends FrontendController
         } else {
             $this->db->trans_commit();
             // 清空购物车
+            (new CartUtil())->emptyCart();
             // 跳到 订单显示
             ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
         }

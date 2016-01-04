@@ -22,9 +22,9 @@
                 <a>
                     <h3 class="F14 FN"><?php echo $order['project_name']; ?></h3>
                 </a>
-                <strong class="FN colorH">价格:<b class="F14">￥<?php echo $order['total_fee']; ?></b></strong>
-                <p></p>
-                <strong class="add FN colorH">金额:<b class="F14">￥
+                <p>消费码:<span class="F14">无</span></p>
+                <strong class="FN colorH">价格:<b class="F14 price">￥<?php echo $order['total_fee']; ?></b></strong>
+                <strong class="add FN colorH">金额:<b class="F14 price">￥
                         <?php echo number_format($order['buy_counts'] * $order['total_fee'], 2); ?></b></strong>
                 <i class="order_list_i">
                     <samp class="colorW count_ON">
@@ -38,6 +38,7 @@
                 <a class="colorW" onclick="pay()">马上支付</a>
                 <i class="colorH">总金额:<strong class="F18 colorR">￥<?php echo number_format($totalAmount, 2); ?></strong></i>
                 <P><samp class="colorH">支付状态：</samp>未支付</P>
+                <P><samp class="colorH">下单时间：</samp><?php echo $order['create_time']; ?></P>
             </dd>
         </dl>
 

@@ -3,7 +3,7 @@
 <body>
 <header>
     <a class="prev j_prePage" href="javascript:window.history.back();"></a>
-    <h2><?php echo $project['project_name']; ?> 详情</h2>
+    <h2><?php echo $project['project_name']; ?></h2>
 </header>
 <section>
     <div class="project_top">
@@ -13,27 +13,24 @@
         </div>
         <div class="item_b">
             <strong class="hide F18 FB"><?php echo $project['project_name']; ?></strong>
-            <p>价格：￥<?php echo $project['price']; ?></p>
+            <p class="F13 price">价格：￥<?php echo $project['price']; ?></p>
             <p>服务时限：<i></i><?php echo $project['use_time']; ?>分钟</p>
 
         </div>
         <div class="item_desc">
-            <ul class="tags">
-                <li class="F12">适用皮肤</li>
-            </ul>
             <p><?php echo $project['suitable_skin']; ?></p>
         </div>
 
         <div class="item_desc">
             <ul class="tags">
-                <li class="F12">功效</li>
+                <li class="F15">功效</li>
             </ul>
             <p><?php echo $project['effects']; ?></p>
         </div>
     </div>
 </section>
 <footer>
-    <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>">预约</a>
+    <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>">加入购物车</a>
 </footer>
 
 <script>
@@ -43,7 +40,7 @@
 
             $.getJSON(document_root + 'cart/addCart/' + $projectId, {}, function (data) {
                 if (data.status == 1) {
-                    messageTool.show('谢谢,预约成功！');
+                    messageTool.show('加入购物车成功！');
                 }
             })
         })

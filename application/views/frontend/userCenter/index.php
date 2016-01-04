@@ -11,25 +11,20 @@
             </a>
         </li>
         <li>
-            <a href="http://eqxiu.com/s/BqDL10ek">
+            <a href="<?php echo UrlUtil::createUrl('userCenter/xinya/pinpaijieshao'); ?>">
                 <div></div>
                 品牌介绍
             </a>
         </li>
         <li>
-            <a href="http://eqxiu.com/s/8nk3HFTJ">
+            <a href="<?php echo UrlUtil::createUrl('userCenter/xinya/xiangmujieshao'); ?>">
                 <div></div>
                 项目介绍
             </a>
         </li>
+
         <li>
-            <a href="http://eqxiu.com/s/49v1ZuTZ">
-                <div></div>
-                店铺分配
-            </a>
-        </li>
-        <li>
-            <a href="<?php echo UrlUtil::createUrl('xinya/ruhuitehui'); ?>">
+            <a href="<?php echo UrlUtil::createUrl('userCenter/xinya/ruhuitehui'); ?>">
                 <div></div>
                 入会特惠
             </a>

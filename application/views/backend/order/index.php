@@ -24,7 +24,10 @@
                     <td><input class="common-text" placeholder="订单号"
                                name="order_no" value="<?php echo defaultValue($params['order_no']); ?>" type="text">
                     </td>
-
+                </tr>
+            </table>
+            <table class="search-tab">
+                <tr>
                     <th width="70">联系人:</th>
                     <td><input class="common-text" placeholder="联系人"
                                name="user_name" value="<?php echo defaultValue($params['user_name']); ?>" type="text">
@@ -61,7 +64,7 @@
                     <th width="150">下单时间</th>
                     <!--                    <th width="150">支付时间</th>-->
                     <!--                    <th width="150">完成时间</th>-->
-                    <th width="210">操作</th>
+                    <th width="140">操作</th>
                 </tr>
                 <?php foreach ($orders as $order): ?>
                     <tr>
@@ -83,10 +86,10 @@
                             <a class="link-del btn btn-danger"
                                href="<?php echo UrlUtil::createBackendUrl('order/deleteOrder/' . $order['order_id']); ?>">删除</a>
 
-                            <?php if ($order['order_sign'] == OrderModel::ORDER_PAYED): ?>
-                            <a class="link-complete btn btn-warning"
-                               href="<?php echo UrlUtil::createBackendUrl('order/completeOrder/' . $order['order_id']); ?>">已消费</a>
-                        <?php endif; ?>
+                            <?php if ($order['order_sign'] == OrderModel::ORDER_PAYED): ?><br>
+                                <a class="link-complete btn btn-warning"
+                                   href="<?php echo UrlUtil::createBackendUrl('order/completeOrder/' . $order['order_id']); ?>">已消费</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

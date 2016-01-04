@@ -7,7 +7,7 @@
 <footer>
     <a class="cur" href="<?php echo UrlUtil::createUrl('project/index'); ?>" data-path="project">
         <i></i>
-        <span>预约</span>
+        <span>首页</span>
     </a>
     <a href="<?php echo UrlUtil::createUrl('shop/index'); ?>" data-path="shop">
         <i></i>

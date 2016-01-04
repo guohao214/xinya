@@ -120,4 +120,103 @@ class WeixinUtil
         return true;
     }
 
+       public function sendLotteryTemplateMessage($sylOrderNo = '', $openId = '', $productName = '', $wx_accesstoken = '')
+    {
+        $template = array(
+            "touser" => $openId,
+            "template_id" => "qeWn-8WEntS62mBxVG1mMIXSUv5vRv7eX9NR44bMjug",
+            "url" => Yii::app()->params['host'] . Yii::app()->controller->createUrl('store/index'),
+            "topcolor" => "#FF0000",
+            "data" => array(
+                "first" => array( //描述
+                    "value" => "您好，您的中奖商品为：{$productName}，订单号为：{$sylOrderNo}",
+                    "color" => "#173177"
+                ),
+
+                "keyword1" => array( //购买门店
+                    "value" => "思妍丽微商城",
+                    "color" => "#173177"
+                ),
+
+                "keyword2" => array( //购买时间
+                    "value" => date('Y-m-d'),
+                    'color' => "#173177"
+                ),
+
+                "remark" => array( //备注
+                    "value" => "您的中奖商品已与订单号：{$sylOrderNo}绑定，请尽快到门店兑换。击消息查询门店地址",
+                    "color" => "#c9151b"
+                )
+            )
+        );
+
+        $data = json_encode($template);
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $wx_accesstoken;
+
+        /**
+         * {
+         * "errcode":0,
+         * "errmsg":"ok",
+         * "msgid":200228332
+         * }
+         */
+
+        $response = $this->postReadApi($url, $data);
+
+        return $response;
+    }
+
+    /**
+     * 发送模板消息
+     *
+     * @param $lotteryCode 中奖码
+     */
+    public function sendTemplateMessage($sylOrderNo = '', $lotteryCode = '', $first = '', $openId = '', $wx_accesstoken = '')
+    {
+        $template = array(
+            "touser" => $openId,
+            "template_id" => "2pToA21-ULAImOjZoBxEunX4ldFH6suKPZlwcOToMfc",
+            "url" => Yii::app()->params['host'] . Yii::app()->controller->createUrl('game/index', array('lottery_code' => $lotteryCode)),
+            "topcolor" => "#FF0000",
+            "data" => array(
+                "first" => array( //描述
+                    "value" => "您好，谢谢购买思妍丽商品：{$first}，您的订单号为：{$sylOrderNo}",
+                    "color" => "#173177"
+                ),
+
+                "keyword1" => array( //购买门店
+                    "value" => "思妍丽微商城",
+                    "color" => "#173177"
+                ),
+
+                "keyword2" => array( //购买时间
+                    "value" => date('Y-m-d'),
+                    'color' => "#173177"
+                ),
+
+                "remark" => array( //备注
+                    "value" => "谢谢购买，您的抽奖码为： $lotteryCode ，请点击消息前去抽奖",
+                    "color" => "#c9151b"
+                )
+            )
+        );
+
+        $data = json_encode($template);
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $wx_accesstoken;
+
+        /**
+         * {
+         * "errcode":0,
+         * "errmsg":"ok",
+         * "msgid":200228332
+         * }
+         */
+
+        $response = $this->postReadApi($url, $data);
+
+        return $response;
+    }
+
 }
