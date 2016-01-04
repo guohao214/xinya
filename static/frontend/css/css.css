@@ -152,7 +152,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 #msgBody #divMsgBack{display:block; _left:0px; }
 #msgBody #divMsg{display:block; _left:50%; }
 #msgBody{_overflow:hidden; }
-
+.pay {font-size: 15px;}
 .pay strong{display:block; border-top: 1px solid #FF8CB3; height:50px; margin:0 10px; border-bottom:1px solid #ececec; text-align:center; line-height:50px;}
 .pay strong a{}
 .pay strong samp{float:right; display:block; border:1px solid #FF8CB3; width:20px; height:20px; line-height:20px; -webkit-border-radius:20px; margin-top:13px; color:#FF8CB3}
@@ -208,6 +208,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
     margin-left: 10px;
     width: 70%;
     padding:5px;
+    font-size: 15px;
 }
 
 .list-page {
