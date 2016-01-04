@@ -41,7 +41,7 @@
                                     <img
                                         src="<?php echo UploadUtil::buildUploadDocPath($od['project_cover'], '100x100'); ?>"/>
                                     <h3 class="F14 FN"><?php echo $od['project_name']; ?></h3>
-                                    <b class="add FN colorH">店铺：<span>
+                                    <b class="add FN colorH">消费门店：<span>
                                     <?php echo ($order['shop_id'] && isset($shops[$od['order_id']])) ? $shops[$od['order_id']] : '所有门店'; ?>
                                 </span></b>
                                     <?php if ($od['order_sign'] == OrderModel::ORDER_PAYED || $od['order_sign'] == OrderModel::ORDER_CONSUMED): ?>
