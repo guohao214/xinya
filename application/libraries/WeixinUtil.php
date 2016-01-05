@@ -78,7 +78,7 @@ class WeixinUtil
     {
         $refreshToken = $this->getRefreshToken();
         $refreshUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={$this->appId}&grant_type=refresh_token&refresh_token={$refreshToken}";
-
+        LogUtil::weixinLog('刷新token链接：', $refreshUrl);
         $newAuthorize = RequestUtil::get($refreshUrl);
         LogUtil::weixinLog('刷新accessToken：', $newAuthorize);
 
@@ -86,6 +86,7 @@ class WeixinUtil
             return false;
 
         $this->saveAuthorize($newAuthorize);
+        return true;
     }
 
     /**

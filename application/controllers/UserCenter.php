@@ -15,7 +15,6 @@ class UserCenter extends FrontendController
 
     public function order($offset = 0, $orderStatus = 0)
     {
-
         // 验证是否已授权
         $weixin = new WeixinUtil();
 
@@ -32,7 +31,9 @@ class UserCenter extends FrontendController
         if ($openId) {
             // 刷新token过期
             if ($weixin->isNeedRefreshAccessToken())
-                $weixin->refreshAccessToken();
+                if (!$weixin->refreshAccessToken()) {
+                    ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('userCenter/order')));
+                }
         } else {
             // 去微信授权
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('userCenter/order')));
