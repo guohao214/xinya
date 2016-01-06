@@ -25,6 +25,7 @@
     .result-content1 img {
         text-align: center;
         width: 100%;
+        border-radius: 6px;;
     }
 </style>
 
