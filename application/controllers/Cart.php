@@ -29,7 +29,9 @@ class Cart extends FrontendController
         if ($openId) {
             // 刷新token过期
             if ($weixin->isNeedRefreshAccessToken())
-                $weixin->refreshAccessToken();
+                if (!$weixin->refreshAccessToken()) {
+                    ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));
+                }
         } else {
             // 去微信授权
             ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));

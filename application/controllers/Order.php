@@ -112,15 +112,16 @@ class Order extends FrontendController
 
         $orderNo = $notice['out_trade_no'];
         $wxOrderNo = $notice['transaction_id'];
+        $openId = $notice['openid'];
 
         $orderModel = new OrderModel();
         // 获得订单
         $orders = $orderModel->orders(array('order_no' => $orderNo));
-        if (!$orders)
+        if (!$orders || !$orders[0])
             exit($weixin->notifyFailure());
 
         // 判断是否已经支付
-        $order = array_pop($orders);
+        $order = $orders[0];
         if ($order['order_sign'] == OrderModel::ORDER_PAYED)
             exit($weixin->notifyPayed());
 
@@ -134,6 +135,18 @@ class Order extends FrontendController
             exit($weixin->notifyFailure());
         } else {
             $this->db->trans_commit();
+            // 获得access token
+            $weixinUtil = new WeixinUtil();
+            $token = $weixinUtil->getToken();
+            if ($token) {
+                foreach ($orders as $order) {
+                    $orderNo = $order['order_no'];
+                    $consumeCode = $order['consume_code'];
+                    // 发送模板消息
+                    $weixinUtil->sendOrderMessage($orderNo, $consumeCode, $openId, $token);
+                }
+            }
+
             exit($weixin->notifySuccess());
         }
     }
