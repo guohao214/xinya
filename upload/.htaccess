@@ -1,0 +1,7 @@
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|css|js)$">
+Header set Cache-Control "max-age=2592000"
+</FilesMatch>
+
+<ifmodule mod_deflate.c>  
+AddOutputFilter DEFLATE html xml php js css  
+</ifmodule>

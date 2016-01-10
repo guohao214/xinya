@@ -62,13 +62,13 @@ class WeixinUtil
     }
 
     /**
-     * 是否需要刷新fresh
+     * 是否需要刷新fresh 5400秒之内不用刷新。
      */
     public function isNeedRefreshAccessToken()
     {
         $saveTime = $this->getSaveTime();
         // expires_in为7200
-        return time() > $saveTime + 7200;
+        return time() > $saveTime + 5400;
     }
 
     /**
