@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: GuoHao
  * Date: 2015/12/27
  * Time: 0:31
  */
-
 class Project extends FrontendController
 {
     /**
@@ -22,7 +22,7 @@ class Project extends FrontendController
         $categories = (new CategoryModel())->getAllCategories();
         $sliders = (new SliderModel())->getAllSlider();
 
-        $this->output->cache($this->cacheTime);
+        $this->outputCache();
 
         $this->view('project/index', array('shops' => $shops, 'projects' => $projects,
             'categories' => $categories, 'shopId' => $shopId, 'sliders' => $sliders));
@@ -39,7 +39,7 @@ class Project extends FrontendController
         if (!$project)
             $this->message('获取项目详情失败，请重试！');
 
-        $this->output->cache($this->cacheTime);
+        $this->outputCache();
 
         $this->load->view('frontend/project/detail', array('project' => $project));
     }

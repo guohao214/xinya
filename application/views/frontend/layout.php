@@ -7,15 +7,15 @@
 <footer>
     <a class="cur" href="<?php echo UrlUtil::createUrl('project/index'); ?>" data-path="project">
         <i></i>
-        <span>首页</span>
+        <span>预约</span>
     </a>
     <a href="<?php echo UrlUtil::createUrl('shop/index'); ?>" data-path="shop">
         <i></i>
         <span>店铺</span>
     </a>
-    <a href="<?php echo UrlUtil::createUrl('cart/index'); ?>" data-path="cart">
+    <a href="<?php echo UrlUtil::createUrl('userCenter/order'); ?>" data-path="cart">
         <i></i>
-        <span>购物车</span>
+        <span>订单</span>
     </a>
     <a href="<?php echo UrlUtil::createUrl('userCenter/index'); ?>" data-path="userCenter">
         <i></i>

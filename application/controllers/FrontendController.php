@@ -15,6 +15,7 @@ class FrontendController extends BaseController
     {
         parent::__construct();
     }
+
     /**
      * 用于前台 layout布局的view操作
      * @param $view
@@ -22,7 +23,16 @@ class FrontendController extends BaseController
      */
     public function view($view, $vars = array())
     {
-       parent::see('frontend', $view, $vars);
+        parent::see('frontend', $view, $vars);
+    }
+
+    public function outputCache($cacheTime = '')
+    {
+        return false;
+        if (!$cacheTime)
+            $cacheTime = $this->cacheTime;
+
+        $this->output->cache($cacheTime);
     }
 
 }

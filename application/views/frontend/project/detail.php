@@ -30,21 +30,8 @@
     </div>
 </section>
 <footer>
-    <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>">加入购物车</a>
+    <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>"
+        href="<?php echo UrlUtil::createUrl('appointment/project') ?>">预约</a>
 </footer>
-
-<script>
-    $(document).ready(function () {
-        $('.project_footer').on('click', function () {
-            var $projectId = parseInt($(this).attr('data-id'));
-
-            $.getJSON(document_root + 'cart/addCart/' + $projectId, {}, function (data) {
-                if (data.status == 1) {
-                    messageTool.show('加入购物车成功！');
-                }
-            })
-        })
-    })
-</script>
 </body>
 </html>

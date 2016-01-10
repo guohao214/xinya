@@ -198,4 +198,38 @@ class WeixinUtil
         return $this->templateMessage($message, $accessToken);
     }
 
+
+    /**
+     * 授权
+     * @param $returnUrl
+     * @return bool
+     */
+    public function authorize($returnUrl)
+    {
+        if (!$returnUrl)
+            get_instance()->message('授权回掉地址为空！');
+
+        // 如果是微信授权后返回
+        if (isset($_GET['code'])) {
+            // 获得accessToken
+            $callback = $this->loginCallback($_GET['code']);
+            if (!$callback)
+                get_instance()->message('获得微信授权失败，请重试！');
+        }
+
+        // 检测是否已经授权
+        $openId = $this->getOpenId();
+        if ($openId) {
+            // 刷新token过期
+            if ($this->isNeedRefreshAccessToken())
+                if (!$this->refreshAccessToken()) {
+                    ResponseUtil::redirect($this->toAuthorize(UrlUtil::createUrl($returnUrl)));
+                }
+        } else {
+            // 去微信授权
+            ResponseUtil::redirect($this->toAuthorize(UrlUtil::createUrl($returnUrl)));
+        }
+
+        return true;
+    }
 }
