@@ -18,6 +18,24 @@ class BeauticianModel extends BaseModel
      */
     public function getAllBeauticians()
     {
-         return (new CurdUtil($this))->readAll();
+        $where = array('disabled' => 0);
+         return (new CurdUtil($this))->readAll('beautician_id desc', $where);
+    }
+
+    public function rules()
+    {
+        $validate = new ValidateUtil();
+        $validate->required('name');
+        $validate->required('join_date');
+        $validate->required('shop_id');
+
+        $validate->numeric('shop_id');
+
+        return $validate;
+    }
+
+    public function readOne($beautician_id)
+    {
+        return (new CurdUtil($this))->readOne(array('beautician_id' => $beautician_id, 'disabled' => 0));
     }
 }

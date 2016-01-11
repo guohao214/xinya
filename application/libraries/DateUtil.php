@@ -29,4 +29,29 @@ class DateUtil
         $sub = ($now - $date);
         return ($sub < $subDate * 86400);
     }
+
+    /**
+     * 生成预约时间数组
+     * @param $day
+     * @param $startTime
+     * @param $endTime
+     */
+    public static function generateAppointmentTime($day, $startTime, $endTime)
+    {
+
+        $startTimeStamp = strtotime($day . ' ' . $startTime);
+        $endTimeStamp = strtotime($day . ' ' . $endTime);
+
+        $sub = $endTimeStamp - $startTimeStamp;
+
+        $times = $sub / 1800;
+
+        $appointmentTimes = array();
+
+        for ($i = 0; $i <= $times; $i++) {
+            $appointmentTimes[date('H:i', $startTimeStamp + ($i * 1800))] = 1;
+        }
+
+        return $appointmentTimes;
+    }
 } 

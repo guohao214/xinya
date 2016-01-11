@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-01-11 01:06:00
+Date: 2016-01-12 01:08:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -76,15 +76,42 @@ DROP TABLE IF EXISTS `beautician`;
 CREATE TABLE `beautician` (
   `beautician_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `shop_id` int(10) NOT NULL,
   `sex` enum('女','男') NOT NULL DEFAULT '女',
   `avatar` varchar(1000) NOT NULL,
+  `disabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `join_date` date DEFAULT NULL COMMENT '工作时间',
+  `create_time` datetime NOT NULL,
   PRIMARY KEY (`beautician_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=gbk COMMENT='美容师表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=gbk COMMENT='美容师表';
 
 -- ----------------------------
 -- Records of beautician
 -- ----------------------------
-INSERT INTO `beautician` VALUES ('1', 'zhougong', '女', '{\"file_name\":\"65a44afe1e79fcaea976a73e90056f20.jpg\",\"file_type\":\"image\\/jpeg\",\"file_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/\",\"full_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/65a44afe1e79fcaea976a73e90056f20.jpg\",\"raw_name\":\"2016-01-03\\/65a44afe1e79fcaea976a73e90056f20\",\"orig_name\":\"zhuoku106.jpg\",\"client_name\":\"zhuoku106.jpg\",\"file_ext\":\".jpg\",\"file_size\":507.62,\"is_image\":true,\"image_width\":1920,\"image_height\":1200,\"image_type\":\"jpeg\",\"image_size_str\":\"width=\\\"1920\\\" height=\\\"1200\\\"\"}');
+INSERT INTO `beautician` VALUES ('1', 'zhougong', '1', '女', '{\"file_name\":\"65a44afe1e79fcaea976a73e90056f20.jpg\",\"file_type\":\"image\\/jpeg\",\"file_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/\",\"full_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/65a44afe1e79fcaea976a73e90056f20.jpg\",\"raw_name\":\"2016-01-03\\/65a44afe1e79fcaea976a73e90056f20\",\"orig_name\":\"zhuoku106.jpg\",\"client_name\":\"zhuoku106.jpg\",\"file_ext\":\".jpg\",\"file_size\":507.62,\"is_image\":true,\"image_width\":1920,\"image_height\":1200,\"image_type\":\"jpeg\",\"image_size_str\":\"width=\\\"1920\\\" height=\\\"1200\\\"\"}', '0', '2016-01-12', '0000-00-00 00:00:00');
+INSERT INTO `beautician` VALUES ('2', '测试', '1', '男', '{\"file_name\":\"fde56667a3298be18cda21548459a231.jpg\",\"file_type\":\"image\\/jpeg\",\"file_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-11\\/\",\"full_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-11\\/fde56667a3298be18cda21548459a231.jpg\",\"raw_name\":\"2016-01-11\\/fde56667a3298be18cda21548459a231\",\"orig_name\":\"zhuoku106.jpg\",\"client_name\":\"zhuoku106.jpg\",\"file_ext\":\".jpg\",\"file_size\":507.62,\"is_image\":true,\"image_width\":1920,\"image_height\":1200,\"image_type\":\"jpeg\",\"image_size_str\":\"width=\\\"1920\\\" height=\\\"1200\\\"\"}', '0', '2015-12-25', '2016-01-11 14:05:52');
+
+-- ----------------------------
+-- Table structure for `beautician_rest`
+-- ----------------------------
+DROP TABLE IF EXISTS `beautician_rest`;
+CREATE TABLE `beautician_rest` (
+  `beautician_rest_id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `beautician_id` int(10) unsigned NOT NULL,
+  `rest_day` date NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `disabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `ps` varchar(50) DEFAULT NULL,
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`beautician_rest_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of beautician_rest
+-- ----------------------------
+INSERT INTO `beautician_rest` VALUES ('2', '2', '2016-01-12', '15:00:00', '19:30:00', '0', '吃', '2016-01-11 15:56:07');
+INSERT INTO `beautician_rest` VALUES ('3', '2', '2016-01-13', '09:00:00', '18:30:00', '0', '吃', '2016-01-11 16:02:17');
 
 -- ----------------------------
 -- Table structure for `category`
@@ -539,6 +566,6 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'guohao', '15aca095dd2b47181d7b2c30b9da5aa1', '0', '2016-01-09 09:00:19', '2015-12-22 17:41:17');
+INSERT INTO `user` VALUES ('1', 'guohao', '15aca095dd2b47181d7b2c30b9da5aa1', '0', '2016-01-11 13:36:06', '2015-12-22 17:41:17');
 INSERT INTO `user` VALUES ('2', 'xinfei', '15aca095dd2b47181d7b2c30b9da5aa1', '1', null, '2015-12-22 17:42:33');
 INSERT INTO `user` VALUES ('5', 'tiantian', '15aca095dd2b47181d7b2c30b9da5aa1', '0', null, '2015-12-22 18:00:04');

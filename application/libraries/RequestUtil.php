@@ -60,7 +60,10 @@ class RequestUtil
         $params = self::getParams();
         if ($params) {
             array_walk($params, function (&$item, $key) {
-                $item = "{$key} like '%{$item}%'";
+                if (is_numeric($item))
+                    $item = "{$key} = {$item}";
+                else
+                    $item = "{$key} like '%{$item}%'";
             });
         }
 
@@ -72,7 +75,7 @@ class RequestUtil
         $params = self::buildLikeQueryParams();
         $params['disabled'] = 'disabled=0';
 
-        return implode('and ', $params);
+        return implode(' and ', $params);
     }
 
     public static function post($url, $data)

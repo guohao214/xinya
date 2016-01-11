@@ -56,3 +56,13 @@
 .res-lab{color: #909090;}
 .res-info{font-size: 12px;}
 .sort-input{width: 25px;text-align: center;}
+
+table td {
+    padding:5px;
+}
+
+table img {
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+}

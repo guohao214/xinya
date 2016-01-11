@@ -37,6 +37,8 @@
                     <ul class="sub-menu">
                         <li><a href="<?php echo UrlUtil::createBackendUrl('category/index') ?>"><i class="icon-font">
                                     &#xe006;</i>分类管理</a></li>
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('beautician/index') ?>"><i class="icon-font">
+                                    &#xe007;</i>美容师管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('project/index') ?>"><i class="icon-font">
                                     &#xe008;</i>项目管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('order/index') ?>"><i class="icon-font">

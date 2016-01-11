@@ -31,5 +31,4 @@ return array(
 
     'first_tag_open' => '<li>',
     'first_tag_close' => '</li>',
-
 );

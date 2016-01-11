@@ -32,7 +32,7 @@
                             <td><?php echo $category['create_time']; ?></td>
                             <td>
                                 <a class="link-update btn btn-warning"
-                                   href="<?php echo UrlUtil::createBackendUrl("category/updateCategory/{$categoryId}"); ?>"">修改</a>
+                                   href="<?php echo UrlUtil::createBackendUrl("category/updateCategory/{$categoryId}"); ?>">修改</a>
                                 <a class="link-del btn btn-danger"
                                    href="<?php echo UrlUtil::createBackendUrl("category/deleteCategory/{$categoryId}"); ?>">删除</a>
                             </td>

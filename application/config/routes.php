@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'project';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['backend/beautician/rest/(\d+)'] = 'backend/beautician/rest/$1/0';
+$route['backend/beautician/rest/(\d+)/(\d+)'] = 'backend/beautician/rest/$1/$2';
