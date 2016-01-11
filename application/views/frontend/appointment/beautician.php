@@ -7,7 +7,7 @@
 
 <style type="text/css">
 
-    #scroller, #appionment-time {
+    #beautician {
         position: relative;
         z-index: 1;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -27,10 +27,9 @@
         -ms-text-size-adjust: none;
         -o-text-size-adjust: none;
         text-size-adjust: none;
-        height: 100px;
     }
 
-    #scroller ul, #appionment-time ul {
+    #beautician ul {
         list-style: none;
         padding: 0;
         margin: 0;
@@ -39,7 +38,7 @@
         text-align: center;
     }
 
-    #scroller li, #appionment-time li {
+    #beautician li {
         display: block;
         float: left;
         width: auto;
@@ -49,25 +48,24 @@
         padding: 10px;
     }
 
-    #scroller li img {
+    #beautician li img {
         border-radius: 6px;
     }
 
-    .time {
+    .appointment-time {
         float: left;
         height: 30px;;
         width: 60px;
         border: 1px solid #CCC;
         margin: 5px;
         text-align: center;
-        line-height:30px !important;
+        line-height: 30px !important;
         text-align: center !important;
     }
-
 </style>
-<section style="padding-bottom: 0px;">
+<section style="padding-bottom: 0px;overflow: hidden !important;">
     <div class="result1" id="wrapper">
-        <div class="beautician" id="scroller">
+        <div class="beautician" id="beautician">
             <ul>
                 <?php foreach ($beauticians as $beautician): ?>
                     <li><img src="<?php echo UploadUtil::buildUploadDocPath($beautician['avatar'], '100x100'); ?>"></li>
@@ -85,80 +83,30 @@
             </ul>
         </div>
     </div>
-    <div style="padding: 0px;border:1px solid #CCc; height: 60px;">
-        <div class="result" id="wrapper1">
-            <div class="beautician" id="appionment-time" style="height: 50px;;">
-                <ul>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                    <li style="height: 30px;">2015-10-13</li>
-                </ul>
+</section>
+
+
+<section>
+    <?php $date = date('Y-m-d'); ?>
+    <select>
+        <?php for ($i = 0; $i < 15; $i++): ?>
+            <option>
+                <?php echo date('Y-m-d', strtotime("{$date} +{$i} day")); ?>
+            </option>
+        <?php endfor; ?>
+    </select>
+</section>
+
+<?php
+$time = strtotime('2015-01-11 9:00:00');
+?>
+<section style="padding-bottom: 0px;overflow: hidden !important;clear: both">
+    <div id="appointment-date">
+        <?php for ($i = 0; $i < 30; $i++): ?>
+            <div class="appointment-time">
+                <div class="time-date"><?php echo date('H:i', ($time + ($i * 1800))); ?></div>
             </div>
-        </div>
-    </div>
-
-    <div style="padding:0px 10px; width: 340px; margin:0px auto;overflow: scroll !important;">
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-        <div class="time">
-            <div class="time-date">10:30</div>
-        </div>
-
+        <?php endfor; ?>
     </div>
 </section>
 <script type="text/javascript">
@@ -169,15 +117,15 @@
         $('#scroller').css('width', scroolLength + 'px');
 
         var beauticians = $('#appionment-time li').length;
-        var scroolLength = beauticians * 100;
+        var scroolLength = beauticians * 120;
         $('#appionment-time').css('width', scroolLength + 'px');
 
         var myScroll;
-        myScroll = new IScroll('#wrapper', {scrollX: true, scrollY: false, mouseWheel: true});
+        myScroll = new IScroll('#wrapper', {scrollX: true, scrollY: false, mouseWheel: false});
 
         var myScroll1;
 
-        myScroll1 = new IScroll('#wrapper1', {scrollX: true, scrollY: false, mouseWheel: true});
+        myScroll1 = new IScroll('#wrapper1', {scrollX: true, scrollY: false, mouseWheel: false});
 
         document.addEventListener('touchmove', function (e) {
             e.preventDefault();
