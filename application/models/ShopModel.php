@@ -61,4 +61,17 @@ class ShopModel extends BaseModel
 
         return $validate;
     }
+
+    /**
+     * 检测是否为有效的店铺ID
+     * @param $shopId
+     * @return  bool
+     */
+    public function isValidShopId($shopId)
+    {
+        $shopId += 0;
+        $shops = $this->getAllShops();
+
+        return (array_key_exists($shopId, $shops));
+    }
 } 

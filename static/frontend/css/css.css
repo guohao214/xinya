@@ -112,7 +112,7 @@ a#bind{ display: block; margin: 15px 30px; height: 45px; line-height: 45px; colo
 .order_list dt .order_list_dtDiv p{color:#7D7D7D; padding:5px 0px;}
 
 .order_list dt .order_list_dtDiv p span{margin-left:5px;}
-.order_list dt .order_list_dtDiv img{width:75px; height:75px; float:left; margin-right:10px;}
+.order_list dt .order_list_dtDiv img{width:90px; height:90px; float:left; margin-right:10px;}
 .order_list dt .order_list_dtDiv samp{}
 .order_list dt .order_list_dtDiv i strong b{margin-left:5px;}
 .order_list dt .order_list_dtDiv i samp{float:right; padding:1px 5px; background:#FF8CB3;  -webkit-border-radius:5px;margin-top: -30px;}

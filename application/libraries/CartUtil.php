@@ -9,7 +9,7 @@
 class CartUtil
 {
     private $cart;
-    private $cartSign = '__xinya_cart';
+    private $cartSign = '__xinya_cart_project';
 
     /**
      * CartUtil constructor.
@@ -18,38 +18,28 @@ class CartUtil
     {
         $this->cart = &$_SESSION;
         if (!isset($this->cart[$this->cartSign]))
-            $this->cart[$this->cartSign] = array();
+            $this->cart[$this->cartSign] = 0;
     }
 
+    /**
+     * 添加到购物车
+     *
+     * @param $projectId
+     * @return int
+     */
     public function addCart($projectId)
     {
-        $cart = &$this->cart[$this->cartSign];
-
-        if (isset($cart[$projectId]))
-            return $cart[$projectId] += 1;
-        else
-            return $cart[$projectId] = 1;
+        $this->cart[$this->cartSign] = $projectId;
     }
 
-    public function deleteCart($projectId)
+    public function deleteCart()
     {
-        $cart = &$this->cart[$this->cartSign];
-
-        if (isset($cart[$projectId]) && $cart[$projectId] > 0) {
-            $cart[$projectId] -= 1;
-            if ($cart[$projectId] == 0) {
-                unset($cart[$projectId]);
-            }
-            return true;
-        } else {
-            unset($cart[$projectId]);
-            return true;
-        }
+        unset($this->cart[$this->cartSign]);
     }
 
     public function cart()
     {
-        return array_filter($this->cart[$this->cartSign]);
+        return $this->cart[$this->cartSign];
     }
 
     public function emptyCart()

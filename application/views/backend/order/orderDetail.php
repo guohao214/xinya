@@ -11,32 +11,36 @@
         <table class="insert-tab" width="100%">
             <tbody>
             <tr>
-                <th width="120">订单ID：</th>
+                <th width="120">订单号：</th>
                 <td width="400">
-                    <?php echo $order['order_id']; ?>
+                    <?php echo $order['order_no']; ?>
                 </td>
-                <th width="120">消费码：</th>
+                <th width="120">预约日期：</th>
                 <td>
-                    <?php echo $order['consume_code']; ?>
+                    <?php echo $order['appointment_day']; ?>
                 </td>
             </tr>
 
             <tr>
-                <th width="120">订单号：</th>
+                <th width="120">开始时间：</th>
                 <td>
-                    <?php echo $order['order_no']; ?>
+                    <?php echo $order['appointment_start_time']; ?>
+                </td>
+                <th width="120">结束时间：</th>
+                <td>
+                    <?php echo $order['appointment_end_time']; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th width="120">美容师：</th>
+                <td>
+                    <?php echo $order['beautician_name']; ?>
                 </td>
                 <th width="120">微信订单号：</th>
                 <td>
                     <?php echo $order['transaction_id']; ?>
                 </td>
-            </tr>
-
-            <tr>
-                <th>联系人：</th>
-                <td><?php echo $order['user_name']; ?></td>
-                <th>联系方式：</th>
-                <td><?php echo $order['phone']; ?></td>
             </tr>
 
             <tr>

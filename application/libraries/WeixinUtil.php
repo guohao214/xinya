@@ -206,6 +206,8 @@ class WeixinUtil
      */
     public function authorize($returnUrl)
     {
+        return true;
+
         if (!$returnUrl)
             get_instance()->message('授权回掉地址为空！');
 

@@ -9,15 +9,18 @@
 class Appointment extends FrontendController
 {
     /**
-     * 检测是否已授权
+     * 展示预约页面
+     * 选择美容师与预约时间
+     * 此处要验证授权
+     *
+     * @param $shopId 店铺ID
      */
-    public function index()
+    public function index($shopId)
     {
         // 验证是否已授权
-        //(new WeixinUtil())->authorize('appointment/index');
+        (new WeixinUtil())->authorize('appointment/index');
 
-        //是否已经选择了店铺
-        $shopId = $this->input->get('shop_id', true);
+        //是否已经选择了店铺，并且店铺是有效的
         $shops = (new ShopModel())->getAllShops();
         if (is_numeric($shopId) && array_key_exists($shopId, $shops)) {
             // 跳转到 选择 美容师
@@ -27,5 +30,73 @@ class Appointment extends FrontendController
             // 跳转到选择店铺
         }
 
+    }
+
+    /**
+     * 获得有效的预约时间
+     * 首先查询 指定日期 美容师休息表， 获得休息时间
+     * 再查询 指定日期 美容师 已接受预定的 时间
+     *
+     * @param $beautician_id 美容师ID
+     * @param $day 查询日期
+     */
+    public function getValidAppointmentTime($beautician_id, $day)
+    {
+        if (!$beautician_id || !$day)
+            ResponseUtil::failure('参数错误!');
+
+        $today = date('Y-m-d');
+        if ($day < $today)
+            ResponseUtil::failure('错误的预约时间！');
+
+        // 查询休息时间
+        $beauticianRest = (new CurdUtil(new BeauticianRestModel()))
+            ->readOne(
+                array('beautician_id' => $beautician_id,
+                    'disabled' => 0,
+                    'rest_day' => $day), 'beautician_rest_id desc');
+
+        // 指定日期的所有预约时间段
+        $appointmentTimes = DateUtil::generateAppointmentTime($day, '09:00:00', '23:30:00');
+
+        // 美容师制定日期休息时间段
+        // 当值为0时， 说明不能预约
+        if ($beauticianRest) {
+            $beauticianRestAppointmentTimes = DateUtil::generateAppointmentTime($day,
+                $beauticianRest['start_time'], $beauticianRest['end_time']);
+
+            foreach ($appointmentTimes as $k => $time) {
+                if (array_key_exists($k, $beauticianRestAppointmentTimes))
+                    $appointmentTimes[$k] = 0;
+            }
+        }
+
+        // 获得制定日期已经预约的时间段，订单状态为已支付
+        $payedOrders = (new OrderModel())->getOrderByBeauticianIdAndAppointmentDay($beautician_id, $day);
+        if ($payedOrders) {
+            foreach ($payedOrders as $payedOrder) {
+                $orderAppointmentTime = DateUtil::generateAppointmentTime($payedOrder,
+                    $payedOrder['appointment_start_time'], $payedOrder['appointment_end_time']);
+
+                foreach ($appointmentTimes as $k => $time) {
+                    if (array_key_exists($k, $orderAppointmentTime))
+                        $appointmentTimes[$k] = 0;
+                }
+            }
+        }
+
+        // 小于当前时间不能预约
+        if ($today == $day) {
+            $now = date('H:i');
+            foreach ($appointmentTimes as $k => $time) {
+                if ($k < $now)
+                    $appointmentTimes[$k] = 0;
+            }
+        }
+        // 渲染视图
+        $render = $this->load->view('frontend/appointment/appointmentTimes',
+            array('appointmentTimes' => $appointmentTimes), true);
+
+        ResponseUtil::executeSuccess('成功', $render);
     }
 }

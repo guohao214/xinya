@@ -34,17 +34,18 @@ class Order extends BackendController
             'params' => RequestUtil::getParams(), 'shops' => $shops));
     }
 
-    public function orderDetail($order_id = '')
+    public function orderDetail($order_no = '')
     {
-        if (!$order_id)
+        if (!$order_no)
             $this->message('订单ID不能为空！');
 
-        $order = (new CurdUtil($this->orderModel))->readOne(array('order_id' => $order_id, 'disabled' => 0));
+        $order = (new OrderModel())->getOrder(array('order_no' => $order_no));
         if (!$order)
             $this->message('订单信息获取失败，请重试！');
 
+        $order = array_shift($order);
         // 获得订单商品
-        $orderProjects = (new OrderProjectModel())->getOrderProject($order_id);
+        $orderProjects = (new OrderProjectModel())->getOrderProject($order['order_id']);
         $shops = (new ShopModel())->getAllShops();
         $this->view('order/orderDetail', array('order' => $order, 'shops' => $shops,
             'orderProjects' => $orderProjects));

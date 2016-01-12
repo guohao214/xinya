@@ -158,25 +158,5 @@ class Beautician extends BackendController
             $this->message('删除请假记录失败！', 'beautician/index');
     }
 
-    public function test()
-    {
 
-        // 获得
-        $beautician_id = 2;
-
-        $beauticianRests = (new CurdUtil(new BeauticianRestModel()))
-            ->readOne(array('beautician_id' => $beautician_id, 'disabled' => 0, 'rest_day' => date('Y-m-d')), 'beautician_rest_id desc');
-
-        $_appointments = DateUtil::generateAppointmentTime($beauticianRests['rest_day'], '09:00:00', '23:30:00');
-        $appointments = DateUtil::generateAppointmentTime($beauticianRests['rest_day'], $beauticianRests['start_time'], $beauticianRests['end_time']);
-
-        foreach($_appointments as $k=>$app)
-        {
-            if (array_key_exists($k, $appointments))
-                $_appointments[$k] = 0;
-        }
-
-        var_dump($_appointments);
-
-    }
 }

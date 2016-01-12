@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Created by PhpStorm.
+ * 个人中心
  * User: GuoHao
  * Date: 2015/12/26
  * Time: 23:39
@@ -15,30 +15,11 @@ class UserCenter extends FrontendController
 
     public function order($offset = 0, $orderStatus = 0)
     {
-        // 验证是否已授权
-        $weixin = new WeixinUtil();
+        $weixinUtil = new WeixinUtil();
+        // $weixinUtil->authorize('userCenter/order');
 
-        // 如果是微信授权后返回
-        if (isset($_GET['code'])) {
-            // 获得accessToken
-            $callback = $weixin->loginCallback($_GET['code']);
-            if (!$callback)
-                $this->message('获得微信授权失败，请重试！');
-        }
-
-        // 检测是否已经授权
-        $openId = $weixin->getOpenId();
-        if ($openId) {
-            // 刷新token过期
-            if ($weixin->isNeedRefreshAccessToken())
-                if (!$weixin->refreshAccessToken()) {
-                    ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('userCenter/order')));
-                }
-        } else {
-            // 去微信授权
-            ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('userCenter/order')));
-        }
-
+        $openId = $weixinUtil->getOpenId();
+        $openId = 'xxxxxxxx';
         $orderModel = new OrderModel();
 
         // 获得订单信息
@@ -46,15 +27,9 @@ class UserCenter extends FrontendController
         if ($orderStatus)
             $where['order_status'] = $orderStatus;
 
-        $orders = $orderModel->userOrders($openId, $orderStatus, $offset);
+        $orders = $orderModel->getUserOrders($openId, $orderStatus, $offset);
 
-        $_orders = array();
-        foreach ($orders as $order) {
-            $_orders[$order['order_no']][] = $order;
-        }
-
-        unset($orders, $order);
-        $orderCounts = $orderModel->userOrderCounts($openId, $orderStatus);
+        $orderCounts = $orderModel->getUserOrderCounts($openId, $orderStatus);
 
         if (isset($orderCounts[0]))
             $orderCounts = array_pop($orderCounts);
@@ -63,7 +38,7 @@ class UserCenter extends FrontendController
         $pages = (new PaginationUtil($orderCounts, 'user-center'))->pagination();
         $shops = (new ShopModel())->getAllShops();
 
-        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $_orders, 'shops' => $shops, 'offset' => $offset));
+        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $orders, 'shops' => $shops, 'offset' => $offset));
     }
 
 

@@ -33,5 +33,23 @@
     <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>"
         href="<?php echo UrlUtil::createUrl('appointment/project') ?>">预约</a>
 </footer>
+
+<script>
+    $(document).ready(function () {
+        $('.project_footer').on('click', function (e) {
+            e.preventDefault();
+            var $that = $(this);
+
+            var $projectId = parseInt($(this).attr('data-id'));
+
+            $.getJSON(document_root + 'cart/addCart/' + $projectId, {}, function (data) {
+                if (data.status == 1) {
+                    //messageTool.show('加入购物车成功！');
+                    window.location.href = $that.attr('href');
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

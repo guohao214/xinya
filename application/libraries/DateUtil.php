@@ -54,4 +54,9 @@ class DateUtil
 
         return $appointmentTimes;
     }
+
+    public static function buildDateTime($day, $time)
+    {
+        return "{$day} {$time}";
+    }
 } 

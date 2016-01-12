@@ -8,11 +8,10 @@
             <dd>
                 <div></div>
                 <samp class="order_number">订单：<span class="F14">
-                        <?php echo $orderNo; ?>
+                        <?php echo $order['order_no']; ?>
                     </span></samp>
             </dd>
             <dt>
-                <?php foreach ($orders as $order): ?>
             <div class="order_list_dtDiv">
                 <a>
                     <img
@@ -22,21 +21,16 @@
                 <a>
                     <h3 class="F14 FN"><?php echo $order['project_name']; ?></h3>
                 </a>
-                <p>消费码:<span class="F14">无</span></p>
-                <strong class="FN colorH">价格:<b class="F14 price">￥<?php echo $order['total_fee']; ?></b></strong>
-                <strong class="add FN colorH">金额:<b class="F14 price">￥
-                        <?php echo number_format($order['buy_counts'] * $order['total_fee'], 2); ?></b></strong>
-                <i class="order_list_i">
-                    <samp class="colorW count_ON">
-                        数量：<?php echo $order['buy_counts']; ?>
-                    </samp>
-                </i>
+                <p>门店:<span class="F14"><?php echo $shop; ?></span></p>
+                <strong class="FN colorH">预约时间: <?php echo $order['appointment_day'];?><br>
+                        <?php echo $order['appointment_start_time'] . ' 至 ' . $order['appointment_end_time'] ; ?></b></strong>
+                <strong class="add FN colorH">美容师:<?php echo $order['beautician_name']; ?></strong>
+                <i class="order_list_i"> </i>
             </div>
-            <?php endforeach; ?>
             </dt>
             <dd>
                 <a class="colorW" onclick="pay()">马上支付</a>
-                <i class="colorH">总金额:<strong class="F18 colorR">￥<?php echo number_format($totalAmount, 2); ?></strong></i>
+                <i class="colorH">总金额:<strong class="F18 colorR">￥<?php echo number_format($order['total_fee'], 2); ?></strong></i>
                 <P><samp class="colorH">支付状态：</samp>未支付</P>
                 <P><samp class="colorH">下单时间：</samp><?php echo $order['create_time']; ?></P>
             </dd>

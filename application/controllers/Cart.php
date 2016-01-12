@@ -65,59 +65,78 @@ class Cart extends FrontendController
         ResponseUtil::executeSuccess('添加到购物车成功!');
     }
 
+    /**
+     * 删除购物车商品， 此一版不需要
+     * @param $projectId
+     * @return bool
+     */
     public function deleteCart($projectId)
     {
-        if (!$projectId)
-            $this->message('错误的项目ID');
-
-        $projectId += 0;
-
-        (new CartUtil())->deleteCart($projectId);
-        session_write_close();
-        ResponseUtil::executeSuccess('从购物车删除成功!');
+        /**if (!$projectId)
+         * $this->message('错误的项目ID');
+         *
+         * $projectId += 0;
+         *
+         * (new CartUtil())->deleteCart($projectId);
+         * session_write_close();
+         * ResponseUtil::executeSuccess('从购物车删除成功!');*/
     }
 
     /**
      * 下单
+     * @param $shopId
+     * @param $beauticianId
+     * @param $appointmentDay
+     * @param $appointmentTime
      */
-    public function order()
+    public function order($shopId, $beauticianId, $appointmentDay, $appointmentTime)
     {
-        $weixin = new WeixinUtil();
-        $openId = $weixin->getOpenId();
+        $openId = (new WeixinUtil())->getOpenId();
         if (!$openId)
-            $this->message('错误的授权', 'cart/index');
+            $this->message('错误的授权');
+
+        if (!(new ShopModel())->isValidShopId($shopId))
+            $this->message('门店信息错误，请检查！');
+
+        // 检查美容师
+        if (!(new BeauticianModel())->isValidBeautician($beauticianId))
+            $this->message('美容师信息错误，请检查！');
+
+        // 检查日期，日期为今天或者以后
+        $today = date('Y-m-d');
+        if ($appointmentDay < $today)
+            $this->message('错误的预约日期！');
+
+        // 检查时间
+        $appointmentTime = urldecode($appointmentTime);
+        list($startTime, $endTime) = explode(',', $appointmentTime);
+        if ($endTime <= $startTime)
+            $this->message('错误的预约时间！');
+
+        // 预约时间是否小于当前时间
+        $now = date('Y-m-d H:i');
+        if (DateUtil::buildDateTime($appointmentDay, $startTime) < $now)
+            $this->message('错误的预约开始时间！');
+
+        if (DateUtil::buildDateTime($appointmentDay, $endTime) < $now)
+            $this->message('错误的预约结束时间！');
 
 
-        // 处理user_name && phone
-        $userName = $this->input->post('user_name', true);
-        $phone = $this->input->post('phone', true);
+        // 结束时间 + 30分钟为真正的结束时间
+        $timeStamp = DateUtil::buildDateTime($appointmentDay, $endTime);
+        $timeStamp += 1800;
+        $endTime = date('H:i', $timeStamp);
 
-        if (empty($userName))
-            $this->message('错误的联系人!', 'cart/index');
 
-        if (empty($phone))
-            $this->message('错误的手机号！', 'cart/index');
 
         //**********处理下单************//
-        $cart = (new CartUtil())->cart();
-        $projectIds = array_keys($cart);
-        $cartCounts = array_sum($cart);
-        $consumeCode = array();
+        $projectId = (new CartUtil())->cart();
 
-        if (empty($cart) || empty($projectIds)) {
+        if (empty($projectId) || $projectId <= 0) {
             $this->message('购物车为空！');
         }
 
-        // 生成多少个消费码
-        for ($i = 0; $i < $cartCounts; $i++) {
-            $generateConsumeCode = StringUtil::generateConsumeCode();
-            while (in_array($generateConsumeCode, $consumeCode)) {
-                $generateConsumeCode = StringUtil::generateConsumeCode();
-            }
-            $consumeCode[] = $generateConsumeCode;
-        }
-
-        // 生成订单号
+        // 生成订单号, 有重复订单号则重新生成，直到不重复为止
         $orderNo = StringUtil::generateOrderNo();
         $orderModel = new OrderModel();
         while ((new CurdUtil($orderModel))->readOne(array('order_no' => $orderNo))) {
@@ -127,40 +146,40 @@ class Cart extends FrontendController
         $orderProjectModel = new OrderProjectModel();
 
         // 获得购物车的项目
-        $projects = (new ProjectModel())->readByProjectIds($projectIds);
+        $project = (new ProjectModel())->readOne($projectId);
+
+        // 订单数据
+        $orderData = array(
+            'order_no' => $orderNo,
+            'shop_id' => $shopId,
+            'create_time' => DateUtil::now(),
+            'total_fee' => $project['price'],
+            'open_id' => $openId,
+            'order_status' => OrderModel::ORDER_NOT_PAY,
+            'beautician_id' => $beauticianId,
+            'appointment_day' => $appointmentDay,
+            'appointment_start_time' => $startTime,
+            'appointment_end_time' => $endTime
+        );
 
         // 事务开始
-        $this->db->trans_start();
-        foreach ($projects as $project) {
-            $projectCounts = $cart[$project['project_id']];
-            for ($i = 0; $i < $projectCounts; $i++) {
-                $orderData = array(
-                    'order_no' => $orderNo,
-                    'consume_code' => array_pop($consumeCode),
-                    'shop_id' => $project['shop_id'],
-                    'create_time' => DateUtil::now(),
-                    'total_fee' => $project['price'],
-                    'open_id' => $openId,
-                    'order_status' => OrderModel::ORDER_NOT_PAY,
-                    'user_name' => $userName,
-                    'phone' => $phone
-                );
-
-                $insertOrderNo = (new CurdUtil($orderModel))->create($orderData);
-
-                $orderProjectData = array(
-                    'order_id' => $insertOrderNo,
-                    'project_id' => $project['project_id'],
-                    'project_use_time' => $project['use_time'],
-                    'project_price' => $project['price'],
-                    'create_time' => DateUtil::now(),
-                    'project_name' => $project['project_name'],
-                    'project_cover' => $project['project_cover']
-                );
-
-                (new CurdUtil($orderProjectModel))->create($orderProjectData);
-            }
+        $insertOrderNo = (new CurdUtil($orderModel))->create($orderData);
+        if ($insertOrderNo) {
+            $orderProjectData = array(
+                'order_id' => $insertOrderNo,
+                'project_id' => $project['project_id'],
+                'project_use_time' => $project['use_time'],
+                'project_price' => $project['price'],
+                'create_time' => DateUtil::now(),
+                'project_name' => $project['project_name'],
+                'project_cover' => $project['project_cover']
+            );
+        } else {
+            $this->message('提交订单失败，请重试！');
         }
+
+        $this->db->trans_start();
+        (new CurdUtil($orderProjectModel))->create($orderProjectData);
 
         $this->db->trans_complete();
 

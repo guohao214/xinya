@@ -15,14 +15,12 @@ class Order extends FrontendController
     public function pay($orderNo)
     {
         // 是否授权
-        $weixin = new WeixinUtil();
-        $openId = $weixin->getOpenId();
+        $openId = (new WeixinUtil())->getOpenId();
         if (!$openId)
             $this->message('错误的授权!');
 
         // 获得订单信息
         $where = array('order_no' => $orderNo, 'open_id' => $openId);
-
         $orders = (new OrderModel())->getOrder($where, OrderModel::ORDER_NOT_PAY);
 
         if (!$orders)
@@ -32,31 +30,18 @@ class Order extends FrontendController
             $this->message('订单不存在！');
         }
 
-        if ($orders[0]['order_status'] == OrderModel::ORDER_PAYED)
+        // 如果有多条， 获得第一条的订单记录
+        $order = array_shift($orders);
+        if ($order['order_status'] == OrderModel::ORDER_PAYED)
             $this->message('订单已经支付！');
 
-        // 订单时间
-        if (!DateUtil::orderIsValidDate($orders[0]['create_time']))
+        // 订单时间, 2个小时过期
+        if (!DateUtil::orderIsValidDate($order['create_time']))
             $this->message('订单已经过期!');
-
-        $_orders = array();
-        $totalAmount = 0;
-
-        foreach ($orders as $order) {
-            $project_id = $order['project_id'];
-            $totalAmount += $order['total_fee'];
-
-            if (isset($_orders[$project_id])) {
-                $_orders[$project_id]['buy_counts'] += 1;
-            } else {
-                $_orders[$project_id] = $order;
-                $_orders[$project_id]['buy_counts'] = 1;
-            }
-        }
 
         // 获得预付款ID
         $weixinPay = new WeixinPayUtil();
-        $prePayId = $weixinPay->fetchPrepayId($openId, '购买不期而遇美容产品', $orderNo, $totalAmount);
+        $prePayId = $weixinPay->fetchPrepayId($openId, '购买不期而遇美容产品', $orderNo, $order['total_fee']);
         LogUtil::weixinLog('预付款ID：', $prePayId);
         if (!$prePayId)
             $this->message('获得微信预付款ID失败，请重试！');
@@ -65,8 +50,9 @@ class Order extends FrontendController
         $payParams = $weixinPay->getParameters($prePayId);
         LogUtil::weixinLog('支付参数：', $payParams);
 
-        $this->view('order/pay', array('orders' => $_orders, 'payParams' => $payParams,
-            'orderNo' => $orderNo, 'totalAmount' => $totalAmount));
+        $shops = (new ShopModel())->getAllShops();
+        $shop = $shops[$order['shop_id']];
+        $this->view('order/pay', array('order' => $order, 'payParams' => $payParams, 'shop' => $shop));
 
     }
 

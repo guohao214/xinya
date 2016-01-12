@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-01-12 01:08:53
+Date: 2016-01-13 01:04:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -105,12 +105,12 @@ CREATE TABLE `beautician_rest` (
   `ps` varchar(50) DEFAULT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`beautician_rest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of beautician_rest
 -- ----------------------------
-INSERT INTO `beautician_rest` VALUES ('2', '2', '2016-01-12', '15:00:00', '19:30:00', '0', '吃', '2016-01-11 15:56:07');
+INSERT INTO `beautician_rest` VALUES ('2', '2', '2016-01-12', '13:00:00', '23:30:00', '0', '吃', '2016-01-11 15:56:07');
 INSERT INTO `beautician_rest` VALUES ('3', '2', '2016-01-13', '09:00:00', '18:30:00', '0', '吃', '2016-01-11 16:02:17');
 
 -- ----------------------------
@@ -143,168 +143,26 @@ CREATE TABLE `order` (
   `order_no` varchar(50) NOT NULL COMMENT '订单号',
   `open_id` char(128) DEFAULT NULL COMMENT '用户在商户下的唯一标示',
   `shop_id` int(11) unsigned NOT NULL,
-  `consume_code` char(8) NOT NULL,
-  `user_name` varchar(50) DEFAULT NULL,
-  `phone` varchar(30) DEFAULT NULL,
   `prepay_id` char(64) DEFAULT NULL COMMENT '预支付ID',
   `transaction_id` char(32) DEFAULT NULL COMMENT '微信订单号',
   `total_fee` float(10,2) unsigned NOT NULL COMMENT '订单金额',
   `order_status` enum('未支付','已支付','已消费','已退款') NOT NULL DEFAULT '未支付' COMMENT '订单状态',
   `pay_time` datetime DEFAULT NULL COMMENT '订单支付时间',
   `complete_time` datetime DEFAULT NULL COMMENT '订单完成时间（到店内进行了美容)',
+  `beautician_id` bigint(10) unsigned NOT NULL COMMENT '预约美容师ID',
+  `appointment_day` date NOT NULL COMMENT '预约日期',
+  `appointment_start_time` time NOT NULL COMMENT '预约开始时间',
+  `appointment_end_time` time NOT NULL COMMENT '预约结束时间',
   `disabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `create_time` datetime NOT NULL COMMENT '下单时间',
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8 COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('43', '201512271625551205476783', 'ttt', '2', '51985275', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:25:55');
-INSERT INTO `order` VALUES ('44', '201512271625551205476783', 'ttt', '1', '11505211', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:25:55');
-INSERT INTO `order` VALUES ('45', '201512271625551205476783', 'ttt', '1', '25165021', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:25:55');
-INSERT INTO `order` VALUES ('46', '201512271630051209068872', 'ttt', '2', '90613872', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:30:05');
-INSERT INTO `order` VALUES ('47', '201512271630051209068872', 'ttt', '1', '27026016', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:30:05');
-INSERT INTO `order` VALUES ('48', '201512271630051209068872', 'ttt', '1', '01213852', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:30:05');
-INSERT INTO `order` VALUES ('49', '201512271630051209068872', 'ttt', '1', '82500881', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:30:05');
-INSERT INTO `order` VALUES ('50', '201512271630051209068872', 'ttt', '1', '00732199', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:30:05');
-INSERT INTO `order` VALUES ('51', '201512271655001202434173', 'ttt', '2', '58521005', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:55:00');
-INSERT INTO `order` VALUES ('52', '201512271655001202434173', 'ttt', '1', '12109750', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:55:00');
-INSERT INTO `order` VALUES ('53', '201512271655001202434173', 'ttt', '1', '67632542', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:55:00');
-INSERT INTO `order` VALUES ('54', '201512271655001202434173', 'ttt', '1', '07211492', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:55:00');
-INSERT INTO `order` VALUES ('55', '201512271655001202434173', 'ttt', '1', '2691510', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 16:55:00');
-INSERT INTO `order` VALUES ('56', '201512271710391206225994', 'ttt', '2', '35272101', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:10:39');
-INSERT INTO `order` VALUES ('57', '201512271710391206225994', 'ttt', '1', '12776511', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:10:39');
-INSERT INTO `order` VALUES ('58', '201512271710391206225994', 'ttt', '1', '22503501', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:10:39');
-INSERT INTO `order` VALUES ('59', '201512271710391206225994', 'ttt', '1', '10613212', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:10:39');
-INSERT INTO `order` VALUES ('60', '201512271710391206225994', 'ttt', '1', '20372056', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:10:40');
-INSERT INTO `order` VALUES ('61', '201512271711201201777043', 'ttt', '2', '12301272', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('62', '201512271711201201777043', 'ttt', '2', '22111112', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('63', '201512271711201201777043', 'ttt', '2', '01117020', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('64', '201512271711201201777043', 'ttt', '2', '23110067', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('65', '201512271711201201777043', 'ttt', '2', '0221271', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('66', '201512271711201201777043', 'ttt', '2', '75121103', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('67', '201512271711201201777043', 'ttt', '1', '15701420', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('68', '201512271711201201777043', 'ttt', '1', '11200167', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('69', '201512271711201201777043', 'ttt', '1', '15010120', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('70', '201512271711201201777043', 'ttt', '1', '02732211', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('71', '201512271711201201777043', 'ttt', '1', '10172191', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('72', '201512271711201201777043', 'ttt', '1', '27116220', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('73', '201512271711201201777043', 'ttt', '1', '00171121', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('74', '201512271711201201777043', 'ttt', '1', '32002519', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('75', '201512271711201201777043', 'ttt', '1', '32957154', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-27 17:11:20');
-INSERT INTO `order` VALUES ('76', '201512281031411212572126', 'ttt', '2', '02148121', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('77', '201512281031411212572126', 'ttt', '2', '21450932', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('78', '201512281031411212572126', 'ttt', '2', '69418210', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('79', '201512281031411212572126', 'ttt', '2', '11022415', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('80', '201512281031411212572126', 'ttt', '2', '5294110', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('81', '201512281031411212572126', 'ttt', '2', '30802511', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('82', '201512281031411212572126', 'ttt', '2', '3452170', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('83', '201512281031411212572126', 'ttt', '2', '13023141', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('84', '201512281031411212572126', 'ttt', '2', '01128433', null, null, null, null, '0.01', '未支付', null, null, '0', '2015-12-28 10:31:41');
-INSERT INTO `order` VALUES ('85', '201512281048221215409014', 'ttt', '0', '20122145', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('86', '201512281048221215409014', 'ttt', '0', '81290122', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('87', '201512281048221215409014', 'ttt', '0', '04151521', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('88', '201512281048221215409014', 'ttt', '0', '625588', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('89', '201512281048221215409014', 'ttt', '0', '29182182', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('90', '201512281048221215409014', 'ttt', '0', '25141286', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('91', '201512281048221215409014', 'ttt', '0', '84285812', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('92', '201512281048221215409014', 'ttt', '0', '28156432', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('93', '201512281048221215409014', 'ttt', '0', '01125862', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:48:22');
-INSERT INTO `order` VALUES ('94', '201512281050141212315365', 'ttt', '0', '11210622', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:14');
-INSERT INTO `order` VALUES ('95', '201512281050141212315365', 'ttt', '0', '4121301', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:14');
-INSERT INTO `order` VALUES ('96', '201512281050141212315365', 'ttt', '0', '20620018', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:14');
-INSERT INTO `order` VALUES ('97', '201512281050341212044986', 'ttt', '0', '32271404', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('98', '201512281050341212044986', 'ttt', '0', '31721618', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('99', '201512281050341212044986', 'ttt', '0', '01180215', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('100', '201512281050341212044986', 'ttt', '0', '40385512', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('101', '201512281050341212044986', 'ttt', '0', '38300520', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('102', '201512281050341212044986', 'ttt', '0', '04548752', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('103', '201512281050341212044986', 'ttt', '0', '03521123', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('104', '201512281050341212044986', 'ttt', '0', '22432081', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('105', '201512281050341212044986', 'ttt', '0', '76812255', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:50:34');
-INSERT INTO `order` VALUES ('106', '201512281051141212415812', 'ttt', '0', '05688214', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:51:14');
-INSERT INTO `order` VALUES ('107', '201512281051141212415812', 'ttt', '0', '01162155', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:51:14');
-INSERT INTO `order` VALUES ('108', '201512281051141212415812', 'ttt', '0', '05114404', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:51:14');
-INSERT INTO `order` VALUES ('109', '20151228105402121360889', 'ttt', '0', '09315020', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:54:02');
-INSERT INTO `order` VALUES ('110', '20151228105402121360889', 'ttt', '0', '32801842', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:54:02');
-INSERT INTO `order` VALUES ('111', '20151228105402121360889', 'ttt', '0', '24150180', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 10:54:02');
-INSERT INTO `order` VALUES ('112', '201512281112391218363304', 'ttt', '0', '11949401', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 11:12:39');
-INSERT INTO `order` VALUES ('113', '201512281135491212356306', 'ttt', '0', '32195395', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 11:35:49');
-INSERT INTO `order` VALUES ('114', '201512281151181216108497', 'ttt', '0', '21885856', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 11:51:18');
-INSERT INTO `order` VALUES ('115', '201512281151181216108497', 'ttt', '0', '98128215', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 11:51:18');
-INSERT INTO `order` VALUES ('116', '201512281151181216108497', 'ttt', '0', '21658182', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 11:51:18');
-INSERT INTO `order` VALUES ('117', '201512282247101218972789', 'ttt', '0', '24782411', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 22:47:10');
-INSERT INTO `order` VALUES ('118', '201512282247571219975599', 'ttt', '0', '29141822', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 22:47:57');
-INSERT INTO `order` VALUES ('119', '201512282249581219896800', 'ttt', '0', '02201558', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 22:49:58');
-INSERT INTO `order` VALUES ('120', '201512282303331218709573', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '23553112', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:03:33');
-INSERT INTO `order` VALUES ('121', '201512282303331218709573', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '2921343', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:03:33');
-INSERT INTO `order` VALUES ('122', '201512282304431214652596', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '94263051', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:04:43');
-INSERT INTO `order` VALUES ('123', '201512282304431214652596', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '28132122', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:04:43');
-INSERT INTO `order` VALUES ('124', '201512282304431214652596', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '38524423', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:04:43');
-INSERT INTO `order` VALUES ('125', '201512282330481219384733', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '01509122', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:30:48');
-INSERT INTO `order` VALUES ('126', '201512282330481219384733', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '14212273', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:30:48');
-INSERT INTO `order` VALUES ('127', '201512282330481219384733', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '20526108', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:30:48');
-INSERT INTO `order` VALUES ('128', '201512282330481219384733', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '35946681', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:30:48');
-INSERT INTO `order` VALUES ('129', '201512282331471213700190', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '52293513', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-28 23:31:47');
-INSERT INTO `order` VALUES ('130', '201512290118141229010155', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '59218125', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 01:18:14');
-INSERT INTO `order` VALUES ('131', '201512290155451226772480', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '11421050', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 01:55:45');
-INSERT INTO `order` VALUES ('132', '201512290917591222136868', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '25224505', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:17:59');
-INSERT INTO `order` VALUES ('133', '201512290917591222136868', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '90871521', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:17:59');
-INSERT INTO `order` VALUES ('134', '201512290920141222937418', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '04159172', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:20:14');
-INSERT INTO `order` VALUES ('135', '201512290920141222937418', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '41003220', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:20:14');
-INSERT INTO `order` VALUES ('136', '201512290920141222937418', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '92289043', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:20:14');
-INSERT INTO `order` VALUES ('137', '201512290921071222393764', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '90712922', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:21:07');
-INSERT INTO `order` VALUES ('138', '201512290921101222482293', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '39121147', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:21:10');
-INSERT INTO `order` VALUES ('139', '201512290921131223444003', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '05191223', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:21:13');
-INSERT INTO `order` VALUES ('140', '201512290921151221975839', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '95171022', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:21:15');
-INSERT INTO `order` VALUES ('141', '201512290921181225504931', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '30021420', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:21:18');
-INSERT INTO `order` VALUES ('142', '201512290922211223745061', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '29520113', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 09:22:21');
-INSERT INTO `order` VALUES ('143', '201512291335451221179197', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '91513880', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 13:35:45');
-INSERT INTO `order` VALUES ('144', '20151229134758122829527', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '72112992', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 13:47:58');
-INSERT INTO `order` VALUES ('145', '201512291350381225109386', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '00602415', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 13:50:38');
-INSERT INTO `order` VALUES ('146', '20151229161059122982943', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '15951091', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 16:10:59');
-INSERT INTO `order` VALUES ('147', '20151229161059122982943', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '95110226', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 16:10:59');
-INSERT INTO `order` VALUES ('148', '20151229161059122982943', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '99955212', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 16:10:59');
-INSERT INTO `order` VALUES ('149', '20151229161059122982943', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '52958320', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 16:10:59');
-INSERT INTO `order` VALUES ('150', '20151229161059122982943', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '12558099', null, null, null, null, '398.00', '未支付', null, null, '0', '2015-12-29 16:10:59');
-INSERT INTO `order` VALUES ('151', '201512292259201223773196', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '29226522', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-29 22:59:20');
-INSERT INTO `order` VALUES ('152', '201512300014121231190236', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '23013213', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:14:12');
-INSERT INTO `order` VALUES ('153', '201512300014431234480257', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '41532318', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:14:43');
-INSERT INTO `order` VALUES ('154', '201512300015231236249949', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '20300253', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:15:23');
-INSERT INTO `order` VALUES ('155', '201512300016161234634714', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '65531156', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:16:16');
-INSERT INTO `order` VALUES ('156', '201512300017321235886720', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '32049732', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:17:32');
-INSERT INTO `order` VALUES ('157', '201512300021091236795059', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '00420559', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:21:09');
-INSERT INTO `order` VALUES ('158', '20151230002207123152120', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '03158260', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:22:07');
-INSERT INTO `order` VALUES ('159', '201512300023561235362076', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '202526', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:23:56');
-INSERT INTO `order` VALUES ('160', '201512300024571233162378', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '07174252', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:24:57');
-INSERT INTO `order` VALUES ('161', '20151230002546123390509', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '40603063', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:25:46');
-INSERT INTO `order` VALUES ('162', '201512300026111237066630', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '33016601', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:26:11');
-INSERT INTO `order` VALUES ('163', '201512300028331233876061', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '92534032', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:28:33');
-INSERT INTO `order` VALUES ('164', '201512300029451233737105', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '25709059', '郭浩', '13524286564', null, null, '398.00', '未支付', null, null, '0', '2015-12-30 00:29:45');
-INSERT INTO `order` VALUES ('165', '201512300031321239072414', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '05213409', '郭浩', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:31:32');
-INSERT INTO `order` VALUES ('166', '201512300035191234298381', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '61204753', '郭浩', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:35:19');
-INSERT INTO `order` VALUES ('167', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '0050229', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:05');
-INSERT INTO `order` VALUES ('168', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '0051175', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:05');
-INSERT INTO `order` VALUES ('169', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '65520289', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:05');
-INSERT INTO `order` VALUES ('170', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '50402502', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('171', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '32058505', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('172', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '20530370', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('173', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '05027805', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('174', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '01610255', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('175', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '02215313', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('176', '201512300055051235188833', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '85000290', '周', '13255852653', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 00:55:06');
-INSERT INTO `order` VALUES ('177', '201512301112521238820569', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '32731915', '大师', '13522659863', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 11:12:52');
-INSERT INTO `order` VALUES ('178', '201512301804191231018654', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '5001398', '完善', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2015-12-30 18:04:19');
-INSERT INTO `order` VALUES ('179', '201512302116021234897075', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '7131042', '郭浩', '13524286564', null, '1000970517201512302409007870', '0.01', '已消费', '2015-12-30 21:16:10', '2015-12-31 00:01:46', '0', '2015-12-30 21:16:02');
-INSERT INTO `order` VALUES ('180', '201512302224481232721159', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '02717983', '郭浩', '13524286564', null, '1000970517201512302410256276', '0.01', '已消费', '2015-12-30 22:29:53', null, '0', '2015-12-30 22:24:48');
-INSERT INTO `order` VALUES ('181', '201512310000501242033847', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '10011022', '张晓丽', '13566895236', null, null, '0.01', '未支付', null, null, '0', '2015-12-31 00:00:50');
-INSERT INTO `order` VALUES ('182', '201601020124530161831312', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '11607122', '郭浩', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2016-01-02 01:24:53');
-INSERT INTO `order` VALUES ('183', '201601020124530161831312', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '6606022', '郭浩', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2016-01-02 01:24:53');
-INSERT INTO `order` VALUES ('184', '201601020124530161831312', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '17256130', '郭浩', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2016-01-02 01:24:53');
-INSERT INTO `order` VALUES ('185', '201601020124530161831312', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '25016438', '郭浩', '13524286564', null, null, '0.01', '已支付', null, null, '0', '2016-01-02 01:24:53');
-INSERT INTO `order` VALUES ('186', '201601020124530161831312', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '62325001', '郭浩', '13524286564', null, null, '0.01', '未支付', null, null, '0', '2016-01-02 01:24:53');
-INSERT INTO `order` VALUES ('187', '201601020124530161831312', 'o0GaXwI92WyaHc3POEzJUnhgUhZQ', '0', '31132267', '郭浩', '13524286564', null, null, '0.01', '未支付', null, '2016-01-03 09:01:42', '0', '2016-01-02 01:24:53');
+INSERT INTO `order` VALUES ('188', '201601122326020123828167', 'xxxxxxxx', '1', null, null, '100.00', '未支付', null, null, '2', '2016-01-12', '09:00:00', '10:00:00', '0', '2016-01-12 23:26:02');
+INSERT INTO `order` VALUES ('189', '201601122348590129232918', 'xxxxxxxx', '1', null, null, '100.00', '已支付', null, null, '2', '2016-01-13', '23:00:00', '00:00:00', '0', '2016-01-13 00:35:59');
 
 -- ----------------------------
 -- Table structure for `order_project`
@@ -321,7 +179,7 @@ CREATE TABLE `order_project` (
   `buy_counts` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '项目购买数量',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`order_project_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COMMENT='订单下的项目表';
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8 COMMENT='订单下的项目表';
 
 -- ----------------------------
 -- Records of order_project
@@ -471,6 +329,8 @@ INSERT INTO `order_project` VALUES ('178', '184', '10', '肌底新生美白护�
 INSERT INTO `order_project` VALUES ('179', '185', '10', '肌底新生美白护理(测试)', '90', '0.01', '{\"file_name\":\"0910a0e831659aae210c08606ed0465b.png\",\"file_type\":\"image\\/png\",\"file_path\":\"\\/data\\/home\\/qyu2039650001\\/htdocs\\/upload\\/\",\"full_path\":\"\\/data\\/home\\/qyu2039650001\\/htdocs\\/upload\\/0910a0e831659aae210c08606ed0465b.png\",\"raw_name\":\"0910a0e831659aae210c08606ed0465b\",\"orig_name\":\"\\u4e0d\\u671f\\u800c\\u9047logo\\u6700\\u7ec8\\u7a3f-psd-02\\u526f\\u672c.png\",\"client_name\":\"\\u4e0d\\u671f\\u800c\\u9047logo\\u6700\\u7ec8\\u7a3f-psd-02\\u526f\\u672c.png\",\"file_ext\":\".png\",\"file_size\":43.17,\"is_image\":true,\"image_width\":528,\"image_height\":492,\"image_type\":\"png\",\"image_size_str\":\"width=\\\"528\\\" height=\\\"492\\\"\"}', '1', '2016-01-02 01:24:53');
 INSERT INTO `order_project` VALUES ('180', '186', '10', '肌底新生美白护理(测试)', '90', '0.01', '{\"file_name\":\"0910a0e831659aae210c08606ed0465b.png\",\"file_type\":\"image\\/png\",\"file_path\":\"\\/data\\/home\\/qyu2039650001\\/htdocs\\/upload\\/\",\"full_path\":\"\\/data\\/home\\/qyu2039650001\\/htdocs\\/upload\\/0910a0e831659aae210c08606ed0465b.png\",\"raw_name\":\"0910a0e831659aae210c08606ed0465b\",\"orig_name\":\"\\u4e0d\\u671f\\u800c\\u9047logo\\u6700\\u7ec8\\u7a3f-psd-02\\u526f\\u672c.png\",\"client_name\":\"\\u4e0d\\u671f\\u800c\\u9047logo\\u6700\\u7ec8\\u7a3f-psd-02\\u526f\\u672c.png\",\"file_ext\":\".png\",\"file_size\":43.17,\"is_image\":true,\"image_width\":528,\"image_height\":492,\"image_type\":\"png\",\"image_size_str\":\"width=\\\"528\\\" height=\\\"492\\\"\"}', '1', '2016-01-02 01:24:53');
 INSERT INTO `order_project` VALUES ('181', '187', '11', '肌底新生美白护理(测试)', '90', '0.01', '{\"file_name\":\"65a44afe1e79fcaea976a73e90056f20.jpg\",\"file_type\":\"image\\/jpeg\",\"file_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/\",\"full_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/65a44afe1e79fcaea976a73e90056f20.jpg\",\"raw_name\":\"2016-01-03\\/65a44afe1e79fcaea976a73e90056f20\",\"orig_name\":\"zhuoku106.jpg\",\"client_name\":\"zhuoku106.jpg\",\"file_ext\":\".jpg\",\"file_size\":507.62,\"is_image\":true,\"image_width\":1920,\"image_height\":1200,\"image_type\":\"jpeg\",\"image_size_str\":\"width=\\\"1920\\\" height=\\\"1200\\\"\"}', '1', '2016-01-02 01:24:53');
+INSERT INTO `order_project` VALUES ('185', '188', '11', '腿部按摩', '30', '100.00', '{\"file_name\":\"65a44afe1e79fcaea976a73e90056f20.jpg\",\"file_type\":\"image\\/jpeg\",\"file_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/\",\"full_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/65a44afe1e79fcaea976a73e90056f20.jpg\",\"raw_name\":\"2016-01-03\\/65a44afe1e79fcaea976a73e90056f20\",\"orig_name\":\"zhuoku106.jpg\",\"client_name\":\"zhuoku106.jpg\",\"file_ext\":\".jpg\",\"file_size\":507.62,\"is_image\":true,\"image_width\":1920,\"image_height\":1200,\"image_type\":\"jpeg\",\"image_size_str\":\"width=\\\"1920\\\" height=\\\"1200\\\"\"}', '1', '2016-01-12 23:26:02');
+INSERT INTO `order_project` VALUES ('186', '189', '11', '腿部按摩', '30', '100.00', '{\"file_name\":\"65a44afe1e79fcaea976a73e90056f20.jpg\",\"file_type\":\"image\\/jpeg\",\"file_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/\",\"full_path\":\"D:\\/htdocs\\/project\\/xinya\\/upload\\/2016-01-03\\/65a44afe1e79fcaea976a73e90056f20.jpg\",\"raw_name\":\"2016-01-03\\/65a44afe1e79fcaea976a73e90056f20\",\"orig_name\":\"zhuoku106.jpg\",\"client_name\":\"zhuoku106.jpg\",\"file_ext\":\".jpg\",\"file_size\":507.62,\"is_image\":true,\"image_width\":1920,\"image_height\":1200,\"image_type\":\"jpeg\",\"image_size_str\":\"width=\\\"1920\\\" height=\\\"1200\\\"\"}', '1', '2016-01-13 00:36:59');
 
 -- ----------------------------
 -- Table structure for `project`

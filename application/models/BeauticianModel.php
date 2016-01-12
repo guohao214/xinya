@@ -34,8 +34,18 @@ class BeauticianModel extends BaseModel
         return $validate;
     }
 
-    public function readOne($beautician_id)
+    public function readOne($beauticianId)
     {
-        return (new CurdUtil($this))->readOne(array('beautician_id' => $beautician_id, 'disabled' => 0));
+        return (new CurdUtil($this))->readOne(array('beautician_id' => $beauticianId, 'disabled' => 0));
+    }
+
+    /**
+     * 检查是否为有效的美容师
+     * @param $beauticianId
+     * @return bool
+     */
+    public function isValidBeautician($beauticianId)
+    {
+        return ($this->readOne($beauticianId)) ? true : false;
     }
 }

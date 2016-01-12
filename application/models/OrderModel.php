@@ -48,14 +48,17 @@ class OrderModel extends BaseModel
 
     /**
      * @param $where
+     * @param $orderStatus
      * @return mixed
      */
     public function getOrder($where = array(), $orderStatus = 0)
     {
         $this->db->from($this->table);
         $orderProject = (new OrderProjectModel())->table;
-        $this->db->select("{$this->table}.*, {$orderProject}.*");
+        $beautician = (new BeauticianModel())->table;
+        $this->db->select("{$this->table}.*, {$orderProject}.*, {$beautician}.name as beautician_name");
         $this->db->join($orderProject, "{$this->table}.order_id={$orderProject}.order_id");
+        $this->db->join($beautician, "{$this->table}.beautician_id={$beautician}.beautician_id");
         $this->db->where("{$this->table}.disabled=0");
         $this->db->order_by("{$this->table}.order_id desc");
 
@@ -71,27 +74,27 @@ class OrderModel extends BaseModel
 
 
     /**
-     * 上面的方法有问题，此处用sql语句
      * 我的订单
      * @param $openId
      * @param int $orderStatus
      * @param int $offset
      * @return mixed
      */
-    public function userOrders($openId, $orderStatus = 0, $offset = 0)
+    public function getUserOrders($openId, $orderStatus = 0, $offset = 0)
     {
         $paginationConfig = ConfigUtil::loadConfig('user-center');
         $rows = $paginationConfig['per_page'];
 
-        $sql = "select a.*, b.*, a.order_status+0 as order_sign from `order` as a right
-                join (select distinct(order_no) from `order` where `order`.open_id='{$openId}'";
+        $sql = "select a.*, b.*, c.name as beautician_name, a.order_status+0 as order_sign from `order` as a"
+            . " left join order_project as b on a.order_id=b.order_id"
+            . " left join beautician as c on a.beautician_id=c.beautician_id ";
 
-
+        $orderStatusWhere = '';
         if ($orderStatus)
-            $sql .= " and `order`.order_status={$orderStatus}";
+            $orderStatusWhere = " and a.order_status={$orderStatus}";
 
-        $sql .= " and `order`.disabled=0 order by order.order_id desc limit {$offset}, {$rows}) as c on a.order_no=c.order_no
-                left join order_project as b on a.order_id=b.order_id";
+        $sql .= " where a.disabled=0 and a.open_id='{$openId}'{$orderStatusWhere}"
+            . " order by a.order_id desc limit {$offset}, {$rows}";
 
         return (new CurdUtil($this))->query($sql);
     }
@@ -102,9 +105,9 @@ class OrderModel extends BaseModel
      * @param int $orderStatus
      * @return mixed
      */
-    public function userOrderCounts($openId, $orderStatus = 0)
+    public function getUserOrderCounts($openId, $orderStatus = 0)
     {
-        $sql = "select (count(distinct(order_no))) as rowCounts from `order` where open_id='{$openId}'";
+        $sql = "select count(*) as rowCounts from `order` where open_id='{$openId}'";
 
         if ($orderStatus)
             $sql .= ' and `order`.order_status=' . $orderStatus;
@@ -112,6 +115,19 @@ class OrderModel extends BaseModel
         $sql .= ' and `order`.disabled=0';
 
         return (new CurdUtil($this))->query($sql);
+    }
+
+    /**
+     * 根据美容师ID 与预约时间 获得订单
+     * @param $beauticianId
+     * @param $appointmentDay
+     */
+    public function getOrderByBeauticianIdAndAppointmentDay($beauticianId, $appointmentDay)
+    {
+        $where = array('beautician_id' => $beauticianId, 'appointment_day' => $appointmentDay,
+            'disabled' => 0, 'order_status' => OrderModel::ORDER_PAYED);
+
+        return (new CurdUtil($this))->readAll('order_id desc', $where);
     }
 
 } 
