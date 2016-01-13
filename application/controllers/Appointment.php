@@ -20,14 +20,29 @@ class Appointment extends FrontendController
         // 验证是否已授权
         (new WeixinUtil())->authorize('appointment/index');
 
+        // 获得预约项目
+        $projectId = (new CartUtil())->cart();
+        $projectId += 0;
+        if (!$projectId)
+            $this->message('预约项目不存在！');
+
         //是否已经选择了店铺，并且店铺是有效的
         $shops = (new ShopModel())->getAllShops();
         if (is_numeric($shopId) && array_key_exists($shopId, $shops)) {
+            // 获得项目信息
+            $project = (new ProjectModel())->readOne($projectId);
+            if (!$project)
+                $this->message('预约项目不存在！');
+
             // 跳转到 选择 美容师
             $beauticians = (new BeauticianModel())->getAllBeauticians();
-            $this->load->view('frontend/appointment/beautician', array('beauticians' => $beauticians));
+            $days = DateUtil::buildDays();
+            $this->load->view('frontend/appointment/beautician',
+                array('beauticians' => $beauticians, 'project' => $project, 'shopId' => $shopId, 'days' => $days));
         } else {
             // 跳转到选择店铺
+            $returnUrl = urlencode(UrlUtil::createUrl('appointment/index'));
+            ResponseUtil::redirect(UrlUtil::createUrl("shop/index?returnUrl={$returnUrl}"));
         }
 
     }
@@ -75,7 +90,7 @@ class Appointment extends FrontendController
         $payedOrders = (new OrderModel())->getOrderByBeauticianIdAndAppointmentDay($beautician_id, $day);
         if ($payedOrders) {
             foreach ($payedOrders as $payedOrder) {
-                $orderAppointmentTime = DateUtil::generateAppointmentTime($payedOrder,
+                $orderAppointmentTime = DateUtil::generateAppointmentTime($payedOrder['appointment_day'],
                     $payedOrder['appointment_start_time'], $payedOrder['appointment_end_time']);
 
                 foreach ($appointmentTimes as $k => $time) {

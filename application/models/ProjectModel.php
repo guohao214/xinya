@@ -64,8 +64,8 @@ class ProjectModel extends BaseModel
         $projects = $this->allProjects();
         $_projects = array();
         foreach ($projects as $project) {
-            $shopId = $project['category_id'];
-            $_projects[$shopId][] = $project;
+            $categoryId = $project['category_id'];
+            $_projects[$categoryId][] = $project;
         }
 
         unset($project, $projects, $shopId);

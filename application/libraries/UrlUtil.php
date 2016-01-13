@@ -19,4 +19,16 @@ class UrlUtil
     {
         return self::createUrl('backend/' . $urlPath);
     }
+
+    /**
+     * 检测是否为有效的url链接， 只能是.xinyameirong.com域名下
+     * @param $url
+     * @return bool
+     */
+    public static function isValidUrl($url)
+    {
+        return true;
+        $pattern = '~^http[s]?://\w+\.xinyameirong\.com~';
+        return preg_match($pattern, $url);
+    }
 }

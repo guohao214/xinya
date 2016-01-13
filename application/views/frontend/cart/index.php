@@ -1,7 +1,7 @@
+<script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/cart.js?v=2015010301"></script>
 <header>
     <h2>购物车</h2>
 </header>
-<script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/cart.js?v=2015010301"></script>
 <section>
     <div class="order">
         <dl class="order_list">

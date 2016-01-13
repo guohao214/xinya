@@ -1,10 +1,12 @@
 <?php $this->pageTitle = $project['project_name']; ?>
 <?php $this->load->view('frontend/header'); ?>
-<body>
+<script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/project-detail.js"></script>
+
 <header>
     <a class="prev j_prePage" href="javascript:window.history.back();"></a>
     <h2><?php echo $project['project_name']; ?></h2>
 </header>
+
 <section>
     <div class="project_top">
         <div class="imgArea">
@@ -31,25 +33,8 @@
 </section>
 <footer>
     <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>"
-        href="<?php echo UrlUtil::createUrl('appointment/project') ?>">预约</a>
+       href="<?php echo UrlUtil::createUrl('appointment/index') ?>">预约</a>
 </footer>
 
-<script>
-    $(document).ready(function () {
-        $('.project_footer').on('click', function (e) {
-            e.preventDefault();
-            var $that = $(this);
-
-            var $projectId = parseInt($(this).attr('data-id'));
-
-            $.getJSON(document_root + 'cart/addCart/' + $projectId, {}, function (data) {
-                if (data.status == 1) {
-                    //messageTool.show('加入购物车成功！');
-                    window.location.href = $that.attr('href');
-                }
-            })
-        })
-    })
-</script>
 </body>
 </html>

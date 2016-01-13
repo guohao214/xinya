@@ -17,7 +17,7 @@ class Project extends FrontendController
             $shopId = $shopId + 0;
 
         // 此处需要做缓存
-        $projects = (new ProjectModel())->allProjectsGroupByCategoryId($shopId);
+        $projects = (new ProjectModel())->allProjectsGroupByCategoryId();
         $shops = (new ShopModel())->getAllShops();
         $categories = (new CategoryModel())->getAllCategories();
         $sliders = (new SliderModel())->getAllSlider();

@@ -5,7 +5,6 @@
 <section>
     <?php foreach ($shops as $shop): ?>
         <div class="item ">
-            <a href="<?php echo UrlUtil::createUrl('project/index/' . $shop['shop_id']) ?>">
             <dl>
                 <dt>
                     <img
@@ -13,15 +12,16 @@
                 </dt>
                 <dd>
 
-                        <h3 class="shop_name"><?php echo $shop['shop_name']; ?>
-                            <!--<cite class="FN appointment">购买</cite>-->
-                        </h3>
+                    <h3 class="shop_name"><?php echo $shop['shop_name']; ?>
+                        <a href="<?php echo $returnUrl . '/' . $shop['shop_id']; ?>">
+                            <cite class="FN appointment">预约</cite>
+                        </a>
+                    </h3>
                     <p class="effects F13 address">联系人：<?php echo $shop['contacts']; ?></p>
                     <p class="effects F13 address">联系电话：<?php echo $shop['contact_number']; ?></p>
                     <p class="effects F13 address">地址：<?php echo $shop['address']; ?></p>
                 </dd>
             </dl>
-                    </a>
         </div>
     <?php endforeach; ?>
 </section>

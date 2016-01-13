@@ -26,6 +26,11 @@ class FrontendController extends BaseController
         parent::see('frontend', $view, $vars);
     }
 
+    /**
+     * 页面缓存
+     * @param string $cacheTime
+     * @return bool
+     */
     public function outputCache($cacheTime = '')
     {
         return false;

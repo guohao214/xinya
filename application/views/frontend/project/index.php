@@ -1,9 +1,11 @@
+<script type="text/javascript"
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
+
+<script type="text/javascript"
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150113"></script>
 <header>
     <h2>
         美容项目
-        <?php if ($shopId) {
-            echo "（{$shops[$shopId]}）";
-        } ?>
     </h2>
 </header>
 <section>
@@ -22,11 +24,20 @@
         </div>
     <?php endif; ?>
 
+    <div id="categories">
+        <div class="categories-list">
+            项目分类：
+            <?php foreach ($categories as $category): ?>
+                <a href="#<?php echo $category; ?>" class="category"><?php echo $category; ?></a>
+            <?php endforeach; ?>
+        </div>
+    </div>
     <div class="items">
         <?php foreach ($projects as $key => $project): ?>
             <div class="itemlist loaded">
                 <div class="title_index">
-                    <span><p class="F16 FB"><?php echo $categories[$key]; ?></p></span>
+                    <span><p class="F16 FB"><a
+                                name="<?php echo $categories[$key]; ?>"><?php echo $categories[$key]; ?></a></p></span>
                 </div>
                 <?php foreach ($project as $pj): ?>
                     <div class="item ">
@@ -55,6 +66,10 @@
         <?php endforeach; ?>
     </div>
 </section>
+
+<div class="bottom_tools">
+    <a id="scrollUp" href="javascript:;" title="飞回顶部"></a>
+</div>
 
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/jquery.slider.js"></script>
