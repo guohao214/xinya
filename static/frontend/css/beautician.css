@@ -1,6 +1,7 @@
 .section {
     padding-bottom: 0px !important;
     margin: 0px !important;
+    border-bottom: 1px solid #FF8CB3;
 }
 
 .section-two, .section-appointment-day {

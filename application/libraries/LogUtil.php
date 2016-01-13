@@ -12,7 +12,7 @@ class LogUtil
 
     public static function log($mainTitle, $message, $file = 'log')
     {
-        $saveFile = APPPATH . DIRECTORY_SEPARATOR . 'cache';
+        $saveFile = APPPATH . DIRECTORY_SEPARATOR . 'log';
         $saveFile = $saveFile . DIRECTORY_SEPARATOR . $file . date('Y-m-d');
 
         if (!is_string($message))

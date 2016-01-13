@@ -33,7 +33,7 @@
 </section>
 <footer>
     <a class="project_footer F18" data-id="<?php echo $project['project_id']; ?>"
-       href="<?php echo UrlUtil::createUrl('appointment/index') ?>">预约</a>
+       href="<?php echo UrlUtil::createUrl("appointment/index/{$shopId}") ?>">预约</a>
 </footer>
 
 </body>

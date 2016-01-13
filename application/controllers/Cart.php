@@ -14,43 +14,43 @@ class Cart extends FrontendController
     public function index()
     {
         // 验证是否已授权
-        $weixin = new WeixinUtil();
-
-        // 如果是微信授权后返回
-        if (isset($_GET['code'])) {
-            // 获得accessToken
-            $callback = $weixin->loginCallback($_GET['code']);
-            if (!$callback)
-                $this->message('获得微信授权失败，请重试！');
-        }
-
-        // 检测是否已经授权
-        $openId = $weixin->getOpenId();
-        if ($openId) {
-            // 刷新token过期
-            if ($weixin->isNeedRefreshAccessToken())
-                if (!$weixin->refreshAccessToken()) {
-                    ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));
-                }
-        } else {
-            // 去微信授权
-            ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));
-        }
-
-        $cart = (new CartUtil())->cart();
-        $projectIds = array_keys($cart);
-        $projects = array();
-        if (!empty($cart) && !empty($projectIds)) {
-            // 查询所有的项目
-            $projects = (new ProjectModel())->readByProjectIds($projectIds);
-        } else {
-            $this->message('购物车为空！');
-        }
-
-        $shops = (new ShopModel())->getAllShops();
-        $categories = (new CategoryModel())->getAllCategories();
-        $this->view('cart/index', array('shops' => $shops, 'projects' => $projects,
-            'categories' => $categories, 'cart' => $cart));
+        /**$weixin = new WeixinUtil();
+         *
+         * // 如果是微信授权后返回
+         * if (isset($_GET['code'])) {
+         * // 获得accessToken
+         * $callback = $weixin->loginCallback($_GET['code']);
+         * if (!$callback)
+         * $this->message('获得微信授权失败，请重试！');
+         * }
+         *
+         * // 检测是否已经授权
+         * $openId = $weixin->getOpenId();
+         * if ($openId) {
+         * // 刷新token过期
+         * if ($weixin->isNeedRefreshAccessToken())
+         * if (!$weixin->refreshAccessToken()) {
+         * ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));
+         * }
+         * } else {
+         * // 去微信授权
+         * ResponseUtil::redirect($weixin->toAuthorize(UrlUtil::createUrl('cart/index')));
+         * }
+         *
+         * $cart = (new CartUtil())->cart();
+         * $projectIds = array_keys($cart);
+         * $projects = array();
+         * if (!empty($cart) && !empty($projectIds)) {
+         * // 查询所有的项目
+         * $projects = (new ProjectModel())->readByProjectIds($projectIds);
+         * } else {
+         * $this->message('购物车为空！');
+         * }
+         *
+         * $shops = (new ShopModel())->getAllShops();
+         * $categories = (new CategoryModel())->getAllCategories();
+         * $this->view('cart/index', array('shops' => $shops, 'projects' => $projects,
+         * 'categories' => $categories, 'cart' => $cart));*/
     }
 
     public function addCart($projectId)
@@ -108,9 +108,18 @@ class Cart extends FrontendController
             $this->message('错误的预约日期！');
 
         // 检查时间
-        $appointmentTime = urldecode($appointmentTime);
-        list($startTime, $endTime) = explode(',', $appointmentTime);
-        if ($endTime <= $startTime)
+        $appointmentTime = explode(',', urldecode($appointmentTime));
+        if (!$appointmentTime || count($appointmentTime) < 1)
+            $this->message('错误的预约时间！');
+
+        // 只有30分钟的项目
+        if (count($appointmentTime) == 1)
+            array_push($appointmentTime, $appointmentTime[0]);
+
+        // 只保留头和尾的两个数据
+        $startTime = array_shift($appointmentTime);
+        $endTime = array_pop($appointmentTime);
+        if ($endTime < $startTime)
             $this->message('错误的预约时间！');
 
         // 预约时间是否小于当前时间
@@ -123,10 +132,9 @@ class Cart extends FrontendController
 
 
         // 结束时间 + 30分钟为真正的结束时间
-        $timeStamp = DateUtil::buildDateTime($appointmentDay, $endTime);
-        $timeStamp += 1800;
-        $endTime = date('H:i', $timeStamp);
-
+        //$timeStamp = DateUtil::buildDateTime($appointmentDay, $endTime);
+        //$timeStamp += 1800;
+        //$endTime = date('H:i', $timeStamp);
 
 
         //**********处理下单************//
@@ -189,7 +197,7 @@ class Cart extends FrontendController
         } else {
             $this->db->trans_commit();
             // 清空购物车
-            (new CartUtil())->emptyCart();
+            //(new CartUtil())->emptyCart();
             // 跳到 订单显示
             ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
         }

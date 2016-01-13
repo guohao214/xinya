@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Created by PhpStorm.
+ * 预约项目
  * User: GuoHao
  * Date: 2015/12/27
  * Time: 0:31
@@ -28,8 +28,11 @@ class Project extends FrontendController
             'categories' => $categories, 'shopId' => $shopId, 'sliders' => $sliders));
     }
 
-    public function detail($projectId)
+    public function detail($projectId, $shopId = '')
     {
+        if ($shopId)
+            $shopId += 0;
+
         if (!$projectId)
             $this->message('项目ID不能为空！');
 
@@ -41,6 +44,6 @@ class Project extends FrontendController
 
         $this->outputCache();
 
-        $this->load->view('frontend/project/detail', array('project' => $project));
+        $this->load->view('frontend/project/detail', array('project' => $project, 'shopId' => $shopId));
     }
 }

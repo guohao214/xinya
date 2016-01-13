@@ -127,9 +127,19 @@ class Order extends FrontendController
             if ($token) {
                 foreach ($orders as $order) {
                     $orderNo = $order['order_no'];
-                    $consumeCode = $order['consume_code'];
+                    $appointmentDay = DateUtil::buildDateTime($order['appointment_day'],
+                        $order['appointment_start_time']);
+
+                    $shops = (new ShopModel())->getAllShops();
+                    $shop = $shops[$order['shop_id']];
+                    $beautician = (new BeauticianModel())->readOne($order['beautician_id']);
+                    $beauticianName = $beautician['name'];
+                    $project = (new CurdUtil(new OrderProjectModel()))->readOne(array('order_id' => $order['order_id']));
+                    $projectName = $project['project_name'];
+
                     // 发送模板消息
-                    $weixinUtil->sendOrderMessage($orderNo, $consumeCode, $openId, $token);
+                    // $orderNo, $appointmentDay, $shop, $beautician, $projectName
+                    $weixinUtil->sendOrderMessage($orderNo, $appointmentDay, $shop, $beauticianName, $projectName, $openId, $token);
                 }
             }
 

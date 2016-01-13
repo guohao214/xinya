@@ -41,8 +41,7 @@
                                 <b class="add FN colorH">门店：<span>
                                     <?php echo ($order['shop_id'] && isset($shops[$order['shop_id']])) ? $shops[$order['shop_id']] : '不期而遇门店'; ?>
                                 </span>
-                                    <p>预约时间:<span class="F14"><?php echo $order['appointment_day']; ?><br>
-                                    <?php echo $order['appointment_start_time'] . ' 至 ' . $order['appointment_end_time']; ?>
+                                    <p>预约时间:<span class="F14"><?php echo $order['appointment_day'] . $order['appointment_start_time']; ?>
                                 </b></strong>
                                 <strong
                                     class="add FN colorH">美容师:<?php echo $order['beautician_name']; ?></span></p></strong>

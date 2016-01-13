@@ -34,6 +34,7 @@ class FrontendController extends BaseController
     public function outputCache($cacheTime = '')
     {
         return false;
+
         if (!$cacheTime)
             $cacheTime = $this->cacheTime;
 

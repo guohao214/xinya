@@ -18,7 +18,7 @@ class Appointment extends FrontendController
     public function index($shopId)
     {
         // 验证是否已授权
-        (new WeixinUtil())->authorize('appointment/index');
+        (new WeixinUtil())->authorize("appointment/index/{$shopId}");
 
         // 获得预约项目
         $projectId = (new CartUtil())->cart();

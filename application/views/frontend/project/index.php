@@ -1,8 +1,3 @@
-<script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
-
-<script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150113"></script>
 <header>
     <h2>
         美容项目
@@ -41,7 +36,7 @@
                 </div>
                 <?php foreach ($project as $pj): ?>
                     <div class="item ">
-                        <a href="<?php echo UrlUtil::createUrl('project/detail/' . $pj['project_id']); ?>">
+                        <a href="<?php echo UrlUtil::createUrl('project/detail/' . $pj['project_id'] . '/' . $shopId); ?>">
                             <dl>
                                 <dt>
                                     <img
@@ -70,6 +65,11 @@
 <div class="bottom_tools">
     <a id="scrollUp" href="javascript:;" title="飞回顶部"></a>
 </div>
+<script type="text/javascript"
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
+
+<script type="text/javascript"
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150113"></script>
 
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/jquery.slider.js"></script>

@@ -16,10 +16,9 @@ class UserCenter extends FrontendController
     public function order($offset = 0, $orderStatus = 0)
     {
         $weixinUtil = new WeixinUtil();
-        // $weixinUtil->authorize('userCenter/order');
+        $weixinUtil->authorize("userCenter/order/{$offset}/{$orderStatus}");
 
         $openId = $weixinUtil->getOpenId();
-        $openId = 'xxxxxxxx';
         $orderModel = new OrderModel();
 
         // 获得订单信息

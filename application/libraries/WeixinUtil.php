@@ -94,6 +94,7 @@ class WeixinUtil
      */
     public function toAuthorize($callback)
     {
+        $callback = urlencode($callback);
         return "https://open.weixin.qq.com/connect/oauth2/authorize?" .
         "appid={$this->appId}&redirect_uri={$callback}&response_type=code&" .
         "scope=snsapi_userinfo&state=STATE#wechat_redirect";
@@ -157,34 +158,52 @@ class WeixinUtil
     }
 
     /**
-     * 发送模板消息
+     * 发送预约成功信息
      * @param $orderNo
-     * @param $consumeCode
+     * @param $appointmentDay
+     * @param $shop
+     * @param $beautician
+     * @param $projectName
      * @param $openId
      * @param $projectName
      * @param $accessToken
      * @return mixed
      */
-    public function sendOrderMessage($orderNo, $consumeCode, $openId, $accessToken)
+    public function sendOrderMessage($orderNo, $appointmentDay, $shop, $beautician, $projectName, $openId, $accessToken)
     {
         $message = array(
             "touser" => $openId,
-            "template_id" => "Ybj0iaZTeJEwtF1OGBmnDtPCrsXNdEDWRKVmRBCq0iI",
+            "template_id" => "l62F-ewHevL8esn_9jRsJsrDLwAGly32Y-8w5DkFHJM",
             "url" => UrlUtil::createUrl('userCenter/order'),
             "topcolor" => "#FF0000",
             "data" => array(
                 "first" => array( //描述
-                    "value" => "您好，谢谢购买不期而遇美容商品，您的订单号为：{$orderNo}, 消费码为：{$consumeCode}",
+                    "value" => "您好，谢谢购买不期而遇美容商品，您的订单号为：{$orderNo}",
                     "color" => "#FF8CB3"
                 ),
 
                 "keyword1" => array(
-                    "value" => "心雅微信商城",
+                    "value" => "尊敬的顾客",
                     "color" => "#173177"
                 ),
 
                 "keyword2" => array(
-                    "value" => date('Y-m-d'),
+                    "value" => $appointmentDay,
+                    'color' => "#173177"
+                ),
+
+                "keyword3" => array(
+                    "value" => $shop,
+                    'color' => "#173177"
+                ),
+
+                "keyword4" => array(
+                    "value" => $beautician,
+                    'color' => "#173177"
+                ),
+
+                "keyword5" => array(
+                    "value" => $projectName,
                     'color' => "#173177"
                 ),
 
@@ -206,8 +225,6 @@ class WeixinUtil
      */
     public function authorize($returnUrl)
     {
-        return true;
-
         if (!$returnUrl)
             get_instance()->message('授权回掉地址为空！');
 

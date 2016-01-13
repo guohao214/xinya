@@ -8,7 +8,7 @@
 
 $config = array(
     'allowed_types' => 'gif|jpg|png',
-    'max_size' => '1000000',
+//    'max_size' => '1000000',
 //    'max_width' => '1024',
 //    'max_height' => '768',
     'encrypt_name' => true

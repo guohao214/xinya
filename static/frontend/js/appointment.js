@@ -1,87 +1,104 @@
 $(document).ready(function () {
-//
-    //messageTool.show('测试');
-    var beauticians = $('.beautician-avatar img').length;
-    var scroolLength = beauticians * 120;
-    $('#beautician').css('width', scroolLength + 'px');
 
+    var $beauticianAvatar = $('.beautician-avatar img'),
+        $appointmentDay = $('select[name="appointment-day"]'),
+        $projectTime = parseInt($('[name="project_time"]').val()),
+        $confirmAppointment = $('.confirm-appointment');
+    ;
+
+    // 美容师滚动
+    $('#beautician').width(($beauticianAvatar.length) * 120);
     new IScroll('#choose-beautician-section', {scrollX: true, scrollY: false, mouseWheel: false});
 
-
-    $('.beautician-avatar img').on('click', function () {
+    // 美容师点击事件
+    $beauticianAvatar.on('click', function () {
         $('.choose-beautician').removeClass('choose-beautician');
         $(this).addClass('choose-beautician');
 
         getAppointmentTimes();
     })
 
-    $('select[name="appointment-day"]').on('change', function () {
+    // 选择预约日期改变时间
+    $appointmentDay.on('change', function () {
         getAppointmentTimes();
     })
 
+    // 打开页面，触发第一个美容师的点击事件
+    $beauticianAvatar.eq(0).trigger('click');
 
-    // 打开页面
-    $('.beautician-avatar img:first').trigger('click');
-
-    var $projectTime = parseInt($('[name="project_time"]').val());
-
-    $('section').delegate('.can-appointment', 'click', function () {
+    // 选择预约时间
+    $('.appointment-times').delegate('.can-appointment', 'click', function () {
 
         $('.choose-appointment-time').removeClass('choose-appointment-time');
 
-        var $next = $(this).nextUntil('.cant-appointment');
-        $time = $next.length * 30 + 30;
-        console.log($time);
+        var $nextAppointmentTimes = $(this).nextUntil('.cant-appointment'),
+            $validAppointmentTimes = $nextAppointmentTimes.length * 30 + 30;
 
-        if ($time < $projectTime) {
+        // console.log($validAppointmentTimes);
+
+        if ($validAppointmentTimes < $projectTime) {
             messageTool.show('预约时间不够，请重新选择');
         } else {
             $(this).addClass('choose-appointment-time');
 
-            for (var i = 0; i < $next.length; i++) {
-                $time = (i + 1) * 30;
-                if ($time > $projectTime)
+            for (var i = 0; i < $nextAppointmentTimes.length; i++) {
+                if (((i + 1) * 30 + 30) > $projectTime)
                     return false;
                 else
-                    $next.eq(i).addClass('choose-appointment-time');
+                    $nextAppointmentTimes.eq(i).addClass('choose-appointment-time');
             }
         }
 
     })
 
-
     // 确定预约
-    $('.confirm-appointment').on('click', function () {
-        var $beautician_id = $('.choose-beautician').attr('data-val');
-        var $day = $('select[name="appointment-day"]').val();
-        var $appoint_times = $('.choose-appointment-time');
-        var $app = [];
+    $confirmAppointment.on('click', function () {
+        var $beauticianId = parseInt($('.choose-beautician').attr('data-val')),
+            $day = $appointmentDay.val(),
+            $chooseAppointTimes = $('.choose-appointment-time'),
+            $appointments = [],
+            $shopId = parseInt($('[name="shop_id"]').val());
 
-        $appoint_times.each(function () {
-            var $this = $(this);
-            $app.push($this.attr('data-val'));
+        if ($chooseAppointTimes.length == 0) {
+            messageTool.show('请选择预约时间！');
+            return false;
+        }
+
+        $chooseAppointTimes.each(function () {
+            var $that = $(this);
+            $appointments.push($that.attr('data-val'));
         })
 
-        var $shop_id = $('[name="shop_id"]').val();
-        window.location.href = "/cart/order/" + $shop_id + '/' + $beautician_id + '/' + $day + '/' + encodeURIComponent($app.join(','))
+        var $redirectUrl = '/cart/order/';
+        $redirectUrl += $shopId + '/';
+        $redirectUrl += $beauticianId + '/';
+        $redirectUrl += $day + '/' + encodeURIComponent($appointments.join(','));
+
+        window.location.href = $redirectUrl;
     })
+
+    // 获得预约时间
+    function getAppointmentTimes() {
+        var $beauticianId = parseInt($('.choose-beautician').attr('data-val')),
+            $day = $appointmentDay.val();
+
+        $.ajax({
+            url: '/appointment/getValidAppointmentTime/' + $beauticianId + '/' + $day,
+            dataType: 'json',
+            beforeSend: function () {
+                $('.appointment-times').html();
+            },
+            success: function (data) {
+                $('.appointment-times').html(data.data);
+                $confirmAppointment.show();
+            },
+            error: function () {
+                $confirmAppointment.hide();
+                messageTool.show('获得预约时间失败！');
+            }
+
+        })
+    }
 
 })
 
-// 获得预约时间
-function getAppointmentTimes() {
-    var $beautician_id = $('.choose-beautician').attr('data-val');
-    var $day = $('select[name="appointment-day"]').val();
-
-    $.ajax({
-        url: '/appointment/getValidAppointmentTime/' + $beautician_id + '/' + $day,
-        dataType: 'json',
-        success: function (data) {
-            $('.appointment-times').html(data.data);
-        },
-        error: function (data) {
-            $('.appointment-times').html('请重试！');
-        }
-
-    })
-}

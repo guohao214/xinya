@@ -1,5 +1,6 @@
 <?php $this->load->view('frontend/header'); ?>
-<link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/beautician.css?v=2015">
+<link rel="stylesheet"
+      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/beautician.css?v=2015">
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 <script type="text/javascript"
@@ -15,13 +16,11 @@
     <div class="beautician" id="beautician">
         <ul>
             <?php foreach ($beauticians as $beautician): ?>
-                <?php for ($i = 0; $i < 10; $i++): ?>
-                    <li class="beautician-avatar">
-                        <img src="<?php echo UploadUtil::buildUploadDocPath($beautician['avatar'], '100x100'); ?>"
-                             data-val="<?php echo $beautician['beautician_id']; ?>">
-                        <p><?php echo $beautician['name']; ?></p>
-                    </li>
-                <?php endfor; ?>
+                <li class="beautician-avatar">
+                    <img src="<?php echo UploadUtil::buildUploadDocPath($beautician['avatar'], '100x100'); ?>"
+                         data-val="<?php echo $beautician['beautician_id']; ?>">
+                    <p><?php echo $beautician['name']; ?></p>
+                </li>
             <?php endforeach; ?>
         </ul>
     </div>

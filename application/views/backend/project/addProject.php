@@ -26,14 +26,14 @@
                 </td>
             </tr>
 
-            <tr>
-                <th width="120"><i class="require-red">*</i>所属店铺：</th>
-                <td>
-                    <select name="shop_id" class="required select">
-                        <?php $this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => 0)); ?>
-                    </select>
-                </td>
-            </tr>
+<!--            <tr>-->
+<!--                <th width="120"><i class="require-red">*</i>所属店铺：</th>-->
+<!--                <td>-->
+<!--                    <select name="shop_id" class="required select">-->
+<!--                        --><?php //$this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => 0)); ?>
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
 
             <tr>
                 <th><i class="require-red">*</i>项目标题：</th>

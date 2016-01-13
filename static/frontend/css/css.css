@@ -1145,7 +1145,7 @@ a#bind {
 }
 
 .categories-list {
-    width: 2000px;
+    width: 2000px !important;
     padding: 10px 5px;
     font-size: 14px;
     background-color: white;
