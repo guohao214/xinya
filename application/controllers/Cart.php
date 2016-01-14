@@ -197,7 +197,7 @@ class Cart extends FrontendController
         } else {
             $this->db->trans_commit();
             // 清空购物车
-            //(new CartUtil())->emptyCart();
+            (new CartUtil())->emptyCart();
             // 跳到 订单显示
             ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
         }
