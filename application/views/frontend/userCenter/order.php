@@ -59,19 +59,15 @@
                         <?php if ($order['order_sign'] == OrderModel::ORDER_NOT_PAY && DateUtil::orderIsValidDate($order['create_time'])): ?>
                             <a class="colorW"
                                href="<?php echo UrlUtil::createUrl('order/pay/' . $order['order_no']); ?>">去支付</a>
-                        <?php endif; ?>
-
-                        <?php if ($order['order_sign'] == OrderModel::ORDER_NOT_PAY && !DateUtil::orderIsValidDate($order['create_time'])): ?>
+                            <a class="colorW cancel-order" data-val="<?php echo $order['order_id']; ?>"
+                               style="margin-left: 15px;">取消订单</a>
+                        <?php elseif ($order['order_sign'] == OrderModel::ORDER_NOT_PAY && !DateUtil::orderIsValidDate($order['create_time'])): ?>
                             <a class="order-expire">订单已过期</a>
-                        <?php endif; ?>
-
-                        <?php if ($order['order_sign'] == OrderModel::ORDER_PAYED && DateUtil::orderIsValidDate($order['pay_time'], 30)): ?>
-                            <a class="colorW cancel-order" data-val="<?php echo $order['order_id']; ?>">取消订单</a>
-                        <?php endif; ?>
-
-
-                        <?php if ($order['order_sign'] == OrderModel::ORDER_CANCEL): ?>
+                        <?php elseif ($order['order_sign'] == OrderModel::ORDER_CANCEL): ?>
                             <a class="order-expire">已取消订单</a>
+                            <?php elseif ($order['order_sign'] == OrderModel::ORDER_PAYED): ?>
+                            <a class="colorW">已支付</a>
+                            <?php else: ?>
                         <?php endif; ?>
 
                         <i class="colorH">总金额:<strong
