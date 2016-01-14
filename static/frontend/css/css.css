@@ -1060,7 +1060,7 @@ a#bind {
 }
 
 #pagination-digg .active {
-    color: #ff0084;
+    color: #FF8CB3;
     font-weight: bold;
     display: block;
     float: left;
@@ -1069,7 +1069,7 @@ a#bind {
 
 #pagination-digg a:link,
 #pagination-digg a:visited {
-    color: #0063e3;
+    color: #FF8CB3;
     display: block;
     float: left;
     padding: 3px 6px;
@@ -1078,7 +1078,7 @@ a#bind {
 
 #pagination-digg a:hover {
     border: solid 1px #000;
-    background: #0063DC;
+    background: #FF8CB3;
     color: #FFF;
 }
 
