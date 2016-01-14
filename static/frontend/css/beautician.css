@@ -2,6 +2,7 @@
     padding-bottom: 0px !important;
     margin: 0px !important;
     border-bottom: 1px solid #FF8CB3;
+    background-color: white;
 }
 
 .section-two, .section-appointment-day {
@@ -62,6 +63,7 @@
     -ms-text-size-adjust: none;
     -o-text-size-adjust: none;
     text-size-adjust: none;
+    background-color: white;
 }
 
 #beautician ul {
@@ -77,8 +79,8 @@
     display: block;
     float: left;
     width: 100px;
-    height: auto;
-    background-color: #fafafa;
+    height: 100px;
+    /*background-color: #fafafa;*/
     font-size: 14px;
     padding: 10px;
 }
@@ -86,6 +88,8 @@
 #beautician li img {
     border-radius: 6px;
     padding:3px;
+    height:70px !important;
+    width: auto;
 }
 
 .choose-beautician, .choose-appointment-time {
