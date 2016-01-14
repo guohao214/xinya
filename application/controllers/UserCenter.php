@@ -19,6 +19,7 @@ class UserCenter extends FrontendController
         $weixinUtil->authorize("userCenter/order/{$offset}/{$orderStatus}");
 
         $openId = $weixinUtil->getOpenId();
+        $openId = 'guohao';
         $orderModel = new OrderModel();
 
         // 获得订单信息
@@ -35,9 +36,12 @@ class UserCenter extends FrontendController
 
         $orderCounts = (isset($orderCounts['rowCounts'])) ? $orderCounts['rowCounts'] : 0;
         $pages = (new PaginationUtil($orderCounts, 'user-center'))->pagination();
-        $shops = (new ShopModel())->getAllShops();
 
-        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $orders, 'shops' => $shops, 'offset' => $offset));
+        $shopModel = new ShopModel();
+        $shops = $shopModel->getAllShops();
+        $shopAddress = $shopModel->getAllShopAddress();
+        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $orders,
+            'shops' => $shops, 'offset' => $offset, 'shopAddress' => $shopAddress));
     }
 
 
@@ -50,5 +54,29 @@ class UserCenter extends FrontendController
             $this->message('信息不存在!');
 
         $this->view('article/index', array('article' => $article));
+    }
+
+    /**
+     * 取消订单
+     * @param $orderId
+     */
+    public function cancelOrder($orderId)
+    {
+        $openId = (new WeixinUtil())->getOpenId();
+        if (!$openId)
+            ResponseUtil::failure('未授权访问！');
+
+        if (!$orderId)
+            ResponseUtil::failure('没有订单');
+
+        $orderId += 0;
+
+        //取消订单
+        if ((new CurdUtil(new OrderModel()))->update(array('order_id' => $orderId, 'open_id' => $openId),
+            array('order_status' => OrderModel::ORDER_CANCEL))
+        )
+            ResponseUtil::executeSuccess('订单取消成功！');
+        else
+            ResponseUtil::failure('取消订单失败!');
     }
 }

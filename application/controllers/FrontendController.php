@@ -8,7 +8,7 @@
  */
 class FrontendController extends BaseController
 {
-    public $pageTitle = '心雅美容，不期而遇美容';
+    public $pageTitle = '不期而遇美容连锁';
     public $cacheTime = 600;
 
     public function __construct()
@@ -33,7 +33,6 @@ class FrontendController extends BaseController
      */
     public function outputCache($cacheTime = '')
     {
-        return false;
 
         if (!$cacheTime)
             $cacheTime = $this->cacheTime;

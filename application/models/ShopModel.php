@@ -26,6 +26,10 @@ class ShopModel extends BaseModel
         return $shops;
     }
 
+    /**
+     * 获得门店
+     * @return array
+     */
     public function getAllShops()
     {
         $shops = $this->allShops();
@@ -33,6 +37,22 @@ class ShopModel extends BaseModel
 
         foreach ($shops as $shop) {
             $_shops[$shop['shop_id']] = $shop['shop_name'];
+        }
+
+        return $_shops;
+    }
+
+    /**
+     * 获得门店地址
+     * @return array
+     */
+    public function getAllShopAddress()
+    {
+        $shops = $this->allShops();
+        $_shops = array();
+
+        foreach ($shops as $shop) {
+            $_shops[$shop['shop_id']] = $shop['address'];
         }
 
         return $_shops;

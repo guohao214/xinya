@@ -6,6 +6,7 @@ class OrderModel extends BaseModel
     const ORDER_PAYED = 2; // 已支付
     const ORDER_CONSUMED = 3; //已消费
     const ORDER_RETURNED = 4; //已退款
+    const ORDER_CANCEL = 5; //已退款
 
     public function setTable()
     {

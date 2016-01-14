@@ -8,12 +8,12 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/css.css?v=2016011405">
+    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/css.css?v=20150116">
     <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/default.css">
     <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/loading.css?v=20160113">
     <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/slider.css">
     <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/js.js?v=20160113"></script>
+    <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/js.js?v=20150116"></script>
 </head>
 <script>
     document_root = '/';

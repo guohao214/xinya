@@ -1,5 +1,5 @@
 <header>
-    <h2>订单支付</h2>
+    <h2>订单支付(请在10分钟之内支付)</h2>
 </header>
 
 <input type="hidden" name="pay-params" value="<?php echo urlencode($payParams); ?>">
@@ -24,7 +24,7 @@
                 <a>
                     <h3 class="F14 FN"><?php echo $order['project_name']; ?></h3>
                 </a>
-                <p>门店:<span class="F14"><?php echo $shop; ?></span></p>
+                <p>门店:<span class="F11"><?php echo $shop; ?></span></p>
                 <strong
                     class="FN colorH">预约时间: <?php echo $order['appointment_day'] . $order['appointment_start_time']; ?></strong>
                 <strong class="add FN colorH">美容师:<?php echo $order['beautician_name']; ?></strong>

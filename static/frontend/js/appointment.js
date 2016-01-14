@@ -7,7 +7,7 @@ $(document).ready(function () {
     ;
 
     // 美容师滚动
-    $('#beautician').width(($beauticianAvatar.length) * 120);
+    $('#beautician').width(($beauticianAvatar.length) * 100);
     new IScroll('#choose-beautician-section', {scrollX: true, scrollY: false, mouseWheel: false});
 
     // 美容师点击事件
@@ -35,17 +35,12 @@ $(document).ready(function () {
             $validAppointmentTimes = $nextAppointmentTimes.length * 30 + 30;
 
         // console.log($validAppointmentTimes);
-
         if ($validAppointmentTimes < $projectTime) {
             messageTool.show('预约时间不够，请重新选择');
         } else {
             $(this).addClass('choose-appointment-time');
-
-            for (var i = 0; i < $nextAppointmentTimes.length; i++) {
-                if (((i + 1) * 30 + 30) > $projectTime)
-                    return false;
-                else
-                    $nextAppointmentTimes.eq(i).addClass('choose-appointment-time');
+            for (var i = 0; i < Math.ceil($projectTime / 30) - 1; i++) {
+                $nextAppointmentTimes.eq(i).addClass('choose-appointment-time');
             }
         }
 

@@ -18,13 +18,13 @@ class DateUtil
     }
 
     /**
-     * 检查两个时间差
+     * 检查两个时间差, 默认为10分钟
      * @param $date
-     * @param $subDate
+     * @param $subTime
      * @param string $now
      * @return bool
      */
-    public static function orderIsValidDate($date, $subDate = 2, $now = '')
+    public static function orderIsValidDate($date, $subTime = 10, $now = '')
     {
         if (!$now)
             $now = time();
@@ -33,7 +33,7 @@ class DateUtil
             $date = strtotime($date);
 
         $sub = ($now - $date);
-        return ($sub < $subDate * 86400);
+        return ($sub < ($subTime * 60));
     }
 
     /**

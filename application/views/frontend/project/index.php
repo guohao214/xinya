@@ -68,12 +68,8 @@
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150114"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/jquery.slider.js"></script>
 
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/jquery.slider.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#slider').nivoSlider();
-    });
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150116"></script>
 </script>

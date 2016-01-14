@@ -9,11 +9,13 @@ $(document).ready(function() {
     var $length = 0;
     $categories_a.each(function() {
         $length += $(this).width() + 10;
-        console.log($length)
     })
 
     // 加上项目分类的长度
-    //$length += 120;
-    $categories_list.width($length)
+    $length += 120;
+    $categories_list.css('width', $length + 'px');
     new IScroll('#categories', {scrollX: true, scrollY: false, mouseWheel: false});
+
+    // 幻灯片
+    $('#slider').nivoSlider();
 })

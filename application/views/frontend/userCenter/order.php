@@ -1,5 +1,5 @@
 <header>
-    <a class="prev j_prePage" href="javascript:window.history.back();"></a>
+    <a class="prev j_prePage" href="<?php echo UrlUtil::createUrl('project/index'); ?>"></a>
     <h2>我的订单</h2>
 </header>
 
@@ -30,7 +30,7 @@
                     <dd>
                         <div></div>
                         <samp class="order_number">订单号：
-                            <span class="F18"><?php echo $order['order_no']; ?></span></samp>
+                            <span class="F15"><?php echo $order['order_no']; ?></span></samp>
                     </dd>
                     <dt>
                         <a href="<?php echo UrlUtil::createUrl('project/detail/' . $order['project_id']); ?>">
@@ -41,10 +41,15 @@
                                 <b class="add FN colorH">门店：<span>
                                     <?php echo ($order['shop_id'] && isset($shops[$order['shop_id']])) ? $shops[$order['shop_id']] : '不期而遇门店'; ?>
                                 </span>
-                                    <p>预约时间:<span class="F14"><?php echo $order['appointment_day'] . $order['appointment_start_time']; ?>
-                                </b></strong>
-                                <strong
-                                    class="add FN colorH">美容师:<?php echo $order['beautician_name']; ?></span></p></strong>
+                                </b> <b class="add FN colorH">门店地址：<span>
+                                    <?php echo $shopAddress[$order['shop_id']]; ?>
+                                </span>
+                                </b>
+                                <p>预约时间:<span
+                                        class="F11"><?php echo DateUtil::buildDateTime($order['appointment_day'], $order['appointment_start_time']); ?>
+                                        <strong
+                                            class="add FN colorH">美容师:<?php echo $order['beautician_name']; ?></span>
+                                </p></strong>
 
                                 <i class="order_list_i"></i>
                             </div>
@@ -56,10 +61,18 @@
                                href="<?php echo UrlUtil::createUrl('order/pay/' . $order['order_no']); ?>">去支付</a>
                         <?php endif; ?>
 
-                        <?php if (!DateUtil::orderIsValidDate($order['create_time'])): ?>
-                            <a style="background-color: #CCCCCC; color: white;">订单已过期</a>
+                        <?php if ($order['order_sign'] == OrderModel::ORDER_NOT_PAY && !DateUtil::orderIsValidDate($order['create_time'])): ?>
+                            <a class="order-expire">订单已过期</a>
                         <?php endif; ?>
 
+                        <?php if ($order['order_sign'] == OrderModel::ORDER_PAYED && DateUtil::orderIsValidDate($order['pay_time'], 30)): ?>
+                            <a class="colorW cancel-order" data-val="<?php echo $order['order_id']; ?>">取消订单</a>
+                        <?php endif; ?>
+
+
+                        <?php if ($order['order_sign'] == OrderModel::ORDER_CANCEL): ?>
+                            <a class="order-expire">已取消订单</a>
+                        <?php endif; ?>
 
                         <i class="colorH">总金额:<strong
                                 class="F18 colorR">￥<?php echo $order['total_fee']; ?></strong></i>
@@ -85,3 +98,6 @@
         <?php endif; ?>
     </div>
 </section>
+
+<script type="text/javascript"
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/order.js"></script>

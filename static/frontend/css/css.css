@@ -605,7 +605,7 @@ a#bind {
 
 .order_list dd:first-child {
     border-bottom: #ececec 1px solid;
-    height: 40px;
+    height: 35px;
     display: block
 }
 
@@ -615,6 +615,7 @@ a#bind {
     background: url(../images/all_520.png) no-repeat right;
     background-position: -38px -130px;
     background-size: 100px auto;
+    margin-right: 2px;
     float: left;
 }
 
@@ -634,7 +635,7 @@ a#bind {
 }
 
 .order_list dt .order_list_dtDiv {
-    margin: 15px 0;
+    /*margin: 15px 0;*/
     position: relative;
     padding: 15px 0px;
 }
@@ -1077,7 +1078,7 @@ a#bind {
 }
 
 #pagination-digg a:hover {
-    border: solid 1px #000;
+    /*border: solid 1px #000;*/
     background: #FF8CB3;
     color: #FFF;
 }
@@ -1141,12 +1142,12 @@ a#bind {
     z-index: 1;
     left: 0;
     width: 100%;
-    background: #ccc;
     overflow: hidden;
+    background-color: #FF8CB3;
 }
 
 .categories-list {
-    width: 2000px !important;
+    width: 2000px;
     padding: 10px 5px;
     font-size: 14px;
     background-color: #FF8CB3;
@@ -1164,4 +1165,9 @@ a#bind {
 
 .categories-list a:last-child {
     border: 0px;
+}
+
+.order-expire {
+    background-color: #CCCCCC !important;
+    color: white;
 }
