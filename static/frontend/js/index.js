@@ -8,13 +8,12 @@ $(document).ready(function() {
     // 计算长度
     var $length = 0;
     $categories_a.each(function() {
-        $length += $(this).width() + 30;
+        $length += $(this).width() + 10;
+        console.log($length)
     })
 
     // 加上项目分类的长度
-    $length += 120;
+    //$length += 120;
     $categories_list.width($length)
     new IScroll('#categories', {scrollX: true, scrollY: false, mouseWheel: false});
-
-    $categories_a.css('z-index', 1000);
 })

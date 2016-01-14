@@ -21,7 +21,6 @@
 
     <div id="categories">
         <div class="categories-list">
-            项目分类：
             <?php foreach ($categories as $category): ?>
                 <a href="#<?php echo $category; ?>" class="category"><?php echo $category; ?></a>
             <?php endforeach; ?>
@@ -69,7 +68,7 @@
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150113"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150114"></script>
 
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/jquery.slider.js"></script>

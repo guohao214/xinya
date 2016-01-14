@@ -208,7 +208,7 @@ section {
 
 .itemlist {
     position: relative;
-    background: #eee;
+    background: white;
 }
 
 .item {
@@ -316,6 +316,7 @@ section {
     margin-top: 30px;
     color: white;
     border-top: 1px solid #FF8CB3;
+    margin: 30px 20px 0px 20px;
 }
 
 .title_index div {
@@ -1148,15 +1149,17 @@ a#bind {
     width: 2000px !important;
     padding: 10px 5px;
     font-size: 14px;
-    background-color: white;
+    background-color: #FF8CB3;
     border: 0px;
     border-top: 1px solid #FF8CB3;
     border-bottom: 1px solid #FF8CB3;
+    color: white;
 }
 
 .categories-list a {
     padding: 0px 15px;
     border-right: 1px solid #FF8CB3;
+    color: white;
 }
 
 .categories-list a:last-child {
