@@ -1,5 +1,5 @@
 <header>
-    <h2>心雅提示您</h2>
+    <h2>不期而遇美容提示您</h2>
 </header>
 
 <section>
@@ -10,7 +10,7 @@
             </div>
             <?php if ($returnBack): ?>
                 <a href="<?php echo $returnBack; ?>">
-                    <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">
+                    <input class="btn btn6" value="返回" type="button">
                 </a>
             <?php else: ?>
                 <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">

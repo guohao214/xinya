@@ -11,7 +11,12 @@ class StringUtil
 
     public static function substr($string, $length = 10)
     {
-        return mb_substr($string, 0, $length);
+        $string = strip_tags($string);
+        $suffix = '';
+        if (mb_strlen($string) > $length)
+            $suffix = '...';
+
+        return mb_substr($string, 0, $length) . $suffix;
     }
 
     /**
@@ -33,7 +38,7 @@ class StringUtil
         $string = str_shuffle($string);
         $string = str_shuffle($string);
 
-        return substr($string, 2, 2).substr($string, 5, 2).substr($string, 15, 2).substr($string, 20, 2);
+        return substr($string, 2, 2) . substr($string, 5, 2) . substr($string, 15, 2) . substr($string, 20, 2);
 
     }
 }

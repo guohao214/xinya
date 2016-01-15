@@ -50,7 +50,7 @@
                                         <!--<cite class="appointment FN">预约</cite><!--<b>103人推荐</b>-->
                                     </p>
                                     <p class="effects F13">
-                                        适用皮肤：<?php echo (new StringUtil())->substr($pj['suitable_skin'], 30); ?></p>
+                                        功效：<?php echo (new StringUtil())->substr($pj['effects'], 30); ?></p>
                                 </dd>
                             </dl>
                         </a>

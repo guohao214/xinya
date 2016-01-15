@@ -26,7 +26,7 @@
                 </a>
                 <p>门店:<span class="F11"><?php echo $shop; ?></span></p>
                 <strong
-                    class="FN colorH">预约时间: <?php echo $order['appointment_day'] . $order['appointment_start_time']; ?></strong>
+                    class="FN colorH">预约时间: <?php echo DateUtil::buildDateTime($order['appointment_day'], $order['appointment_start_time']); ?></strong>
                 <strong class="add FN colorH">美容师:<?php echo $order['beautician_name']; ?></strong>
                 <i class="order_list_i"> </i>
             </div>

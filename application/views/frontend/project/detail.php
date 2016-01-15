@@ -2,6 +2,11 @@
 <?php $this->load->view('frontend/header'); ?>
 <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/project-detail.js"></script>
 
+<style>
+    body {
+        background-color: white !important;
+    }
+</style>
 <header>
     <a class="prev j_prePage" href="javascript:window.history.back();"></a>
     <h2><?php echo $project['project_name']; ?></h2>
@@ -19,15 +24,17 @@
             <p>服务时限：<i></i><?php echo $project['use_time']; ?>分钟</p>
 
         </div>
+        <?php if ($project['suitable_skin']): ?>
         <div class="item_desc">
             <p><?php echo $project['suitable_skin']; ?></p>
         </div>
+        <?php endif; ?>
 
         <div class="item_desc">
             <ul class="tags">
                 <li class="F15">功效</li>
             </ul>
-            <p><?php echo $project['effects']; ?></p>
+            <p><?php echo nl2br($project['effects']); ?></p>
         </div>
     </div>
 </section>

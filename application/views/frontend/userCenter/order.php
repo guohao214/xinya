@@ -64,9 +64,9 @@
                         <?php elseif ($order['order_sign'] == OrderModel::ORDER_NOT_PAY && !DateUtil::orderIsValidDate($order['create_time'])): ?>
                             <a class="order-expire">订单已过期</a>
                         <?php elseif ($order['order_sign'] == OrderModel::ORDER_CANCEL): ?>
-                            <a class="order-expire">已取消订单</a>
+                            <a class="order-expire">订单已取消</a>
                             <?php elseif ($order['order_sign'] == OrderModel::ORDER_PAYED): ?>
-                            <a class="colorW">已支付</a>
+                            <a class="order-payed">已支付</a>
                             <?php else: ?>
                         <?php endif; ?>
 
@@ -96,4 +96,4 @@
 </section>
 
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/order.js"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/order.js?v=20150117"></script>

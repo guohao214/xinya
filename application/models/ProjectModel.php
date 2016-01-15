@@ -23,9 +23,9 @@ class ProjectModel extends BaseModel
         $validate->required('price');
         $validate->numeric('price');
 
-        $validate->required('suitable_skin');
-        $validate->minLength('suitable_skin', 1);
-        $validate->maxLength('suitable_skin', 500);
+//        $validate->required('suitable_skin');
+//        $validate->minLength('suitable_skin', 1);
+//        $validate->maxLength('suitable_skin', 500);
 
         $validate->required('effects');
 //        $validate->minLength('effects', 1);
