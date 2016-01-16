@@ -16,9 +16,9 @@
                         <th width="110">图片</th>
                         <th>标题</th>
                         <th>链接</th>
-                        <th>分类</th>
-                        <th>排序</th>
-                        <th width="80">操作</th>
+                        <th width="100">分类</th>
+                        <th width="100">排序</th>
+                        <th width="140">操作</th>
                     </tr>
                     <?php foreach ($sliders as $slider): ?>
                         <tr>
@@ -31,6 +31,8 @@
                             <td><?php echo $slider['slider_type']; ?></td>
                             <td><?php echo $slider['order_sort']; ?></td>
                             <td>
+                                <a class="btn btn-warning"
+                                   href="<?php echo UrlUtil::createBackendUrl('slider/updateSlider/' . $slider['slider_id']); ?>">修改</a>
                                 <a class="link-del btn btn-danger"
                                    href="<?php echo UrlUtil::createBackendUrl('slider/deleteSlider/' . $slider['slider_id']); ?>">删除</a>
                             </td>
