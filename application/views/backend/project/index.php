@@ -12,7 +12,8 @@
                         <select name="category_id" class="select">
                             <option value="">全部</option>
                             <?php foreach ($categories as $key => $category): ?>
-                                <option value="<?php echo $key; ?>"><?php echo $category; ?></option>
+                                <option value="<?php echo $key; ?>"
+                                    <?php echo ($categoryId == $key) ? ' selected' : '';  ?>><?php echo $category; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>

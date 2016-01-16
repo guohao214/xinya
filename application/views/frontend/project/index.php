@@ -13,7 +13,7 @@
                 <a href="<?php echo $slider['href']; ?>">
                     <img src="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '600x600'); ?>"
                          data-thumb="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '200x200'); ?>"
-                         title="<?php echo $slider['title']; ?>" alt="<?php echo $slider['title']; ?>"/>
+                         title="" alt=""/>
                     <?php endforeach; ?>
                 </a>
             </div>

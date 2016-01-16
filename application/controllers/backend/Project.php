@@ -25,8 +25,11 @@ class Project extends BackendController
         $categories = (new CategoryModel())->getAllCategories();
         $shops = (new ShopModel())->getAllShops();
 
+        $categoryId = $this->input->get('category_id') + 0;
+
         $this->view('project/index', array('projects' => $projects, 'shops' => $shops, 'limit' => $limit + 0,
-            'pages' => $pages, 'categories' => $categories, 'params' => RequestUtil::getParams()));
+            'pages' => $pages, 'categories' => $categories, 'params' => RequestUtil::getParams(),
+        'categoryId' => $categoryId));
     }
 
     public function deleteProject($project_id, $limit = 0)
