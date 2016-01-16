@@ -13,8 +13,10 @@ class UserCenter extends FrontendController
         $this->view('userCenter/index');
     }
 
-    public function order($offset = 0, $orderStatus = 0)
+    public function order($offset = 0)
     {
+        $orderStatus = $this->input->get('type') + 0;
+
         $weixinUtil = new WeixinUtil();
         $weixinUtil->authorize("userCenter/order/{$offset}/{$orderStatus}");
 
@@ -39,7 +41,7 @@ class UserCenter extends FrontendController
         $shopModel = new ShopModel();
         $shops = $shopModel->getAllShops();
         $shopAddress = $shopModel->getAllShopAddress();
-        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $orders,
+        $this->view('userCenter/order', array('pages' => $pages, 'orders' => $orders, 'orderStatus' => $orderStatus,
             'shops' => $shops, 'offset' => $offset, 'shopAddress' => $shopAddress));
     }
 

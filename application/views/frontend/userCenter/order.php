@@ -6,14 +6,14 @@
 <section>
     <div class="tab_wrap">
         <ul class="tabs j_scroll" id="iScroll0" style="">
-            <li class="cur">
+            <li class="<?php echo (empty($orderStatus)) ? 'current' : ''; ?>">
                 <a href="<?php echo UrlUtil::createUrl("userCenter/order/0"); ?>"><i></i>全部</a>
             </li>
-            <li class="">
-                <a href="<?php echo UrlUtil::createUrl("userCenter/order/0/" . OrderModel::ORDER_NOT_PAY); ?>">未支付</a>
+            <li class="<?php echo ($orderStatus == OrderModel::ORDER_NOT_PAY) ? 'current' : ''; ?>">
+                <a href="<?php echo UrlUtil::createUrl("userCenter/order/0/?type=" . OrderModel::ORDER_NOT_PAY); ?>">未支付</a>
             </li>
-            <li>
-                <a href="<?php echo UrlUtil::createUrl("userCenter/order/0/" . OrderModel::ORDER_PAYED); ?>">已支付</a>
+            <li class="<?php echo ($orderStatus == OrderModel::ORDER_PAYED) ? 'current' : ''; ?>">
+                <a href="<?php echo UrlUtil::createUrl("userCenter/order/0/?type=" . OrderModel::ORDER_PAYED); ?>">已支付</a>
             </li>
             <li></li>
             <!--            <li>-->
@@ -65,9 +65,9 @@
                             <a class="order-expire">订单已过期</a>
                         <?php elseif ($order['order_sign'] == OrderModel::ORDER_CANCEL): ?>
                             <a class="order-expire">订单已取消</a>
-                            <?php elseif ($order['order_sign'] == OrderModel::ORDER_PAYED): ?>
+                        <?php elseif ($order['order_sign'] == OrderModel::ORDER_PAYED): ?>
                             <a class="order-payed">已支付</a>
-                            <?php else: ?>
+                        <?php else: ?>
                         <?php endif; ?>
 
                         <i class="colorH">总金额:<strong

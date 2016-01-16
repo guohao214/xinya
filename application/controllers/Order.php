@@ -39,6 +39,13 @@ class Order extends FrontendController
         if (!DateUtil::orderIsValidDate($order['create_time']))
             $this->message('订单已经过期!');
 
+        // 判断相同的时间是否已经被预约
+        $findHasPayedAppointTimeWhere = array('appointment_day' => $order['appointment_day'],
+            'appointment_start_time' => $order['appointment_start_time'], 'order_status' => OrderModel::ORDER_PAYED);
+        $findOrder = (new CurdUtil(new OrderModel()))->readOne($findHasPayedAppointTimeWhere);
+        if ($findOrder)
+            $this->message('由于您未能及时付款，此时间段已被预约!');
+
         // 获得预付款ID
         $weixinPay = new WeixinPayUtil();
         $prePayId = $weixinPay->fetchPrepayId($openId, '购买不期而遇美容产品', $orderNo, $order['total_fee']);
