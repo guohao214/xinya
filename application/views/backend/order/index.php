@@ -64,7 +64,7 @@
                         <!--                    <td>--><?php //echo $order['complete_time']; ?><!--</td>-->
                         <td>
                             <a class="link-view btn btn-success"
-                               href="<?php echo UrlUtil::createBackendUrl('order/orderDetail/' . $order['order_no']); ?>">详情</a>
+                               href="<?php echo UrlUtil::createBackendUrl('order/orderDetail/' . $order['order_no'] . "/{$limit}"); ?>">详情</a>
                             <a class="link-del btn btn-danger"
                                href="<?php echo UrlUtil::createBackendUrl('order/deleteOrder/' . $order['order_id']); ?>">删除</a>
 

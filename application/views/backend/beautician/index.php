@@ -56,7 +56,7 @@
                             <a class="link-del btn btn-danger"
                                href="<?php echo UrlUtil::createBackendUrl("beautician/deleteBeautician/{$beautician_id}"); ?>">删除</a>
                             <a class="link-update btn btn-info"
-                               href="<?php echo UrlUtil::createBackendUrl("beautician/rest/{$beautician_id}"); ?>">请假记录</a>
+                               href="<?php echo UrlUtil::createBackendUrl("beautician/rest?beautician_id={$beautician_id}"); ?>">请假记录</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

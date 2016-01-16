@@ -258,7 +258,7 @@ class CI_Pagination {
 	 *
 	 * @var	bool
 	 */
-	protected $page_query_string = FALSE;
+	protected $page_query_string = false;
 
 	/**
 	 * Query string segment
@@ -296,7 +296,7 @@ class CI_Pagination {
 	 *
 	 * @var	bool
 	 */
-	protected $reuse_query_string = FALSE;
+	protected $reuse_query_string = true;
 
 	/**
 	 * Use global URL suffix flag

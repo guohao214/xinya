@@ -11,7 +11,7 @@
             <?php echo validation_errors(); ?>
         </div>
 
-        <?php echo form_open_multipart(RequestUtil::CM(array('project_id' => $project['project_id']))); ?>
+        <?php echo form_open_multipart(RequestUtil::CM(array('project_id' => $project['project_id'], 'limit' => $limit))); ?>
         <table class="insert-tab" width="100%">
             <tbody>
             <tr>
@@ -83,7 +83,7 @@
                 <th></th>
                 <td>
                     <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
-                    <a class="btn btn6" href="<?php echo UrlUtil::createBackendUrl('project/index'); ?>">返回</a>
+                    <a class="btn btn6" href="<?php echo UrlUtil::createBackendUrl("project/index/{$limit}"); ?>">返回</a>
                 </td>
             </tr>
             </tbody>

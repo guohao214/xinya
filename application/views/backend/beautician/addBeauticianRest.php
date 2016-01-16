@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/jquery.datetimepicker.css"/>
+<script src="<?php echo get_instance()->config->base_url(); ?>static/backend/js/jquery.datetimepicker.js"></script>
 <div class="crumb-wrap">
     <div class="crumb-list"><i class="icon-font"></i>
         <a href="<?php echo UrlUtil::createBackendUrl('project/index') ?>">首页</a>
@@ -33,7 +35,7 @@
             <tr>
                 <th width="120"><i class="require-red">*</i>开始时间：</th>
                 <td>
-                    <input class="common-text required" name="start_time" size="20"
+                    <input class="common-text required" name="start_time" size="10"
                            value="<?php echo set_value('start_time'); ?>" type="text">
                 </td>
             </tr>
@@ -42,7 +44,7 @@
             <tr>
                 <th width="120"><i class="require-red">*</i>结束时间：</th>
                 <td>
-                    <input class="common-text required" name="end_time" size="20"
+                    <input class="common-text required" name="end_time" size="10"
                            value="<?php echo set_value('end_time'); ?>" type="text">
                 </td>
             </tr>
@@ -66,3 +68,20 @@
         </table>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('[name="rest_day"]').datetimepicker({
+                lang:'ch',
+                timepicker:false,
+                format:'Y-m-d',
+                formatDate:'Y-m-d',
+            });
+
+            $('[name="start_time"], [name="end_time"]').datetimepicker({
+                datepicker:false,
+                format:'H:i',
+                step:5
+            });
+        })
+    </script>

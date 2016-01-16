@@ -58,9 +58,9 @@
                             <td><?php echo $project['create_time']; ?></td>
                             <td>
                                 <a class="link-update btn btn-warning"
-                                   href="<?php echo UrlUtil::createBackendUrl('project/updateProject/' . $project['project_id']); ?>">修改</a>
+                                   href="<?php echo UrlUtil::createBackendUrl('project/updateProject/' . $project['project_id'] ."/{$limit}"); ?>">修改</a>
                                 <a class="link-del btn btn-danger"
-                                   href="<?php echo UrlUtil::createBackendUrl('project/deleteProject/' . $project['project_id']); ?>">删除</a>
+                                   href="<?php echo UrlUtil::createBackendUrl('project/deleteProject/' . $project['project_id']."/{$limit}"); ?>">删除</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

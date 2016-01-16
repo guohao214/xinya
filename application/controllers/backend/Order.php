@@ -31,10 +31,10 @@ class Order extends BackendController
         $pages = (new PaginationUtil($ordersCount))->pagination();
         $shops = (new ShopModel())->getAllShops();
         $this->view('order/index', array('orders' => $orders, 'pages' => $pages,
-            'params' => RequestUtil::getParams(), 'shops' => $shops));
+            'params' => RequestUtil::getParams(), 'shops' => $shops, 'limit' => $limit));
     }
 
-    public function orderDetail($order_no = '')
+    public function orderDetail($order_no = '', $limit = 0)
     {
         if (!$order_no)
             $this->message('订单ID不能为空！');
@@ -48,7 +48,7 @@ class Order extends BackendController
         $orderProjects = (new OrderProjectModel())->getOrderProject($order['order_id']);
         $shops = (new ShopModel())->getAllShops();
         $this->view('order/orderDetail', array('order' => $order, 'shops' => $shops,
-            'orderProjects' => $orderProjects));
+            'orderProjects' => $orderProjects, 'limit' => $limit));
     }
 
     /**
@@ -61,9 +61,9 @@ class Order extends BackendController
             $this->message('订单ID不能为空！');
 
         if ((new CurdUtil($this->orderModel))->update(array('order_id' => $order_id), array('disabled' => 1)))
-            $this->message('订单删除成功！', 'order/index');
+            $this->message('订单删除成功！');
         else
-            $this->message('订单删除失败！', 'order/index');
+            $this->message('订单删除失败！');
     }
 
     /**
