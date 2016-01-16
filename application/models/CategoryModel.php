@@ -21,7 +21,7 @@ class CategoryModel extends BaseModel
 
         $sql = "SELECT *,(select count(*) from {$project->table} where
 			{$project->table}.category_id={$this->table}.category_id and {$project->table}.disabled=0) as projects 
-    	 FROM `{$this->table}` where {$this->table}.disabled=0";
+    	 FROM `{$this->table}` where {$this->table}.disabled=0 order by order_sort desc, create_time desc";
 
 
         $query = $this->db->query($sql);
