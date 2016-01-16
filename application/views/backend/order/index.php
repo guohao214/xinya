@@ -70,7 +70,7 @@
 
                             <?php if ($order['order_sign'] == OrderModel::ORDER_PAYED): ?><br>
                                 <a class="link-complete btn btn-warning"
-                                   href="<?php echo UrlUtil::createBackendUrl('order/completeOrder/' . $order['order_id']); ?>">已消费</a>
+                                   href="<?php echo UrlUtil::createBackendUrl('order/CancelOrder/' . $order['order_id']); ?>">取消</a>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -97,7 +97,7 @@
         $('.link-complete').on('click', function (e) {
             e.preventDefault();
 
-            if (confirm('此订单确定已经消费了？')) {
+            if (confirm('确定取消此订单？')) {
                 window.location.href = $(this).attr('href');
             }
         })

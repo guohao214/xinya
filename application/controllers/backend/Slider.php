@@ -34,36 +34,21 @@ class Slider extends BackendController
 
             if ($this->sliderModel->rules()->run()) {
 
-                $params['pic'] = $this->processUpload();
+                $params['pic'] = UploadUtil::commonUpload(array('upload/resize_200x200', 'upload/resize_100x100',
+                    'upload/resize_600x600'));
 
                 $insertId = (new CurdUtil($this->sliderModel))->
                 create(array_merge($params, array('create_time' => DateUtil::now())));
 
                 if ($insertId)
-                    $this->message('新增幻灯片成功!', 'slider/index');
+                    $this->message('新增成功!', 'slider/index');
                 else
-                    $this->message('新增幻灯片失败!', 'slider/index');
+                    $this->message('新增失败!', 'slider/index');
             }
 
         }
 
         $this->view('slider/addSlider');
-    }
-
-    private function processUpload($pic = 'pic')
-    {
-        if ($_FILES[$pic]['size'] <= 0)
-            return '';
-
-        $upload = new UploadUtil('upload/image');
-        $data = $upload->upload($pic);
-        if ($data['error'] == 0) {
-            // 缩略图
-            $upload->resizeImage(array('upload/resize_200x200', 'upload/resize_600x600'), $data['data']);
-            return json_encode($data['data']);
-        } else {
-            $this->message('图片上传失败，请重试！' . $data['data']);
-        }
     }
 
     public function deleteSlider($sliderId)
@@ -74,8 +59,8 @@ class Slider extends BackendController
         $this->sliderModel->deleteSliderCache();
 
         if ((new CurdUtil($this->sliderModel))->update(array('slider_id' => $sliderId), array('disabled' => 1)))
-            $this->message('删除幻灯片成功！', 'slider/index');
+            $this->message('删除成功！', 'slider/index');
         else
-            $this->message('删除幻灯片失败！', 'slider/index');
+            $this->message('删除失败！', 'slider/index');
     }
 }

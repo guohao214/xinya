@@ -6,7 +6,7 @@
         <div class="result-title">
             <div class="result-list">
                 <a href="<?php echo UrlUtil::createBackendUrl('slider/addSlider') ?>">
-                    <i class="icon-font"></i>新增幻灯片</a>
+                    <i class="icon-font"></i>新增</a>
             </div>
         </div>
         <div class="result-content">
@@ -16,6 +16,7 @@
                         <th width="110">图片</th>
                         <th>标题</th>
                         <th>链接</th>
+                        <th>分类</th>
                         <th>排序</th>
                         <th width="80">操作</th>
                     </tr>
@@ -27,6 +28,7 @@
                             </td>
                             <td><?php echo $slider['title']; ?></td>
                             <td><?php echo $slider['href']; ?></td>
+                            <td><?php echo $slider['slider_type']; ?></td>
                             <td><?php echo $slider['order_sort']; ?></td>
                             <td>
                                 <a class="link-del btn btn-danger"

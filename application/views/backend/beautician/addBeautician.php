@@ -42,7 +42,7 @@
                 <th width="120"><i class="require-red">*</i>加入时间：</th>
                 <td>
                     <input class="common-text required" name="join_date" size="20"
-                           value="<?php echo set_value('join_date'); ?>" type="text">
+                           value="<?php echo set_value('join_date'); ?>" type="text"> (示例: 2015-08-15)
                 </td>
             </tr>
 

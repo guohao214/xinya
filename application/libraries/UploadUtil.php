@@ -96,4 +96,20 @@ class UploadUtil
         else
             return get_instance()->config->base_url() . UPLOAD_FOLDER . "/{$uploadDoc['file_name']}";
     }
+
+    public static function commonUpload(array $thumbConfig, $pic = 'pic')
+    {
+        if ($_FILES[$pic]['size'] <= 0)
+            return '';
+
+        $upload = new UploadUtil('upload/image');
+        $data = $upload->upload($pic);
+        if ($data['error'] == 0) {
+            // 缩略图
+            $upload->resizeImage($thumbConfig, $data['data']);
+            return json_encode($data['data']);
+        } else {
+            get_instance()->message('图片上传失败，请重试！' . $data['data']);
+        }
+    }
 } 

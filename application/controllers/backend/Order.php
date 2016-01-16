@@ -67,19 +67,19 @@ class Order extends BackendController
     }
 
     /**
-     * 订单已消费
+     * 取消订单
      * @param string $order_id
      */
-    public function completeOrder($order_id = '')
+    public function CancelOrder($order_id = '')
     {
         if (!$order_id)
             $this->message('订单ID不能为空！');
 
         if ((new CurdUtil($this->orderModel))->update(array('order_id' => $order_id),
-            array('order_status' => OrderModel::ORDER_CONSUMED, 'complete_time' => DateUtil::now())))
-            $this->message('订单已消费！', 'order/index');
+            array('order_status' => OrderModel::ORDER_CANCEL, 'complete_time' => DateUtil::now())))
+            $this->message('订单已取消！');
         else
-            $this->message('处理失败！', 'order/index');
+            $this->message('处理失败！');
     }
 
     /**

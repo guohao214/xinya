@@ -15,10 +15,10 @@ class BeauticianModel extends BaseModel
 
     /**
      * 获得所有的美容师
+     * @param $where
      */
-    public function getAllBeauticians()
+    public function getAllBeauticians($where = array())
     {
-        $where = array('disabled' => 0);
          return (new CurdUtil($this))->readAll('beautician_id desc', $where);
     }
 

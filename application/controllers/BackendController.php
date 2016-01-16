@@ -30,7 +30,10 @@ class BackendController extends BaseController
 
     public function message($message, $returnBack = '')
     {
-        parent::message($message, 'backend/'. $returnBack);
+        if ($returnBack)
+            $returnBack = 'backend/'. $returnBack;
+
+        parent::message($message, $returnBack);
     }
 
 } 

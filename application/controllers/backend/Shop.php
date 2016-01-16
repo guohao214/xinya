@@ -44,29 +44,13 @@ class Shop extends BackendController
             $this->message('删除店铺失败！', 'shop/index');
     }
 
-    private function processUpload($pic = 'pic')
-    {
-        if ($_FILES[$pic]['size'] <= 0)
-            return '';
-
-        $upload = new UploadUtil('upload/image');
-        $data = $upload->upload($pic);
-        if ($data['error'] == 0) {
-            // 缩略图
-            $upload->resizeImage(array('upload/resize_200x200', 'upload/resize_100x100'), $data['data']);
-            return json_encode($data['data']);
-        } else {
-            $this->message('图片上传失败，请重试！' . $data['data']);
-        }
-    }
-
     public function updateShop($shop_id)
     {
         if (RequestUtil::isPost()) {
             if ($this->shopModel->rules()->run()) {
                 $params = RequestUtil::postParams();
 
-                $upload = $this->processUpload();
+                $upload = UploadUtil::commonUpload(array('upload/resize_200x200', 'upload/resize_100x100'));
                 if ($upload)
                     $params['shop_logo'] = $upload;
 
@@ -93,7 +77,7 @@ class Shop extends BackendController
         if (RequestUtil::isPost()) {
             if ($this->shopModel->rules()->run()) {
                 $params = RequestUtil::postParams();
-                $params['shop_logo'] = $this->processUpload();
+                $params['shop_logo'] = UploadUtil::commonUpload(array('upload/resize_200x200', 'upload/resize_100x100'));
 
                 $insertId = (new CurdUtil($this->shopModel))->
                 create(array_merge($params, array('create_time' => DateUtil::now())));

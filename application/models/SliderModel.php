@@ -4,6 +4,9 @@ class SliderModel extends BaseModel
 {
     public $sliderCacheName = '__xinya_slider';
 
+    const SLIDER_TYPE_HDP = '幻灯片'; // 幻灯片
+    const SLIDER_TYPE_FLL = '福利栏'; // 福利栏
+
     public function setTable()
     {
         $this->table = 'slider';

@@ -9,20 +9,32 @@
         <div class="slider-wrapper theme-default">
             <div id="slider" class="nivoSlider">
                 <?php foreach ($sliders as $slider): ?>
+                <?php if ($slider['slider_type'] == SliderModel::SLIDER_TYPE_FLL) continue; ?>
                 <a href="<?php echo $slider['href']; ?>">
                     <img src="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '600x600'); ?>"
                          data-thumb="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '200x200'); ?>"
-                         title="<?php echo $slider['title']; ?>" alt=""/>
+                         title="<?php echo $slider['title']; ?>" alt="<?php echo $slider['title']; ?>"/>
                     <?php endforeach; ?>
                 </a>
             </div>
         </div>
     <?php endif; ?>
-
+    <?php if ($sliders): ?>
+    <div id="fll">
+        <?php foreach ($sliders as $slider): ?>
+        <?php if ($slider['slider_type'] == SliderModel::SLIDER_TYPE_HDP) continue; ?>
+        <a href="<?php echo $slider['href']; ?>">
+            <img src="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '100x100'); ?>"
+                 alt="<?php echo $slider['title']; ?>">
+            <div class="fll-name"><?php echo $slider['title']; ?></div>
+        </a>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
     <div id="categories">
         <div class="categories-list">
-            <?php foreach ($categories as $category): ?>
-                <a href="#<?php echo $category; ?>" class="category"><?php echo $category; ?></a>
+            <?php foreach ($categories as $key => $category): ?>
+                <a class="category" data-val="<?php echo $key; ?>"><?php echo $category; ?></a>
             <?php endforeach; ?>
         </div>
     </div>
@@ -30,8 +42,7 @@
         <?php foreach ($projects as $key => $project): ?>
             <div class="itemlist loaded">
                 <div class="title_index">
-                    <span><p class="F16 FB"><a
-                                name="<?php echo $categories[$key]; ?>"><?php echo $categories[$key]; ?></a></p></span>
+                    <span><p class="F16 FB <?php echo 'category-list-' . $key; ?> "><?php echo $categories[$key]; ?></p></span>
                 </div>
                 <?php foreach ($project as $pj): ?>
                     <div class="item ">
@@ -71,5 +82,5 @@
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/jquery.slider.js"></script>
 
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150116"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/index.js?v=20150117"></script>
 </script>

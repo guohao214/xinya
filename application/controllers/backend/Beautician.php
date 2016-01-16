@@ -14,27 +14,16 @@ class Beautician extends BackendController
         $this->load->model('BeauticianModel', 'beauticianModel');
     }
 
+    /**
+     * 美容师列表 没有使用分页
+     */
     public function index()
     {
-        $beauticians = (new BeauticianModel())->getAllBeauticians();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
+        $beauticians = (new BeauticianModel())->getAllBeauticians($where);
         $shops = (new ShopModel())->getAllShops();
-        $this->view('beautician/index', array('beauticians' => $beauticians, 'shops' => $shops));
-    }
-
-    private function processUpload($pic = 'pic')
-    {
-        if ($_FILES[$pic]['size'] <= 0)
-            return '';
-
-        $upload = new UploadUtil('upload/image');
-        $data = $upload->upload($pic);
-        if ($data['error'] == 0) {
-            // 缩略图
-            $upload->resizeImage(array('upload/resize_200x200', 'upload/resize_350x350', 'upload/resize_100x100'), $data['data']);
-            return json_encode($data['data']);
-        } else {
-            $this->message('图片上传失败，请重试！' . $data['data']);
-        }
+        $this->view('beautician/index', array('beauticians' => $beauticians, 'shops' => $shops,
+            'params' => RequestUtil::getParams()));
     }
 
     public function addBeautician()
@@ -43,7 +32,8 @@ class Beautician extends BackendController
             if ($this->beauticianModel->rules()->run()) {
                 $params = RequestUtil::postParams();
 
-                $params['avatar'] = $this->processUpload();
+                $params['avatar'] = UploadUtil::commonUpload(array('upload/resize_200x200',
+                    'upload/resize_350x350', 'upload/resize_100x100'));
 
                 $insertId = (new CurdUtil($this->beauticianModel))->
                 create(array_merge($params, array('create_time' => DateUtil::now())));
@@ -59,19 +49,25 @@ class Beautician extends BackendController
         $this->view('beautician/addBeautician');
     }
 
+    /**
+     * 修改 美容师
+     * @param $beautician_id
+     */
     public function updateBeautician($beautician_id)
     {
         if (RequestUtil::isPost()) {
             if ($this->beauticianModel->rules()->run()) {
                 $params = RequestUtil::postParams();
-                $upload = $this->processUpload();
+                $upload = UploadUtil::commonUpload(array('upload/resize_200x200',
+                    'upload/resize_350x350', 'upload/resize_100x100'));
+
                 if ($upload)
                     $params['avatar'] = $upload;
 
                 if ((new CurdUtil($this->beauticianModel))->update(array('beautician_id' => $beautician_id), $params))
-                    $this->message('修改美容师信息成功!', 'project/updateProject/' . $beautician_id);
+                    $this->message('修改美容师信息成功!', 'beautician/updateBeautician/' . $beautician_id);
                 else
-                    $this->message('修改美容师信失败!', 'project/updateProject/' . $beautician_id);
+                    $this->message('修改美容师信失败!', 'beautician/updateBeautician/' . $beautician_id);
             }
 
         }

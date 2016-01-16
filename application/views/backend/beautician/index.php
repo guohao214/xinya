@@ -8,12 +8,6 @@
         <form action="<?php echo UrlUtil::createBackendUrl('beautician/index'); ?>?" method="get">
             <table class="search-tab">
                 <tr>
-                    <th width="70">门店:</th>
-                    <td>
-                        <select name="shop_id" class="select">
-                            <?php $this->load->view('backend/shop/shopList'); ?>
-                        </select>
-                    </td>
                     <th width="70">姓名:</th>
                     <td><input class="common-text" placeholder="姓名" type="text"
                                name="name" value="<?php echo defaultValue($params['name']); ?>"></td>

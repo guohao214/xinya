@@ -34,6 +34,16 @@
             </tr>
 
             <tr>
+                <th><i class="require-red">*</i>分类：</th>
+                <td>
+                    <select name="slider_type" class="select">
+                        <option value="幻灯片">幻灯片</option>
+                        <option value="福利栏">福利栏</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
                 <th><i class="require-red">*</i>图片：</th>
                 <td><input name="pic" id="" type="file" class="common-text"></td>
             </tr>

@@ -55,8 +55,8 @@
 	position:absolute;
 	left:0px;
 	bottom:0px;
-	background:#000;
-	color:#fff;
+	/*background:#000;*/
+	color:#000;
 	width:100%;
 	z-index:8;
 	padding: 5px 10px;

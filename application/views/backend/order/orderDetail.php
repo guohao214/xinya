@@ -60,8 +60,7 @@
             <tr>
                 <th>订单门店：</th>
                 <td><?php echo ($order['shop_id']) ?$shops[$order['shop_id']] : '所有门店'; ?></td>
-                <th>完成时间：</th>
-                <td><?php echo $order['complete_time'] ? $order['complete_time'] : '未完成'; ?></td>
+
             </tr>
 
             </tbody>
