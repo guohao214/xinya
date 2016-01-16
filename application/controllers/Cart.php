@@ -141,7 +141,7 @@ class Cart extends FrontendController
         $projectId = (new CartUtil())->cart();
 
         if (empty($projectId) || $projectId <= 0) {
-            $this->message('购物车为空！');
+            $this->message('预约项目为空！');
         }
 
         // 生成订单号, 有重复订单号则重新生成，直到不重复为止
