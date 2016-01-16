@@ -17,7 +17,8 @@
                 <table class="result-tab" width="100%">
                     <tr>
                         <th width="10%">ID</th>
-                        <th width="50%">标题</th>
+                        <th width="40%">标题</th>
+                        <th width="10%">排序</th>
                         <th width="10%">项目数</th>
                         <th>添加时间</th>
                         <th width="140">操作</th>
@@ -28,6 +29,7 @@
                         <tr>
                             <td><?php echo $categoryId; ?></td>
                             <td><?php echo $category['category_name']; ?></td>
+                            <td><?php echo $category['order_sort']; ?></td>
                             <td><?php echo $category['projects']; ?></td>
                             <td><?php echo $category['create_time']; ?></td>
                             <td>

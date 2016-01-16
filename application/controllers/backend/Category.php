@@ -27,7 +27,8 @@ class Category extends BackendController
             if ($this->categoryModel->rules()->run()) {
                 $params = RequestUtil::postParams();
                 $insertId = (new CurdUtil($this->categoryModel))->create(
-                    array('category_name' => $params['category_name'], 'create_time' => DateUtil::now()));
+                    array('category_name' => $params['category_name'], 'order_sort' => $params['order_sort'],
+                        'create_time' => DateUtil::now()));
 
                 if ($insertId)
                     $this->message('新增分类成功!', 'category/index');
@@ -49,7 +50,7 @@ class Category extends BackendController
             if ($this->categoryModel->rules()->run()) {
                 $params = RequestUtil::postParams();
                 $affectedRows = (new CurdUtil($this->categoryModel))->update(array('category_id' => $categoryId),
-                    array('category_name' => $params['category_name']));
+                    array('category_name' => $params['category_name'], 'order_sort' => $params['order_sort']));
 
                 if ($affectedRows > 0)
                     $this->message('修改分类信息成功!', 'category/index');

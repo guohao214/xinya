@@ -32,7 +32,7 @@ class CategoryModel extends BaseModel
     {
         $_categories = $this->getCache($this->cacheName);
         if (!$_categories) {
-            $categories = (new CurdUtil($this))->readAll('create_time desc', array('disabled' => 0));
+            $categories = (new CurdUtil($this))->readAll('order_sort desc, create_time desc', array('disabled' => 0));
             $_categories = array();
 
             foreach ($categories as $category) {
@@ -52,6 +52,9 @@ class CategoryModel extends BaseModel
         $validate->required('category_name');
         $validate->minLength('category_name', 1);
         $validate->maxLength('category_name', 100);
+
+        $validate->required('order_sort');
+        $validate->numeric('order_sort');
 
         return $validate;
     }

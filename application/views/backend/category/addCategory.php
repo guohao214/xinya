@@ -20,6 +20,14 @@
                            value="<?php echo set_value('category_name'); ?>" type="text">
                 </td>
             </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>排序：</th>
+                <td>
+                    <input class="common-text required" name="order_sort" size="10"
+                           value="<?php echo set_value('order_sort'); ?>" type="text">
+                </td>
+            </tr>
             <tr>
                 <th></th>
                 <td>
