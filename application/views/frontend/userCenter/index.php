@@ -11,9 +11,9 @@
             </a>
         </li>
         <li>
-            <a href="<?php echo UrlUtil::createUrl('userCenter/xinya/pinpaijieshao'); ?>">
+            <a href="http://mp.weixin.qq.com/s?__biz=MzIzMTE0NzcyOA==&mid=402942347&idx=1&sn=a01ccb914dd6554874188a08430bea4f&scene=0&previewkey=kzjWVGHlhOXc8Ho8QZ9NKsNS9bJajjJKzz%2F0By7ITJA%3D#rd">
                 <div></div>
-                品牌介绍
+                关于我们
             </a>
         </li>
         <li>
