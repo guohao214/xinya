@@ -20,12 +20,16 @@ class Project extends FrontendController
         $projects = (new ProjectModel())->allProjectsGroupByCategoryId();
         $shops = (new ShopModel())->getAllShops();
         $categories = (new CategoryModel())->getAllCategories();
-        $sliders = (new SliderModel())->getAllSlider();
+
+        $sliderModel = new SliderModel();
+        $hdpSliders = $sliderModel->getAllSlider(SliderModel::SLIDER_TYPE_HDP);
+        $fllSliders = $sliderModel->getAllSlider(SliderModel::SLIDER_TYPE_FLL);
 
         $this->outputCache();
 
         $this->view('project/index', array('shops' => $shops, 'projects' => $projects,
-            'categories' => $categories, 'shopId' => $shopId, 'sliders' => $sliders));
+            'categories' => $categories, 'shopId' => $shopId, 'hdpSliders' => $hdpSliders,
+            'fllSliders' => $fllSliders));
     }
 
     public function detail($projectId, $shopId = '')

@@ -2,7 +2,7 @@
 
 class SliderModel extends BaseModel
 {
-    public $sliderCacheName = '__xinya_slider';
+    public $sliderCacheName = 'slider';
 
     const SLIDER_TYPE_HDP = '幻灯片'; // 幻灯片
     const SLIDER_TYPE_FLL = '福利栏'; // 福利栏
@@ -38,6 +38,26 @@ class SliderModel extends BaseModel
     {
         return (new CurdUtil($this))->readOne(array('slider_id' => $sliderId, 'disabled' => 0));
     }
+
+    /**
+     * 获得所有的幻灯片
+     * @param $sliderType 类型
+     * @return array
+     */
+    public function getSliders($sliderType)
+    {
+        $sliders = $this->getAllSlider();
+        $_sliders = array();
+        foreach ($sliders as $slider) {
+            if ($slider['slider_type'] == $sliderType)
+                $_sliders[] = $slider;
+            else
+                continue;
+        }
+
+        return $_sliders;
+    }
+
 
     public function getAllSlider()
     {

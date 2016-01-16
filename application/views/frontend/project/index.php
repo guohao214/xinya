@@ -5,10 +5,10 @@
 </header>
 <section>
 
-    <?php if ($sliders): ?>
+    <?php if ($hdpSliders): ?>
         <div class="slider-wrapper theme-default">
             <div id="slider" class="nivoSlider">
-                <?php foreach ($sliders as $slider): ?>
+                <?php foreach ($hdpSliders as $slider): ?>
                 <?php if ($slider['slider_type'] == SliderModel::SLIDER_TYPE_FLL) continue; ?>
                 <a href="<?php echo $slider['href']; ?>">
                     <img src="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '600x600'); ?>"
@@ -19,9 +19,9 @@
             </div>
         </div>
     <?php endif; ?>
-    <?php if ($sliders): ?>
+    <?php if ($fllSliders): ?>
     <div id="fll">
-        <?php foreach ($sliders as $slider): ?>
+        <?php foreach ($fllSliders as $slider): ?>
         <?php if ($slider['slider_type'] == SliderModel::SLIDER_TYPE_HDP) continue; ?>
         <a href="<?php echo $slider['href']; ?>">
             <img src="<?php echo UploadUtil::buildUploadDocPath($slider['pic'], '100x100'); ?>"
