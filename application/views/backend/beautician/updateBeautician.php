@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/jquery.datetimepicker.css"/>
+<script src="<?php echo get_instance()->config->base_url(); ?>static/backend/js/jquery.datetimepicker.js"></script>
 <div class="crumb-wrap">
     <div class="crumb-list"><i class="icon-font"></i>
         <a href="<?php echo UrlUtil::createBackendUrl('project/index') ?>">首页</a>
@@ -68,3 +70,14 @@
         </table>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('[name="join_date"]').datetimepicker({
+                lang:'ch',
+                timepicker:false,
+                format:'Y-m-d',
+                formatDate:'Y-m-d',
+            });
+        })
+    </script>

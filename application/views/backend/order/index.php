@@ -38,7 +38,7 @@
                     <th width="220">订单号</th>
                     <th>预约日期</th>
                     <th>开始时间</th>
-                    <th>结束时间</th>
+<!--                    <th>结束时间</th>-->
                     <!--                    <th>微信订单ID</th>-->
                     <th>订单状态</th>
                     <th>订单金额</th>
@@ -54,7 +54,7 @@
                         <td><?php echo $order['order_no']; ?></td>
                         <td><?php echo $order['appointment_day']; ?></td>
                         <td><?php echo $order['appointment_start_time']; ?></td>
-                        <td><?php echo $order['appointment_end_time']; ?></td>
+<!--                        <td>--><?php //echo $order['appointment_end_time']; ?><!--</td>-->
                         <!--                    <td>--><?php //echo $order['transaction_id']; ?><!--</td>-->
                         <td><?php echo $order['order_status']; ?></td>
                         <td>￥<?php echo $order['total_fee']; ?></td>

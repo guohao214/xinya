@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>后台管理</title>
+    <title>不期而遇美容连锁 后台管理</title>
     <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/common.css?v=2015010302"/>
     <link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/main.css?v=2015010302"/>
     <script src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
