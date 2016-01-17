@@ -19,6 +19,9 @@ class BeauticianModel extends BaseModel
      */
     public function getAllBeauticians($where = array())
     {
+        if (is_array($where))
+            $where = array_merge($where, array('disabled' => 0));
+         
          return (new CurdUtil($this))->readAll('beautician_id desc', $where);
     }
 
