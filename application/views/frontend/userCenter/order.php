@@ -96,4 +96,4 @@
 </section>
 
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/order.js?v=20150117"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/order.js?v=2015011702"></script>

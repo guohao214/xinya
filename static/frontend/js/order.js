@@ -6,7 +6,7 @@ $(document).ready(function () {
         $.getJSON(document_root + 'userCenter/cancelOrder/' + $orderId, {}, function (data) {
             if (data.status == 1) {
                 $that.siblings('.colorW').remove();
-                $that.replaceWith('<a class="order-expire">已取消订单</a>');
+                $that.replaceWith('<a class="order-expire">订单已取消</a>');
             }
             else
                 messageTool.show(data.detail || '订单取消失败，请重试！');
