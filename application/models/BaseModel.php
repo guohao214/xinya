@@ -15,7 +15,7 @@ abstract class BaseModel extends CI_Model
     {
         parent::__construct();
         $this->load->driver('cache', array('adapter' => 'file', 'backup' => 'file',
-        'key_prefix' => '__xinya_cache'));
+        'key_prefix' => 'xinya_cache-'));
 
         $this->setTable();
 

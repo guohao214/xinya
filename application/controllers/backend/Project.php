@@ -12,6 +12,7 @@ class Project extends BackendController
     {
         parent::__construct();
         $this->load->model('ProjectModel', 'projectModel');
+        $this->projectModel->deleteProjectsCache();
     }
 
 

@@ -2,6 +2,8 @@
 
 class ProjectModel extends BaseModel
 {
+    public $cacheName = 'projects';
+    public $formatCacheName = 'formatProjects';
 
     public function setTable()
     {
@@ -22,6 +24,9 @@ class ProjectModel extends BaseModel
 
         $validate->required('price');
         $validate->numeric('price');
+
+        $validate->required('order_sort');
+        $validate->numeric('order_sort');
 
 //        $validate->required('suitable_skin');
 //        $validate->minLength('suitable_skin', 1);
@@ -51,31 +56,56 @@ class ProjectModel extends BaseModel
     }
 
     /**
+     * 获得所有的项目，并且按照
+     */
+    public function allProjectsBySql()
+    {
+        $projects = $this->getCache($this->cacheName);
+        if (!$projects) {
+            $sql = "select a.*, b.category_id, b.category_name from project as a left join "
+                . "category as b on a.category_id=b.category_id where a.disabled=0 and b.disabled=0 "
+                . "order by b.order_sort desc,a.order_sort desc;";
+
+            $projects = (new CurdUtil(this))->query($sql);
+
+            $this->setCache($this->cacheName, $projects);
+        }
+
+        return $projects;
+    }
+
+    public function deleteProjectsCache()
+    {
+        $this->deleteCache($this->cacheName);
+        $this->deleteCache($this->formatCacheName);
+    }
+
+    /**
      * 获得所有的项目
      * @param string $shopId
      * @return array
      */
-    public function allProjectsGroupByCategoryId($shopId = '')
+    public function allProjectsGroupByCategoryId()
     {
-        if ($shopId)
-            $this->db->where_in('shop_id', array(0, $shopId));
-
         // 可以做缓存
-        $projects = $this->allProjects();
-        $_projects = array();
-        foreach ($projects as $project) {
-            $categoryId = $project['category_id'];
-            $_projects[$categoryId][] = $project;
-        }
+        $_projects = $this->getCache($this->formatCacheName);
+        if (!$_projects) {
+            $projects = $this->allProjectsBySql();
+            foreach ($projects as $project) {
+                $categoryId = $project['category_id'];
+                $_projects[$categoryId][] = $project;
+            }
 
-        unset($project, $projects, $shopId);
+            $this->setCache($this->formatCacheName, $_projects);
+            unset($project, $projects, $shopId);
+        }
         return $_projects;
     }
 
     public function readOne($projectId)
     {
         return (new CurdUtil($this))->
-            readOne(array('project_id' => $projectId, 'disabled' => 0));
+        readOne(array('project_id' => $projectId, 'disabled' => 0));
     }
 
     public function readByProjectIds($projectIds)

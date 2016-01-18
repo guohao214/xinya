@@ -55,6 +55,12 @@
             </tr>
 
             <tr>
+                <th><i class="require-red">*</i>排序：</th>
+                <td><input class="common-text" value="<?php echo $project['order_sort']; ?>"
+                           name="order_sort" size="10" type="text">（数字越大，拍最前面）</td>
+            </tr>
+
+            <tr>
                 <th><i class="require-red">*</i>缩略图：</th>
                 <td>
                     <img class="project_cover"
