@@ -61,7 +61,7 @@
                 <th></th>
                 <td>
                     <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
-                    <a class="btn btn6" href="<?php echo UrlUtil::createBackendUrl("beautician/rest/{$beautician_id}"); ?>">返回</a>
+                    <a class="btn btn6" href="<?php echo UrlUtil::createBackendUrl("beautician/rest?beautician_id={$beautician_id}"); ?>">返回</a>
                 </td>
             </tr>
             </tbody>
@@ -81,7 +81,7 @@
             $('[name="start_time"], [name="end_time"]').datetimepicker({
                 datepicker:false,
                 format:'H:i',
-                step:5
+                step:30
             });
         })
     </script>
