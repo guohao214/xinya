@@ -35,21 +35,28 @@
                 <li>
                     <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
                     <ul class="sub-menu">
+                        <?php if (UserUtil::isAdmin()): ?>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('category/index') ?>"><i class="icon-font">
                                     &#xe006;</i>分类管理</a></li>
-                        <li><a href="<?php echo UrlUtil::createBackendUrl('beautician/index') ?>"><i class="icon-font">
-                                    &#xe007;</i>美容师管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('project/index') ?>"><i class="icon-font">
                                     &#xe008;</i>项目管理</a></li>
+                        <?php endif; ?>
+
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('beautician/index') ?>"><i class="icon-font">
+                                    &#xe007;</i>美容师管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('order/index') ?>"><i class="icon-font">
                                     &#xe005;</i>订单管理</a></li>
+
+                        <?php if (UserUtil::isAdmin()): ?>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('user/index') ?>"><i class="icon-font">
                                     &#xe014;</i>用户管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('shop/index') ?>"><i class="icon-font">&#xe031;</i>门店管理</a></li>
 <!--                        <li><a href="--><?php //echo UrlUtil::createBackendUrl('article/index') ?><!--"><i class="icon-font">&#xe051;</i>文章管理</a></li>-->
                         <li><a href="<?php echo UrlUtil::createBackendUrl('slider/index') ?>"><i class="icon-font">&#xe033;</i>幻灯片/福利管理</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
+                <?php if (UserUtil::isAdmin()): ?>
                 <li>
                     <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
                     <ul class="sub-menu">
@@ -61,6 +68,7 @@
                         <li><a href=""><i class="icon-font">&#xe045;</i>数据还原</a></li>-->
                     </ul>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

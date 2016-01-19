@@ -2,6 +2,8 @@
 
 class UserModel extends BaseModel
 {
+    const ADMIN = 1; //管理员
+    const SHOP_KEEPER = 2; // 店长
 
     public function setTable()
     {
@@ -24,7 +26,7 @@ class UserModel extends BaseModel
         $validate->required('re_password');
 
         $validate->minLength('password', 6);
-        $validate->maxLength('password', 12);
+        $validate->maxLength('password', 32);
 
         $validate->matches('password', 're_password');
 

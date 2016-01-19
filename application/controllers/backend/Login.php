@@ -33,14 +33,18 @@ class Login extends BaseController
                     $params['password'] = $userModel->encodePassword($params['password']);
 
                     $where = array('user_name' => $params['user_name'], 'password' => $params['password']);
-                    $user = (new CurdUtil($userModel))->readOne($where);
+                    $user = (new CurdUtil($userModel))->readOne($where, 'user_id desc', '*, user_type+0 as type');
                     if (!$user) {
                         $error = '登录失败，账号或者密码错误，请重试！';
                     } else {
                         (new CurdUtil($userModel))->update($where, array('last_login_time' => DateUtil::now()));
                         UserUtil::saveUser($user);
 
-                        ResponseUtil::redirect(UrlUtil::createBackendUrl('project/index'));
+                        if (UserUtil::isAdmin())
+                            ResponseUtil::redirect(UrlUtil::createBackendUrl('project/index'));
+                        else
+                            ResponseUtil::redirect(UrlUtil::createBackendUrl('beautician/index'));
+
                     }
                 }
             }

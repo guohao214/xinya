@@ -131,9 +131,9 @@ class Beautician extends BackendController
                 create(array_merge($params, array('create_time' => DateUtil::now())));
 
                 if ($insertId)
-                    $this->message('新增请假记录成功!', 'beautician/rest/'. $beautician_id);
+                    $this->message('新增请假记录成功!', 'beautician/rest?beautician_id='. $beautician_id);
                 else
-                    $this->message('新增请假记录失败!', 'beautician/rest/'. $beautician_id);
+                    $this->message('新增请假记录失败!', 'beautician/rest?beautician_id='. $beautician_id);
             }
 
         }
@@ -149,9 +149,9 @@ class Beautician extends BackendController
             $this->message('要删除的请假记录不能为空！');
 
         if ((new CurdUtil(new BeauticianRestModel()))->update(array('beautician_rest_id' => $beautician_rest_id), array('disabled' => 1)))
-            $this->message('删除请假记录成功！', 'beautician/rest/'.$beautician_rest_id);
+            $this->message('删除请假记录成功！');
         else
-            $this->message('删除请假记录失败！', 'beautician/rest/'.$beautician_rest_id);
+            $this->message('删除请假记录失败！');
     }
 
 

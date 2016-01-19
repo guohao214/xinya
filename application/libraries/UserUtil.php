@@ -33,6 +33,18 @@ class UserUtil
         return $user['user_id'];
     }
 
+    public static function isAdmin()
+    {
+        $user = self::getUser();
+        return ($user['type'] == UserModel::ADMIN);
+    }
+
+    public static function isShopKeeper()
+    {
+        $user = self::getUser();
+        return ($user['type'] == UserModel::SHOP_KEEPER);
+    }
+
     public static function setVerifyCode($code)
     {
         $_SESSION[self::$verifySign] = $code;

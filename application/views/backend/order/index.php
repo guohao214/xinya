@@ -15,8 +15,18 @@
                         </select>
                     </td>
 
+                    <th width="70">订单类型:</th>
+                    <td>
+                        <select name="order_status" class="select">
+                            <option value="">所有</option>
+                            <option value="<?php echo OrderModel::ORDER_PAYED?>"<?php echo ($params['order_status'] == OrderModel::ORDER_PAYED) ? 'selected' : '';?>>已支付</option>
+                            <option value="<?php echo OrderModel::ORDER_CANCEL?>"<?php echo ($params['order_status'] == OrderModel::ORDER_CANCEL) ? 'selected' : '';?>>已取消</option>
+                            <option value="<?php echo OrderModel::ORDER_NOT_PAY?>"<?php echo ($params['order_status'] == OrderModel::ORDER_NOT_PAY) ? 'selected' : '';?>>未支付</option>
+                        </select>
+                    </td>
+
                     <th width="70">订单号:</th>
-                    <td><input class="common-text" placeholder="订单号"
+                    <td><input class="common-text" placeholder="订单号" size="30"
                                name="order_no" value="<?php echo defaultValue($params['order_no']); ?>" type="text">
                     </td>
                     <td><input class="btn btn-primary btn2" type="submit"></td>
@@ -34,10 +44,10 @@
         <?php if ($orders): ?>
             <table class="result-tab" width="100%">
                 <tr>
-                    <th>订单ID</th>
+<!--                    <th>订单ID</th>-->
                     <th width="220">订单号</th>
+                    <th>微信订单号</th>
                     <th>预约日期</th>
-                    <th>开始时间</th>
 <!--                    <th>结束时间</th>-->
                     <!--                    <th>微信订单ID</th>-->
                     <th>订单状态</th>
@@ -50,10 +60,11 @@
                 </tr>
                 <?php foreach ($orders as $order): ?>
                     <tr>
-                        <td><?php echo $order['order_id']; ?></td>
+<!--                        <td>--><?php //echo $order['order_id']; ?><!--</td>-->
                         <td><?php echo $order['order_no']; ?></td>
-                        <td><?php echo $order['appointment_day']; ?></td>
-                        <td><?php echo $order['appointment_start_time']; ?></td>
+                        <td><?php echo $order['transaction_id']; ?></td>
+                        <td><?php echo DateUtil::buildDateTime($order['appointment_day'], $order['appointment_start_time']); ?></td>
+<!--                        <td>--><?php //echo $order['appointment_start_time']; ?><!--</td>-->
 <!--                        <td>--><?php //echo $order['appointment_end_time']; ?><!--</td>-->
                         <!--                    <td>--><?php //echo $order['transaction_id']; ?><!--</td>-->
                         <td><?php echo $order['order_status']; ?></td>

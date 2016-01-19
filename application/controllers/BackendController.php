@@ -9,6 +9,12 @@
  */
 class BackendController extends BaseController
 {
+    /**
+     * 店长允许操作的
+     * @var array
+     */
+    public $shopKeeperPermissions = array('beautician', 'order');
+
     public function __construct()
     {
         parent::__construct();
@@ -16,6 +22,9 @@ class BackendController extends BaseController
         if (!UserUtil::getUserId())
             ResponseUtil::redirect(UrlUtil::createBackendUrl('login'));
 
+        $controller = strtolower($this->router->class);
+        if (UserUtil::isShopKeeper() && !in_array($controller, $this->shopKeeperPermissions))
+            $this->message('你没有权限执行本步骤!');
     }
 
     /**

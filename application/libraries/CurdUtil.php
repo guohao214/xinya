@@ -50,13 +50,15 @@ class CurdUtil
     }
 
 
-    public function readOne($where = array(), $order = '')
+    public function readOne($where = array(), $order = '', $select = '*')
     {
         if (empty($where))
             $where = '1=1';
 
         if ($order)
             $this->db->order_by($order);
+
+        $this->db->select($select, false);
 
         $this->model->beforeRead();
         $query = $this->db->get_where($this->table, $where);
