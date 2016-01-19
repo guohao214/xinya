@@ -72,7 +72,7 @@ class Appointment extends FrontendController
                     'rest_day' => $day), 'beautician_rest_id desc');
 
         // 指定日期的所有预约时间段
-        $appointmentTimes = DateUtil::generateAppointmentTime($day, '09:00:00', '23:30:00');
+        $appointmentTimes = DateUtil::generateAppointmentTime($day, '11:00:00', '19:00:00');
 
         // 美容师制定日期休息时间段
         // 当值为0时， 说明不能预约
