@@ -21,6 +21,15 @@
                            value="<?php echo set_value('user_name'); ?>" size="50" type="text">
                 </td>
             </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>类型：</th>
+                <td>
+                    <select class="select" name="user_type">
+                        <option value="<?php echo UserModel::ADMIN; ?>">管理员</option>
+                        <option value="<?php echo UserModel::SHOP_KEEPER; ?>">店长</option>
+                    </select>
+            </tr>
             <tr>
                 <th><i class="require-red">*</i>密码：</th>
                 <td><input class="common-text" value="<?php echo set_value('password'); ?>"
@@ -29,7 +38,7 @@
 
             <tr>
                 <th><i class="require-red">*</i>确认密码：</th>
-                <td><input class="common-text"  name="re_password" size="20" type="password"></td>
+                <td><input class="common-text" name="re_password" size="20" type="password"></td>
             </tr>
 
             <tr>

@@ -13,7 +13,7 @@ class BackendController extends BaseController
      * 店长允许操作的
      * @var array
      */
-    public $shopKeeperPermissions = array('beautician', 'order');
+    public $shopKeeperPermissions = array('beautician' => '*', 'order' => '*', 'user' => array('changepassword', 'index'));
 
     public function __construct()
     {
@@ -23,8 +23,19 @@ class BackendController extends BaseController
             ResponseUtil::redirect(UrlUtil::createBackendUrl('login'));
 
         $controller = strtolower($this->router->class);
-        if (UserUtil::isShopKeeper() && !in_array($controller, $this->shopKeeperPermissions))
-            $this->message('你没有权限执行本步骤!');
+        $method = strtolower($this->router->method);
+        if (UserUtil::isShopKeeper()) {
+            if (!array_key_exists($controller, $this->shopKeeperPermissions))
+                $this->message('你没有权限执行本步骤!');
+
+            $methods = $this->shopKeeperPermissions[$controller];
+            if ($methods == '*')
+                return true;
+            else if (!in_array($method, $methods))
+                $this->message('你没有权限执行本步骤!');
+            else
+                return true;
+        }
     }
 
     /**
@@ -40,7 +51,7 @@ class BackendController extends BaseController
     public function message($message, $returnBack = '')
     {
         if ($returnBack)
-            $returnBack = 'backend/'. $returnBack;
+            $returnBack = 'backend/' . $returnBack;
 
         parent::message($message, $returnBack);
     }

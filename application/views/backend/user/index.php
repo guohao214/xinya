@@ -29,6 +29,7 @@
                 <table class="result-tab" width="100%">
                     <tr>
                         <th>账户名</th>
+                        <th>类型</th>
                         <th width="300">创建时间</th>
                         <th width="300">最后登录时间</th>
                         <th width="200">操作</th>
@@ -36,6 +37,7 @@
                     <?php foreach ($users as $user): ?>
                         <tr>
                             <td><?php echo $user['user_name']; ?></td>
+                            <td><?php echo $user['user_type']; ?></td>
                             <td><?php echo $user['create_time']; ?></td>
                             <td><?php echo $user['last_login_time']; ?></td>
                             <td>
