@@ -9,13 +9,18 @@
  */
 class ConfigUtil
 {
+    public static function getConfigPath($config)
+    {
+        return APPPATH . 'config' . DS . $config . '.php';
+    }
+
     public static function loadConfig($config)
     {
         $_config = $config;
 
-        $congigPath = APPPATH . 'config' . DS . $config . '.php';
+        $congigPath = self::getConfigPath($config);
         if (!file_exists($congigPath))
-            show_error($_config . '不存在!');
+            get_instance()->message($_config . '配置文件不存在， 亲重试！');
 
         return include $congigPath;
     }

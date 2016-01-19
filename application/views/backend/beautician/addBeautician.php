@@ -31,6 +31,19 @@
                     </select>
                 </td>
             </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>工作时间：</th>
+                <td>
+                    <select class="select" name="work_time">
+                        <option value="1">全天</option>
+                        <option value="2">早班</option>
+                        <option value="3">晚班</option>
+                    </select>
+                </td>
+            </tr>
+
+
             <tr>
                 <th width="120"><i class="require-red">*</i>所属店铺：</th>
                 <td>

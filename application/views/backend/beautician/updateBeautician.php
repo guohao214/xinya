@@ -22,6 +22,9 @@
                            value="<?php echo $beautician['name']; ?>" type="text">
                 </td>
             </tr>
+
+
+
             <tr>
                 <th><i class="require-red">*</i>性别：</th>
                 <td>
@@ -33,6 +36,20 @@
                     </select>
                 </td>
             </tr>
+
+
+            <tr>
+                <th><i class="require-red">*</i>工作时间：</th>
+                <td>
+                    <select class="select" name="work_time">
+                        <option value="<?php echo BeauticianModel::ALL_DAY; ?>"<?php echo ($beautician['work_time'] == BeauticianModel::ALL_DAY) ? 'selected' : '';?>>全天</option>
+                        <option value="<?php echo BeauticianModel::MORNING_SHIFT; ?>"<?php echo ($beautician['work_time'] == BeauticianModel::MORNING_SHIFT) ? 'selected' : '';?>>早班</option>
+                        <option value="<?php echo BeauticianModel::NIGHT_SHIFT; ?>"<?php echo ($beautician['work_time'] == BeauticianModel::NIGHT_SHIFT) ? 'selected' : '';?>>晚班</option>
+                    </select>
+                </td>
+            </tr>
+
+
             <tr>
                 <th width="120"><i class="require-red">*</i>所属店铺：</th>
                 <td>

@@ -18,7 +18,7 @@ class Appointment extends FrontendController
     public function index($shopId)
     {
         // 验证是否已授权
-        (new WeixinUtil())->authorize("appointment/index/{$shopId}");
+         (new WeixinUtil())->authorize("appointment/index/{$shopId}");
 
         // 获得预约项目
         $projectId = (new CartUtil())->cart();
@@ -64,6 +64,11 @@ class Appointment extends FrontendController
         if ($day < $today)
             ResponseUtil::failure('错误的预约时间！');
 
+        // 查询美容师
+        $beautician = (new BeauticianModel())->readOne($beautician_id);
+        if (!$beautician)
+            ResponseUtil::failure('美容师不存在！');
+
         // 查询休息时间
         $beauticianRest = (new CurdUtil(new BeauticianRestModel()))
             ->readOne(
@@ -71,8 +76,12 @@ class Appointment extends FrontendController
                     'disabled' => 0,
                     'rest_day' => $day), 'beautician_rest_id desc');
 
+        // 获得工作时间
+        $workTime = new WorkTimeUtil();
+        list($dayStart, $dayEnd) = $workTime->explode($workTime->getAllDay());
+
         // 指定日期的所有预约时间段
-        $appointmentTimes = DateUtil::generateAppointmentTime($day, '11:00:00', '19:00:00');
+        $appointmentTimes = DateUtil::generateAppointmentTime($day, $dayStart, $dayEnd);
 
         // 美容师制定日期休息时间段
         // 当值为0时， 说明不能预约
@@ -108,6 +117,30 @@ class Appointment extends FrontendController
                     $appointmentTimes[$k] = 0;
             }
         }
+
+        // 判断早班，晚班
+        $workTimeType = $beautician['work_time'];
+        if ($workTimeType == BeauticianModel::ALL_DAY) {
+            ;
+        } elseif ($workTimeType == BeauticianModel::MORNING_SHIFT) {
+            $morningShiftTimes = $workTime->explode($workTime->getMorningShift());
+            $workAppointmentTime = DateUtil::generateAppointmentTime($day, $morningShiftTimes[0], $morningShiftTimes[1]);
+            foreach ($appointmentTimes as $k => $time) {
+                if (!array_key_exists($k, $workAppointmentTime))
+                    $appointmentTimes[$k] = 0;
+            }
+
+        } elseif ($workTimeType == BeauticianModel::NIGHT_SHIFT) {
+            $nightShiftTimes = $workTime->explode($workTime->getNightShift());
+            $workAppointmentTime = DateUtil::generateAppointmentTime($day, $nightShiftTimes[0], $nightShiftTimes[1]);
+            foreach ($appointmentTimes as $k => $time) {
+                if (!array_key_exists($k, $workAppointmentTime))
+                    $appointmentTimes[$k] = 0;
+            }
+        } else {
+            ;
+        }
+
         // 渲染视图
         $render = $this->load->view('frontend/appointment/appointmentTimes',
             array('appointmentTimes' => $appointmentTimes), true);

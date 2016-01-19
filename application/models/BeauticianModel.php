@@ -8,6 +8,10 @@
  */
 class BeauticianModel extends BaseModel
 {
+    const ALL_DAY = 1;
+    const MORNING_SHIFT = 2; // 早班
+    const NIGHT_SHIFT = 3;   // 晚班
+
     public function setTable()
     {
         $this->table = 'beautician';
@@ -21,8 +25,8 @@ class BeauticianModel extends BaseModel
     {
         if (is_array($where))
             $where = array_merge($where, array('disabled' => 0));
-         
-         return (new CurdUtil($this))->readAll('beautician_id desc', $where);
+
+        return (new CurdUtil($this))->readAll('beautician_id desc', $where);
     }
 
     public function rules()

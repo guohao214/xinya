@@ -29,6 +29,7 @@
                         <option value="<?php echo UserModel::ADMIN; ?>">管理员</option>
                         <option value="<?php echo UserModel::SHOP_KEEPER; ?>">店长</option>
                     </select>
+                </td>
             </tr>
             <tr>
                 <th><i class="require-red">*</i>密码：</th>

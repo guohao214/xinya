@@ -49,7 +49,22 @@
                         <td><?php echo $beautician['name']; ?></td>
                         <td><?php echo $shops[$beautician['shop_id']]; ?></td>
                         <td><?php echo $beautician['sex']; ?></td>
-                        <td><?php echo $beautician['join_date']; ?></td>
+                        <td><?php
+
+                            switch($beautician['work_time']){
+                                case BeauticianModel::ALL_DAY:
+                                    echo '全天';
+                                    break;
+                                case BeauticianModel::MORNING_SHIFT:
+                                    echo '早班';
+                                    break;
+                                case BeauticianModel::NIGHT_SHIFT:
+                                    echo '晚班';
+                                    break;
+                            } ?>
+
+
+                        </td>
                         <td>
                             <a class="link-update btn btn-warning"
                                href="<?php echo UrlUtil::createBackendUrl("beautician/updateBeautician/{$beautician_id}"); ?>">修改</a>
