@@ -60,7 +60,7 @@ class RequestUtil
         $params = self::getParams();
         if ($params) {
             array_walk($params, function (&$item, $key) {
-                if (is_numeric($item))
+                if (is_numeric($item) && strlen($item) <= 11)
                     $item = "{$key} = {$item}";
                 else
                     $item = "{$key} like '%{$item}%'";
