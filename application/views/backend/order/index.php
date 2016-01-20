@@ -44,7 +44,7 @@
         <?php if ($orders): ?>
             <table class="result-tab" width="100%">
                 <tr>
-<!--                    <th>订单ID</th>-->
+                    <th>订单ID</th>
                     <th width="220">订单号</th>
                     <th>微信订单号</th>
                     <th>预约日期</th>
@@ -60,7 +60,7 @@
                 </tr>
                 <?php foreach ($orders as $order): ?>
                     <tr>
-<!--                        <td>--><?php //echo $order['order_id']; ?><!--</td>-->
+                       <td><?php echo $order['order_id']; ?></td>
                         <td><?php echo $order['order_no']; ?></td>
                         <td><?php echo $order['transaction_id']; ?></td>
                         <td><?php echo DateUtil::buildDateTime($order['appointment_day'], $order['appointment_start_time']); ?></td>
