@@ -4,7 +4,7 @@
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/appointment.js?v=20150116"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/appointment.js?v=20150123"></script>
 <header>
     <h2>预约美容</h2>
 </header>
@@ -41,8 +41,31 @@
 
 <section class="section-two appointment-times"></section>
 
+
+<div id="divMsg">
+    <div class="pay">
+        <strong>
+            <a id="aClose" href="javascript:; " onclick="document.body.id = ''; "></a>
+            <span class="F16">请输入联系信息</span>
+        </strong>
+        <ul>
+            <li>
+                <samp>联系人</samp>
+                <span><input type="text" name="user_name" class="order-text"> </span>
+            </li>
+            <li>
+                <a href="#">
+                    <samp>手机号</samp>
+                    <span><input type="tel" name="phone_number" class="order-text" maxlength="11"></span>
+                </a>
+            </li>
+        </ul>
+        <a class="confirm-appointment payment colorW F16">确定预约</a>
+    </div>
+</div>
+
 <footer>
-    <a class="confirm-appointment project_footer F18">确定预约</a>
+    <a class="project_footer F18" onclick="document.body.id = 'msgBody'; ">确定预约</a>
 </footer>
 
 </body>

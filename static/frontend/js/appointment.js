@@ -52,10 +52,33 @@ $(document).ready(function () {
             $day = $appointmentDay.val(),
             $chooseAppointTimes = $('.choose-appointment-time'),
             $appointments = [],
-            $shopId = parseInt($('[name="shop_id"]').val());
+            $shopId = parseInt($('[name="shop_id"]').val()),
+            $userName = $('[name="user_name"]'),
+            $phoneNumber = $('[name="phone_number"]');
 
         if ($chooseAppointTimes.length == 0) {
             messageTool.show('请选择预约时间！');
+            return false;
+        }
+
+        // 判断联系人 和 手机
+        var $userNameVal = $userName.val();
+        if (!$userNameVal) {
+            messageTool.show('请输入联系人！');
+            $userName.focus();
+            return false;
+        }
+
+        var $phoneNumberVal = $phoneNumber.val();
+        if (!$phoneNumberVal) {
+            messageTool.show('请输入手机号！');
+            $phoneNumber.focus();
+            return false;
+        }
+
+        if (!$phoneNumberVal.match(/^1\d{10}$/)) {
+            messageTool.show('手机号格式错误！');
+            $phoneNumber.focus();
             return false;
         }
 
@@ -67,7 +90,8 @@ $(document).ready(function () {
         var $redirectUrl = '/cart/order/';
         $redirectUrl += $shopId + '/';
         $redirectUrl += $beauticianId + '/';
-        $redirectUrl += $day + '/' + encodeURIComponent($appointments.join(','));
+        $redirectUrl += $day + '/' + encodeURIComponent($appointments.join(',')) + '/';
+        $redirectUrl += $userNameVal + '/' + $phoneNumberVal;
 
         window.location.href = $redirectUrl;
     })

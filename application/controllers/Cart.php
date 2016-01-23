@@ -88,8 +88,10 @@ class Cart extends FrontendController
      * @param $beauticianId
      * @param $appointmentDay
      * @param $appointmentTime
+     * @param $userName
+     * @param $phoneNumber
      */
-    public function order($shopId, $beauticianId, $appointmentDay, $appointmentTime)
+    public function order($shopId, $beauticianId, $appointmentDay, $appointmentTime, $userName, $phoneNumber)
     {
         $openId = (new WeixinUtil())->getOpenId();
         if (!$openId)
@@ -101,6 +103,15 @@ class Cart extends FrontendController
         // 检查美容师
         if (!(new BeauticianModel())->isValidBeautician($beauticianId))
             $this->message('美容师信息错误，请检查！');
+
+        $userName = urldecode($userName);
+        // 检查用户
+        $userName = trim(strip_tags($userName));
+        if (empty($userName))
+            $this->message('联系人不能为空，请检查！');
+
+        if (!preg_match('~^1\d{10}$~', $phoneNumber))
+            $this->message('手机号错误，请检查！');
 
         // 检查日期，日期为今天或者以后
         $today = date('Y-m-d');
@@ -167,7 +178,9 @@ class Cart extends FrontendController
             'beautician_id' => $beauticianId,
             'appointment_day' => $appointmentDay,
             'appointment_start_time' => $startTime,
-            'appointment_end_time' => $endTime
+            'appointment_end_time' => $endTime,
+            'user_name' => $userName,
+            'phone_number' => $phoneNumber
         );
 
         // 事务开始
