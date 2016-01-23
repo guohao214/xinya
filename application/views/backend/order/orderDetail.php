@@ -51,6 +51,13 @@
             </tr>
 
             <tr>
+                <th>联系人：</th>
+                <td><?php echo $order['user_name']; ?></td>
+                <th>手机号：</th>
+                <td><?php echo $order['phone_number']; ?></td>
+            </tr>
+
+            <tr>
                 <th>下单时间：</th>
                 <td><?php echo $order['create_time']; ?></td>
                 <th>支付时间：</th>
