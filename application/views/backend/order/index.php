@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="<?php echo get_instance()->config->base_url(); ?>static/backend/css/jquery.datetimepicker.css"/>
+<script src="<?php echo get_instance()->config->base_url(); ?>static/backend/js/jquery.datetimepicker.js"></script>
+
 <div class="crumb-wrap">
     <div class="crumb-list"><i class="icon-font"></i><a
             href="<?php echo UrlUtil::createBackendUrl('project/index'); ?>">首页</a><span
@@ -8,11 +11,21 @@
         <form action="<?php echo UrlUtil::createBackendUrl('order/index'); ?>?" method="get">
             <table class="search-tab">
                 <tr>
-                    <th width="70">门店:</th>
+<!--                    <th width="70">门店:</th>-->
+<!--                    <td>-->
+<!--                        <select name="shop_id" class="select">-->
+<!--                            --><?php //$this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => $params['shop_id'])); ?>
+<!--                        </select>-->
+<!--                    </td>-->
+
+                    <th width="70">预约日期:</th>
                     <td>
-                        <select name="shop_id" class="select">
-                            <?php $this->load->view('backend/shop/shopList', array('shops' => $shops, 'selectShop' => $params['shop_id'])); ?>
-                        </select>
+                       <input type="text" class="common-text" name="appointment_day" value="<?php echo $params['appointment_day']; ?>">
+                    </td>
+
+                    <th width="70">下单日期:</th>
+                    <td>
+                       <input type="text" class="common-text" name="create_time" value="<?php echo $params['create_time']; ?>">
                     </td>
 
                     <th width="70">订单类型:</th>
@@ -123,5 +136,13 @@
                 window.location.href = $(this).attr('href');
             }
         })
+
+        $('[name="appointment_day"], [name="create_time"]').datetimepicker({
+            lang:'ch',
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d',
+            allowBlank: true
+        });
     })
 </script>

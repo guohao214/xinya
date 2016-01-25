@@ -159,7 +159,7 @@
 		scrollInput:true,
 		mask:false,
 		validateOnBlur:true,
-		allowBlank:false,
+		allowBlank:true,
 		yearStart:1950,
 		yearEnd:2050,
 		style:'',
