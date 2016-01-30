@@ -41,7 +41,7 @@ class Order extends FrontendController
 
         // 判断相同的时间是否已经被预约
         $findHasPayedAppointTimeWhere = array('appointment_day' => $order['appointment_day'],
-            'appointment_start_time' => $order['appointment_start_time'], 'order_status' => OrderModel::ORDER_PAYED);
+            'appointment_start_time' => $order['appointment_start_time'], 'order_status' => OrderModel::ORDER_PAYED, 'beautician_id' => $order['beautician_id']);
         $findOrder = (new CurdUtil(new OrderModel()))->readOne($findHasPayedAppointTimeWhere);
         if ($findOrder)
             $this->message('由于您未能及时付款，此时间段已被预约!');
