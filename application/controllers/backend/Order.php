@@ -30,7 +30,8 @@ class Order extends BackendController
         $ordersCount = (new CurdUtil($this->orderModel))->count($where);
         $pages = (new PaginationUtil($ordersCount))->pagination();
         $shops = (new ShopModel())->getAllShops();
-        $this->view('order/index', array('orders' => $orders, 'pages' => $pages,
+        $beauticians = (new BeauticianModel())->getAllFormatBeauticians();
+        $this->view('order/index', array('orders' => $orders, 'pages' => $pages, 'beauticians' => $beauticians,
             'params' => RequestUtil::getParams(), 'shops' => $shops, 'limit' => $limit));
     }
 

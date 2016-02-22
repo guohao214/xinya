@@ -14,7 +14,7 @@ class UserCenter extends FrontendController
         $weixinUtil = new WeixinUtil();
         $weixinUtil->authorize("userCenter/index");
         $openId = $weixinUtil->getOpenId();
-        
+
         $customer = (new CustomerModel())->readOne($openId);
         $this->view('userCenter/index', array('customer' => $customer));
     }

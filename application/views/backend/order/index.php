@@ -48,6 +48,15 @@
                             </option>
                         </select>
                     </td>
+                    <td>美容师：</td>
+                    <td>
+                        <select name="beautician_id" class="select">
+                            <option value="">所有</option>
+                            <?php foreach($beauticians as $key => $beautician): ?>
+                            <option value="<?php echo $key; ?>" <?php echo ($params['beautician_id'] == $key) ? ' selected' : '';  ?>><?php echo $beautician; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th width="70">订单号:</th>
@@ -83,6 +92,7 @@
                     <th width="220">订单号</th>
                     <!--                    <th>微信订单号</th>-->
                     <th>预约日期</th>
+                    <th>美容师</th>
                     <th>联系信息</th>
                     <!--                    <th>结束时间</th>-->
                     <!--                    <th>微信订单ID</th>-->
@@ -103,6 +113,7 @@
                         <!--                        <td>--><?php //echo $order['appointment_start_time']; ?><!--</td>-->
                         <!--                        <td>--><?php //echo $order['appointment_end_time']; ?><!--</td>-->
                         <!--                    <td>--><?php //echo $order['transaction_id']; ?><!--</td>-->
+                        <td width="80"><?php echo $beauticians[$order['beautician_id']]; ?></td>
                         <td><?php echo $order['user_name']; ?> <br><?php echo $order['phone_number']; ?></td>
                         <td><?php echo $order['order_status']; ?></td>
                         <td>￥<?php echo $order['total_fee']; ?></td>
