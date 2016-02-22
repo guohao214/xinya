@@ -10,7 +10,13 @@ class UserCenter extends FrontendController
 {
     public function index()
     {
-        $this->view('userCenter/index');
+        // 授权
+        $weixinUtil = new WeixinUtil();
+        $weixinUtil->authorize("userCenter/index");
+        $openId = $weixinUtil->getOpenId();
+        
+        $customer = (new CustomerModel())->readOne($openId);
+        $this->view('userCenter/index', array('customer' => $customer));
     }
 
     public function order($offset = 0)

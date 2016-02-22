@@ -5,6 +5,13 @@
 <section>
     <ul class="my_page_mainbody">
         <li>
+            <a>
+<!--                <div></div>-->
+                当前积分：<?php echo (int)$customer['credits']; ?>
+            </a>
+        </li>
+
+        <li>
             <a href="<?php echo UrlUtil::createUrl('userCenter/order'); ?>">
                 <div></div>
                 我的订单
