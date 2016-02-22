@@ -118,9 +118,20 @@ class Order extends FrontendController
         if ($order['order_sign'] == OrderModel::ORDER_PAYED)
             exit($weixin->notifyPayed());
 
-        //更新订单信息
+        // 更新订单信息
         $this->db->trans_start();
         $orderModel->payed($orderNo, $wxOrderNo);
+
+        // 更新积分
+        $customerModel = new CustomerModel();
+        $score = $order['total_fee'];
+        $customer = $customerModel->readOne($openId);
+        if ($customer)
+            $customerModel->addCredits($openId, $score);
+        else
+            $customerModel->create($openId, $score);
+
+        // 事物完成
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
@@ -132,22 +143,24 @@ class Order extends FrontendController
             $weixinUtil = new WeixinUtil();
             $token = $weixinUtil->getToken();
             if ($token) {
-                foreach ($orders as $order) {
-                    $orderNo = $order['order_no'];
-                    $appointmentDay = DateUtil::buildDateTime($order['appointment_day'],
-                        $order['appointment_start_time']);
+                //foreach ($orders as $order) {
+                $orderNo = $order['order_no'];
+                $appointmentDay = DateUtil::buildDateTime($order['appointment_day'],
+                    $order['appointment_start_time']);
 
-                    $shops = (new ShopModel())->getAllShops();
-                    $shop = $shops[$order['shop_id']];
-                    $beautician = (new BeauticianModel())->readOne($order['beautician_id']);
-                    $beauticianName = $beautician['name'];
-                    $project = (new CurdUtil(new OrderProjectModel()))->readOne(array('order_id' => $order['order_id']));
-                    $projectName = $project['project_name'];
+                $shops = (new ShopModel())->getAllShops();
+                $shop = $shops[$order['shop_id']];
+                $beautician = (new BeauticianModel())->readOne($order['beautician_id']);
+                $beauticianName = $beautician['name'];
+                $project = (new CurdUtil(new OrderProjectModel()))->readOne(array('order_id' => $order['order_id']));
+                $projectName = $project['project_name'];
 
-                    // 发送模板消息
-                    // $orderNo, $appointmentDay, $shop, $beautician, $projectName
-                    $weixinUtil->sendOrderMessage($orderNo, $appointmentDay, $shop, $beauticianName, $projectName, $openId, $token);
-                }
+                // 计算总积分
+                $totalCredits = $customer['credits'] + $score;
+                // 发送模板消息
+                // $orderNo, $appointmentDay, $shop, $beautician, $projectName
+                $weixinUtil->sendOrderMessage($orderNo, $appointmentDay, $shop, $beauticianName, $projectName, $openId, $token, $totalCredits);
+                //}
             }
 
             exit($weixin->notifySuccess());
