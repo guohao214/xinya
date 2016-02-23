@@ -56,7 +56,8 @@ class CustomerModel extends BaseModel
             'avatar' => $avatar,
             'city' => $city,
             'province' => $province,
-            'sex' => $sex
+            'sex' => $sex,
+            'update_time' => DateUtil::now()
         );
 
         return (new CurdUtil($this))->create($data);
@@ -68,7 +69,8 @@ class CustomerModel extends BaseModel
             'avatar' => $avatar,
             'city' => $city,
             'province' => $province,
-            'sex' => $sex
+            'sex' => $sex,
+            'update_time' => DateUtil::now()
         );
 
         return (new CurdUtil($this))->update(array('open_id' => $openId), $data);
