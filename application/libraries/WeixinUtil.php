@@ -167,9 +167,10 @@ class WeixinUtil
      * @param $openId
      * @param $projectName
      * @param $accessToken
+     * @param $credits
      * @return mixed
      */
-    public function sendOrderMessage($orderNo, $appointmentDay, $shop, $beautician, $projectName, $openId, $accessToken)
+    public function sendOrderMessage($orderNo, $appointmentDay, $shop, $beautician, $projectName, $openId, $accessToken, $credits)
     {
         $message = array(
             "touser" => $openId,
@@ -208,7 +209,7 @@ class WeixinUtil
                 ),
 
                 "remark" => array( //备注
-                    "value" => "谢谢购买，有疑问请联系： 021-50809608",
+                    "value" => "谢谢购买，您的当前积分为：{$credits}, 有疑问请联系： 021-50809608",
                     "color" => "#c9151b"
                 )
             )

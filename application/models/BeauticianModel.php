@@ -29,6 +29,18 @@ class BeauticianModel extends BaseModel
         return (new CurdUtil($this))->readAll('beautician_id desc', $where);
     }
 
+    public function getAllFormatBeauticians()
+    {
+        $beauticians = $this->getAllBeauticians();
+        $_beauticians = array();
+        foreach($beauticians as $beautician) {
+            $_beauticians[$beautician['beautician_id']] = $beautician['name'];
+        }
+
+        unset($beauticians, $beautician);
+        return $_beauticians;
+    }
+
     public function rules()
     {
         $validate = new ValidateUtil();
