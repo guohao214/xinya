@@ -32,18 +32,6 @@
                 </td>
             </tr>
 
-<!--            <tr>-->
-<!--                <th><i class="require-red">*</i>工作时间：</th>-->
-<!--                <td>-->
-<!--                    <select class="select" name="work_time">-->
-<!--                        <option value="1">全天</option>-->
-<!--                        <option value="2">早班</option>-->
-<!--                        <option value="3">晚班</option>-->
-<!--                    </select>-->
-<!--                </td>-->
-<!--            </tr>-->
-
-
             <tr>
                 <th width="120"><i class="require-red">*</i>所属店铺：</th>
                 <td>
@@ -58,6 +46,14 @@
                 <td>
                     <input class="common-text required" name="join_date" size="20"
                            value="<?php echo set_value('join_date'); ?>" type="text">
+                </td>
+            </tr>
+
+            <tr>
+                <th width="120"><i class="require-red">*</i>排序：</th>
+                <td>
+                    <input class="common-text required" name="order_sort" size="10"
+                           value="<?php echo set_value('order_sort'); ?>" type="text">
                 </td>
             </tr>
 
