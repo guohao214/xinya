@@ -49,11 +49,19 @@ class WorkTimeUtil
         return file_put_contents($configPath, $content);
     }
 
+    public function saveBeauticianWorkTime($data) {
+        $configPath = ConfigUtil::getConfigPath($this->beauticianWorkTimeConfigFile);
+        $content = "<?php\nreturn " . var_export($data, true) . ";\n?>";
+        return file_put_contents($configPath, $content);
+    }
+
     public function getTime()
     {
         $workTime = ConfigUtil::loadConfig($this->configFile);
         if (is_array($workTime))
             $this->workTime = $workTime;
+
+        return $workTime;
     }
 
     public function getBeauticianWorkTime()
@@ -61,6 +69,8 @@ class WorkTimeUtil
         $workTime = ConfigUtil::loadConfig($this->beauticianWorkTimeConfigFile);
         if (is_array($workTime))
             $this->beauticianWorkTime = $workTime;
+
+        return $workTime;
     }
 
     public function explode($time)

@@ -10,9 +10,15 @@
  */
 class Beautician extends BackendController
 {
+    public $timeSetting;
+
     public function __construct()
     {
         parent::__construct();
+        $this->timeSetting = array(BeauticianModel::ALL_DAY => '全天', BeauticianModel::MORNING_SHIFT => '早班',
+            BeauticianModel::NIGHT_SHIFT => '晚班', BeauticianModel::MIDDAY_SHIFT => '中班',
+            BeauticianModel::REST_SHIFT => '休息');
+
         $this->load->model('BeauticianModel', 'beauticianModel');
     }
 
@@ -21,9 +27,7 @@ class Beautician extends BackendController
      */
     public function index()
     {
-        $timeSetting = array(BeauticianModel::ALL_DAY => '全天', BeauticianModel::MORNING_SHIFT => '早班',
-            BeauticianModel::NIGHT_SHIFT => '晚班', BeauticianModel::MIDDAY_SHIFT => '中班',
-            BeauticianModel::REST_SHIFT => '休息');
+        $timeSetting = $this->timeSetting;
 
         $workTime = new WorkTimeUtil();
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
@@ -163,5 +167,48 @@ class Beautician extends BackendController
             $this->message('删除请假记录失败！');
     }
 
+    /**
+     * 修改美容师工作时间
+     * @param $beauticianId
+     */
+    public function updateBeauticianWorkTime($beauticianId)
+    {
+        $workTimeUtil = new WorkTimeUtil();
+        $workTime = $workTimeUtil->beauticianWorkTime;
 
+        /**
+         * array (size=7)
+         * 'work_type_0' => string '5' (length=1)
+         * 'work_type_1' => string '2' (length=1)
+         * 'work_type_2' => string '5' (length=1)
+         * 'work_type_3' => string '3' (length=1)
+         * 'work_type_4' => string '3' (length=1)
+         * 'work_type_5' => string '2' (length=1)
+         * 'work_type_6' => string '2' (length=1)
+         */
+        if (RequestUtil::isPost()) {
+            $post = RequestUtil::postParams();
+            $data = array();
+            foreach($post as $key => $value) {
+                if (!preg_match('~^work_type_(\d+)$~', $key, $matches)) {
+                    continue;
+                } else {
+                    $w = $matches[1];
+                    $data[$w] = $value;
+                }
+            }
+
+            // 保持数据
+            $workTime[$beauticianId] = $data;
+            $workTimeUtil->saveBeauticianWorkTime($workTime);
+        }
+
+        $workTime = $workTimeUtil->getBeauticianWorkTime();
+        $beauticianWorkTime = $workTime[$beauticianId];
+        $timeSetting = $this->timeSetting;
+        $beautician = (new BeauticianModel())->readOne($beauticianId);
+        $this->view('beautician/updateBeauticianWorkTime',
+            array('beauticianWorkTime' => $beauticianWorkTime, 'timeSetting' => $timeSetting,
+                'beauticianId' => $beauticianId, 'beautician' => $beautician));
+    }
 }

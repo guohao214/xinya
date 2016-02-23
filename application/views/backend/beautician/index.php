@@ -63,7 +63,6 @@
 
                             ?>
 
-
                         </td>
                         <td>
                             <a class="link-update btn btn-warning"
@@ -72,6 +71,9 @@
                                href="<?php echo UrlUtil::createBackendUrl("beautician/deleteBeautician/{$beautician_id}"); ?>">删除</a>
                             <a class="link-update btn btn-info"
                                href="<?php echo UrlUtil::createBackendUrl("beautician/rest?beautician_id={$beautician_id}"); ?>">请假记录</a>
+
+                            <a class="link-update btn btn-primary"
+                               href="<?php echo UrlUtil::createBackendUrl("beautician/updateBeauticianWorkTime/{$beautician_id}"); ?>">工作时间</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
