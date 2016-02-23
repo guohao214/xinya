@@ -5,6 +5,8 @@
  * User: GuoHao
  * Date: 2016/1/11
  * Time: 20:30
+ * // array(0 => '星期天', 1 => '星期一', 2 => '星期二', 3 => '星期三', 4 => '星期四', 5 => '星期五', 6 => '星期六');
+ * // 1 => 全天, 2 => 早班, 3 => 晚班, 4 => 中班, 5 => 全天休息
  */
 class Beautician extends BackendController
 {
@@ -19,13 +21,18 @@ class Beautician extends BackendController
      */
     public function index()
     {
+        $timeSetting = array(BeauticianModel::ALL_DAY => '全天', BeauticianModel::MORNING_SHIFT => '早班',
+            BeauticianModel::NIGHT_SHIFT => '晚班', BeauticianModel::MIDDAY_SHIFT => '中班',
+            BeauticianModel::REST_SHIFT => '休息');
 
+        $workTime = new WorkTimeUtil();
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
         $beauticians = (new BeauticianModel())->getAllBeauticians($where);
         $shops = (new ShopModel())->getAllShops();
         $beauticianOrderCounts = (new OrderModel())->getOrderCountsByBeauticianId();
         $this->view('beautician/index', array('beauticians' => $beauticians, 'shops' => $shops,
-            'params' => RequestUtil::getParams(), 'beauticianOrderCounts' => $beauticianOrderCounts));
+            'params' => RequestUtil::getParams(), 'beauticianOrderCounts' => $beauticianOrderCounts,
+            'timeSetting' => $timeSetting, 'workTime' => $workTime->beauticianWorkTime));
     }
 
     public function addBeautician()
@@ -99,7 +106,7 @@ class Beautician extends BackendController
      */
     public function rest($limit = 0)
     {
-        $beautician_id = $this->input->get('beautician_id')+0;
+        $beautician_id = $this->input->get('beautician_id') + 0;
         $where = array('beautician_id' => $beautician_id, 'disabled' => 0);
         $beautician = (new BeauticianModel())->readOne($beautician_id);
         if (!$beautician)
@@ -133,9 +140,9 @@ class Beautician extends BackendController
                 create(array_merge($params, array('create_time' => DateUtil::now())));
 
                 if ($insertId)
-                    $this->message('新增请假记录成功!', 'beautician/rest?beautician_id='. $beautician_id);
+                    $this->message('新增请假记录成功!', 'beautician/rest?beautician_id=' . $beautician_id);
                 else
-                    $this->message('新增请假记录失败!', 'beautician/rest?beautician_id='. $beautician_id);
+                    $this->message('新增请假记录失败!', 'beautician/rest?beautician_id=' . $beautician_id);
             }
 
         }

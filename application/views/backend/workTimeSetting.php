@@ -35,6 +35,16 @@
                            value="<?php echo $setting['morningShiftEnd']; ?>" size="15" type="text">
                 </td>
             </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>中班时间：</th>
+                <td>
+                    <input class="common-text required time-picker" name="middayShiftStart"
+                           value="<?php echo $setting['middayShiftStart']; ?>" size="15" type="text"> -
+                    <input class="common-text required time-picker" name="middayShiftEnd"
+                           value="<?php echo $setting['middayShiftEnd']; ?>" size="15" type="text">
+                </td>
+            </tr>
             <tr>
                 <th><i class="require-red">*</i>晚班时间：</th>
                 <td>

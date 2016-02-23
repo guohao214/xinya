@@ -18,7 +18,7 @@ class Appointment extends FrontendController
     public function index($shopId)
     {
         // 验证是否已授权
-         (new WeixinUtil())->authorize("appointment/index/{$shopId}");
+        (new WeixinUtil())->authorize("appointment/index/{$shopId}");
 
         // 获得预约项目
         $projectId = (new CartUtil())->cart();
@@ -118,8 +118,10 @@ class Appointment extends FrontendController
             }
         }
 
+        $beauticianWorkTime = (new WorkTimeUtil())->beauticianWorkTime;
+        $week = DateUtil::calcDayInWeek($day);
+        $workTimeType = $beauticianWorkTime[$beautician_id][$week];
         // 判断早班，晚班
-        $workTimeType = $beautician['work_time'];
         if ($workTimeType == BeauticianModel::ALL_DAY) {
             ;
         } elseif ($workTimeType == BeauticianModel::MORNING_SHIFT) {
@@ -136,6 +138,17 @@ class Appointment extends FrontendController
             foreach ($appointmentTimes as $k => $time) {
                 if (!array_key_exists($k, $workAppointmentTime))
                     $appointmentTimes[$k] = 0;
+            }
+        } elseif ($workTimeType == BeauticianModel::MIDDAY_SHIFT) {
+            $middayShiftTimes = $workTime->explode($workTime->getMiddayShift());
+            $workAppointmentTime = DateUtil::generateAppointmentTime($day, $middayShiftTimes[0], $middayShiftTimes[1]);
+            foreach ($appointmentTimes as $k => $time) {
+                if (!array_key_exists($k, $workAppointmentTime))
+                    $appointmentTimes[$k] = 0;
+            }
+        } elseif ($workTimeType == BeauticianModel::REST_SHIFT) {
+            foreach ($appointmentTimes as $k => $time) {
+                $appointmentTimes[$k] = 0;
             }
         } else {
             ;

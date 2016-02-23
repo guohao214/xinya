@@ -11,6 +11,8 @@ class BeauticianModel extends BaseModel
     const ALL_DAY = 1;
     const MORNING_SHIFT = 2; // 早班
     const NIGHT_SHIFT = 3;   // 晚班
+    const MIDDAY_SHIFT = 4;   // 中班
+    const REST_SHIFT = 5;   // 休息
 
     public function setTable()
     {

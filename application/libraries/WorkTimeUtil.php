@@ -9,11 +9,14 @@
 class WorkTimeUtil
 {
     public $configFile = 'work-time';
+    public $beauticianWorkTimeConfigFile = 'beautician_work_time';
     public $workTime = '';
+    public $beauticianWorkTime = '';
 
     public function __construct()
     {
         $this->getTime();
+        $this->getBeauticianWorkTime();
     }
 
     public function build($start, $end)
@@ -28,14 +31,16 @@ class WorkTimeUtil
      * 设置工作时间
      * @param $allDay
      * @param $morningShift
+     * @param $middayShift
      * @param $nightShift
      * @return bool
      */
-    public function saveWorkTime($allDay, $morningShift, $nightShift)
+    public function saveWorkTime($allDay, $morningShift, $nightShift, $middayShift)
     {
         $time = array(
             'allDay' => $allDay,
             'morningShift' => $morningShift,
+            'middayShift' => $middayShift,
             'nightShift' => $nightShift,
         );
 
@@ -51,10 +56,17 @@ class WorkTimeUtil
             $this->workTime = $workTime;
     }
 
+    public function getBeauticianWorkTime()
+    {
+        $workTime = ConfigUtil::loadConfig($this->beauticianWorkTimeConfigFile);
+        if (is_array($workTime))
+            $this->beauticianWorkTime = $workTime;
+    }
+
     public function explode($time)
     {
         $explodeTime = explode('-', $time);
-        return array(trim($explodeTime[0]),trim($explodeTime[1]));
+        return array(trim($explodeTime[0]), trim($explodeTime[1]));
     }
 
     public function getAllDay()
@@ -70,5 +82,11 @@ class WorkTimeUtil
     public function getNightShift()
     {
         return $this->workTime['nightShift'];
+    }
+
+
+    public function getMiddayShift()
+    {
+        return $this->workTime['middayShift'];
     }
 }

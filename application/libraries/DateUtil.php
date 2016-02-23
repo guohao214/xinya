@@ -8,6 +8,8 @@
  */
 class DateUtil
 {
+    public static $weeks = array(0 => '周日', 1 => '周一', 2 => '周二', 3 => '周三', 4 => '周四', 5 => '周五', 6 => '周六');
+
     /**
      * 获得当前时间
      * @return bool|string
@@ -86,15 +88,41 @@ class DateUtil
 
         $days = array();
         // 0（表示星期天）到 6（表示星期六）
-        $weeks = array(0 => '星期天', 1 => '星期一', 2 => '星期二', 3 => '星期三', 4 => '星期四', 5 => '星期五', 6 => '星期六');
+        $weeks = self::$weeks;
         for ($i = 0; $i < $count; $i++) {
             $date = date('Y-m-d', strtotime("{$day} +{$i} day"));
             // 星期
-            $week = $weeks[date('w', strtotime($date))];
+            $inWeek = self::calcDayInWeek($date);
+            $week = $weeks[$inWeek];
 
             $days[$date] = "{$date} {$week}";
         }
 
         return $days;
+    }
+
+    /**
+     * 计算某天是周几
+     * @param $day
+     */
+    public static function calcDayInWeek($day)
+    {
+        // array(0 => '星期天', 1 => '星期一', 2 => '星期二', 3 => '星期三', 4 => '星期四', 5 => '星期五', 6 => '星期六');
+        return date('w', strtotime($day));
+    }
+
+    public static function dayInWeekName($day)
+    {
+        $inWeek = self::calcDayInWeek($day);
+        $weeks = self::$weeks;
+
+        return $weeks[$inWeek];
+    }
+
+    public static function inWeekName($w)
+    {
+        $weeks = self::$weeks;
+
+        return $weeks[$w];
     }
 } 

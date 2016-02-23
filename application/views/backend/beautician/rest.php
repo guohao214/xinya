@@ -27,7 +27,7 @@
                 <?php foreach ($beauticianRests as $beauticianRest): ?>
                     <?php $beautician_rest_id = $beauticianRest['beautician_rest_id']; ?>
                     <tr>
-                        <td><?php echo $beauticianRest['rest_day']; ?></td>
+                        <td><?php echo $beauticianRest['rest_day']; ?>   <?php echo DateUtil::dayInWeekName($beauticianRest['rest_day']); ?></td>
                         <td><?php echo $beauticianRest['start_time']; ?></td>
                         <td><?php echo $beauticianRest['end_time']; ?></td>
                         <td><?php echo $beauticianRest['ps']; ?></td>
