@@ -128,8 +128,6 @@ class Order extends FrontendController
         $customer = $customerModel->readOne($openId);
         if ($customer)
             $customerModel->addCredits($openId, $score);
-        else
-            $customerModel->create($openId, $score);
 
         // 事物完成
         $this->db->trans_complete();

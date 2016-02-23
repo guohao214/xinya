@@ -119,6 +119,21 @@ class WeixinUtil
             return false;
 
         $this->saveAuthorize($accessToken);
+
+        // 判断是否已经获取了微信用户信息
+        $customerModel = new CustomerModel();
+        $customer = $customerModel->readOne($this->getOpenId());
+        if (!$customer) {
+            $userInfo = $this->getWeixinUserInfo($this->getToken(), $this->getOpenId());
+            $customerModel->insert($this->getOpenId(), 0, $userInfo['nickname'],
+                $userInfo['headimgurl'], $userInfo['city'], $userInfo['province'], $userInfo['sex']);
+        } else if (!$customer['nick_name']) {
+            $userInfo = $this->getWeixinUserInfo($this->getToken(), $this->getOpenId());
+            $customerModel->update($this->getOpenId(), $userInfo['nickname'],
+                $userInfo['headimgurl'], $userInfo['city'], $userInfo['province'], $userInfo['sex']);
+        } else {
+        }
+
         return true;
     }
 
@@ -251,5 +266,25 @@ class WeixinUtil
         }
 
         return true;
+    }
+
+    /**
+     * 获得微信用户信息
+     * @param $accessToken
+     * @param $openId
+     */
+    public function getWeixinUserInfo($accessToken, $openId)
+    {
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={$accessToken}&openid={$openId}&lang=zh_CN";
+
+        $userInfo = RequestUtil::get($url);
+        LogUtil::weixinLog('获得用户信息：', $url);
+        if ($userInfo['errcode']) {
+            LogUtil::weixinLog('获取用户信息失败：', $userInfo['errcode'] . '--' . $userInfo['errmsg']);
+            return null;
+        } else {
+            LogUtil::weixinLog('获取用户信息成功', $userInfo);
+            return $userInfo;
+        }
     }
 }

@@ -46,4 +46,31 @@ class CustomerModel extends BaseModel
     {
         return (new CurdUtil($this))->create(array('open_id' => $openId, 'credits' => $credits));
     }
+
+    public function insert($openId, $credits = 0, $nickName, $avatar, $city, $province, $sex)
+    {
+        $data = array(
+            'open_id' => $openId,
+            'credits' => $credits,
+            'nick_name' => $nickName,
+            'avatar' => $avatar,
+            'city' => $city,
+            'province' => $province,
+            'sex' => $sex
+        );
+
+        return (new CurdUtil($this))->create($data);
+    }
+
+    public function update($openId, $nickName, $avatar, $city, $province, $sex) {
+        $data = array(
+            'nick_name' => $nickName,
+            'avatar' => $avatar,
+            'city' => $city,
+            'province' => $province,
+            'sex' => $sex
+        );
+
+        return (new CurdUtil($this))->update(array('open_id' => $openId), $data);
+    }
 }
