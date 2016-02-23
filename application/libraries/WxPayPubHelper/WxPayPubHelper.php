@@ -390,3 +390,148 @@ class Notify_pub extends Wxpay_server_pub
     }
 }
 
+
+/**
+ * 退款申请接口
+ */
+class Refund_pub extends Wxpay_client_pub
+{
+
+    function __construct($payObject)
+    {
+        //设置接口链接
+        $this->url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+        //设置curl超时时间
+        $this->curl_timeout = 15;
+        parent::__construct($payObject);
+    }
+
+    /**
+     * 生成接口参数xml
+     */
+    function createXml()
+    {
+        //检测必填参数
+        if ($this->parameters["out_trade_no"] == null && $this->parameters["transaction_id"] == null) {
+            throw new SDKRuntimeException("退款申请接口中，out_trade_no、transaction_id至少填一个！" . "<br>");
+        } elseif ($this->parameters["out_refund_no"] == null) {
+            throw new SDKRuntimeException("退款申请接口中，缺少必填参数out_refund_no！" . "<br>");
+        } elseif ($this->parameters["total_fee"] == null) {
+            throw new SDKRuntimeException("退款申请接口中，缺少必填参数total_fee！" . "<br>");
+        } elseif ($this->parameters["refund_fee"] == null) {
+            throw new SDKRuntimeException("退款申请接口中，缺少必填参数refund_fee！" . "<br>");
+        } elseif ($this->parameters["op_user_id"] == null) {
+            throw new SDKRuntimeException("退款申请接口中，缺少必填参数op_user_id！" . "<br>");
+        }
+        $this->parameters["appid"] = $this->payObject->appID;//公众账号ID
+        $this->parameters["mch_id"] = $this->payObject->mchID;//商户号
+        $this->parameters["nonce_str"] = $this->createNoncestr();//随机字符串
+        $this->parameters["sign"] = $this->getSign($this->parameters);//签名
+        return $this->arrayToXml($this->parameters);
+
+    }
+
+    /**
+     *    作用：获取结果，使用证书通信
+     */
+    function getResult()
+    {
+        $this->postXmlSSL();
+        $this->result = $this->xmlToArray($this->response);
+        return $this->result;
+    }
+
+}
+
+
+/**
+ * 退款查询接口
+ */
+class RefundQuery_pub extends Wxpay_client_pub
+{
+
+    function __construct($payObject)
+    {
+        //设置接口链接
+        $this->url = "https://api.mch.weixin.qq.com/pay/refundquery";
+        //设置curl超时时间
+        $this->curl_timeout = 15;
+        parent::__construct($payObject);
+    }
+
+    /**
+     * 生成接口参数xml
+     */
+    function createXml()
+    {
+        if ($this->parameters["out_refund_no"] == null &&
+            $this->parameters["out_trade_no"] == null &&
+            $this->parameters["transaction_id"] == null &&
+            $this->parameters["refund_id "] == null
+        ) {
+            throw new SDKRuntimeException("退款查询接口中，out_refund_no、out_trade_no、
+                transaction_id、refund_id四个参数必填一个！" . "<br>");
+        }
+        $this->parameters["appid"] = $this->payObject->appID;//公众账号ID
+        $this->parameters["mch_id"] = $this->payObject->mchID;//商户号
+        $this->parameters["nonce_str"] = $this->createNoncestr();//随机字符串
+        $this->parameters["sign"] = $this->getSign($this->parameters);//签名
+        return $this->arrayToXml($this->parameters);
+    }
+
+    /**
+     *    作用：获取结果，使用证书通信
+     */
+    function getResult()
+    {
+        $this->postXmlSSL();
+        $this->result = $this->xmlToArray($this->response);
+        return $this->result;
+    }
+
+}
+
+/**
+ * 对账单接口
+ */
+class DownloadBill_pub extends Wxpay_client_pub
+{
+
+    function __construct($payObject)
+    {
+        //设置接口链接
+        $this->url = "https://api.mch.weixin.qq.com/pay/downloadbill";
+        //设置curl超时时间
+        $this->curl_timeout = 15;
+
+        parent::__construct($payObject);
+    }
+
+    /**
+     * 生成接口参数xml
+     */
+    function createXml()
+    {
+        if ($this->parameters["bill_date"] == null) {
+            throw new SDKRuntimeException("对账单接口中，缺少必填参数bill_date！" . "<br>");
+        }
+        $this->parameters["appid"] = $this->payObject->appID;//公众账号ID
+        $this->parameters["mch_id"] = $this->payObject->mchID;//商户号
+        $this->parameters["nonce_str"] = $this->createNoncestr();//随机字符串
+        $this->parameters["sign"] = $this->getSign($this->parameters);//签名
+        return $this->arrayToXml($this->parameters);
+    }
+
+    /**
+     *    作用：获取结果，默认不使用证书
+     */
+    function getResult()
+    {
+        $this->postXml();
+        $this->result = $this->xmlToArray($this->result_xml);
+        return $this->result;
+    }
+
+
+}
+
