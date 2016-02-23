@@ -33,8 +33,9 @@
                 <tr>
                     <th width="10%">ID</th>
                     <th width=110>头像</th>
-                    <th>姓名</th>
+                    <th width="200">姓名</th>
                     <th width="20%">所属门店</th>
+                    <th width=100>接单数量</th>
                     <th width=100>性别</th>
                     <th width="140">工作时间</th>
                     <th width="150">操作</th>
@@ -48,6 +49,11 @@
                         </td>
                         <td><?php echo $beautician['name']; ?></td>
                         <td><?php echo $shops[$beautician['shop_id']]; ?></td>
+                        <td>
+                            <a href="<?php echo UrlUtil::createBackendUrl('order/index?order_status=2&beautician_id=' . $beautician_id); ?>">
+                                <?php echo $beauticianOrderCounts[$beautician_id]; ?>
+                            </a>
+                        </td>
                         <td><?php echo $beautician['sex']; ?></td>
                         <td><?php
 

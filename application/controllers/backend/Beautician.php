@@ -19,11 +19,13 @@ class Beautician extends BackendController
      */
     public function index()
     {
+
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
         $beauticians = (new BeauticianModel())->getAllBeauticians($where);
         $shops = (new ShopModel())->getAllShops();
+        $beauticianOrderCounts = (new OrderModel())->getOrderCountsByBeauticianId();
         $this->view('beautician/index', array('beauticians' => $beauticians, 'shops' => $shops,
-            'params' => RequestUtil::getParams()));
+            'params' => RequestUtil::getParams(), 'beauticianOrderCounts' => $beauticianOrderCounts));
     }
 
     public function addBeautician()

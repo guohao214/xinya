@@ -131,4 +131,23 @@ class OrderModel extends BaseModel
         return (new CurdUtil($this))->readAll('order_id desc', $where);
     }
 
-} 
+    /**
+     * 通过美容师ID统计美容师的接单数量
+     * @param string $beautician_id
+     */
+    public function getOrderCountsByBeauticianId()
+    {
+        $status = self::ORDER_PAYED;
+        $sql = "select count(*) as rows_count, beautician_id from `{$this->table}` where disabled=0 and order_status={$status} group by beautician_id";
+
+        $orderGroup = (new CurdUtil($this))->query($sql);
+        if ($orderGroup) {
+            $_orderGroup = array();
+            foreach ($orderGroup as $group) {
+                $_orderGroup[$group['beautician_id']] = $group['rows_count'];
+            }
+        }
+
+        return $_orderGroup;
+    }
+}
