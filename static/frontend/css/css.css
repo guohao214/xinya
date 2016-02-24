@@ -429,7 +429,7 @@ section {
 }
 
 .item_desc p {
-    line-height: 20px;
+    line-height: 16px;
     color: #acacac;
     margin-top: 5px;
 }
@@ -1156,6 +1156,7 @@ a#bind {
     padding: 0px 15px;
     border-right: 1px solid white;
     color: white;
+    font-size:12px !important;
 }
 
 .categories-list a:last-child {

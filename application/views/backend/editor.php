@@ -8,7 +8,8 @@
     KindEditor.ready(function(K) {
         editor = K.create('textarea[name="<?php echo $editorName; ?>"]', {
             uploadJson : '<?php echo UrlUtil::createBackendUrl("upload");?>',
-            allowFileManager : false
+            allowFileManager : false,
+            newlineTag: '<br>'
         });
     });
 </script>
