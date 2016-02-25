@@ -4,9 +4,9 @@
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/appointment.js?v=201602023"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/appointment.js?v=20160225"></script>
 <header>
-    <h2>预约美容</h2>
+    <h2>预约美容(提示：左右滑动可选择美容师)</h2>
 </header>
 
 <input type="hidden" name="project_time" value="<?php echo $project['use_time']; ?>">

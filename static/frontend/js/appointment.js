@@ -7,7 +7,7 @@ $(document).ready(function () {
     ;
 
     // 美容师滚动
-    $('#beautician').width(($beauticianAvatar.length) * 180);
+    $('#beautician').width(($beauticianAvatar.length) * 130);
     new IScroll('#choose-beautician-section', {scrollX: true, scrollY: false, mouseWheel: false});
 
     // 美容师点击事件
