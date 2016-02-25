@@ -22,7 +22,7 @@
                          data-val="<?php echo $beautician['beautician_id']; ?>">
                     <p><?php echo $beautician['name']; ?></p>
                 </li>
-                    <?php //endfor; ?>
+                <?php //endfor; ?>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -51,12 +51,14 @@
         <ul>
             <li>
                 <samp>联系人</samp>
-                <span><input type="text" name="user_name" class="order-text"> </span>
+                <span><input type="text" name="user_name" class="order-text"
+                             value="<?php echo $lastOrder['user_name']; ?>"> </span>
             </li>
             <li>
                 <a href="#">
                     <samp>手机号</samp>
-                    <span><input type="tel" name="phone_number" class="order-text" maxlength="11"></span>
+                    <span><input type="tel" name="phone_number" class="order-text" maxlength="11"
+                                 value="<?php echo $lastOrder['phone_number']; ?>"></span>
                 </a>
             </li>
         </ul>

@@ -150,4 +150,22 @@ class OrderModel extends BaseModel
 
         return $_orderGroup;
     }
+
+    /**
+     * 获得最后一次有效订单的信息
+     * @param $openId
+     * @return array
+     */
+    public function getLastPayedOrder($openId)
+    {
+        $this->db->from($this->table);
+        $this->db->where(array('open_id' => $openId, 'disabled' => 0));
+        $this->db->order_by('order_id desc');
+        $this->db->limit(1, 0);
+
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return array_pop($result);
+    }
 }

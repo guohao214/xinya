@@ -17,8 +17,9 @@ class Appointment extends FrontendController
      */
     public function index($shopId)
     {
+        $weixinUtil = new WeixinUtil();
         // 验证是否已授权
-        (new WeixinUtil())->authorize("appointment/index/{$shopId}");
+        $weixinUtil->authorize("appointment/index/{$shopId}");
 
         // 获得预约项目
         $projectId = (new CartUtil())->cart();
@@ -36,9 +37,11 @@ class Appointment extends FrontendController
 
             // 跳转到 选择 美容师
             $beauticians = (new BeauticianModel())->getAllBeauticians();
+            $openId = $weixinUtil->getOpenId();
+            $lastOrder = (new OrderModel())->getLastPayedOrder($openId);
             $days = DateUtil::buildDays();
             $this->load->view('frontend/appointment/beautician',
-                array('beauticians' => $beauticians, 'project' => $project, 'shopId' => $shopId, 'days' => $days));
+                array('beauticians' => $beauticians, 'project' => $project, 'shopId' => $shopId, 'days' => $days, 'lastOrder' => $lastOrder));
         } else {
             // 跳转到选择店铺
             $returnUrl = urlencode(UrlUtil::createUrl('appointment/index'));
