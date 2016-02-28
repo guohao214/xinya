@@ -23,7 +23,7 @@
                         <?php echo $coupon['start_time']; ?> 至 <?php echo $coupon['expire_time']; ?>
                     </p>
                     <p class="get-coupon">
-                        <span class="do-get-coupon" data-id="<?php echo $coupon['coupon_id']; ?>">领取</span>【需要<?php echo $coupon['exchange_credits']; ?> 积分】
+                        <span class="do-get-coupon" data-id="<?php echo $coupon['coupon_id']; ?>">兑换</span>【需要<?php echo $coupon['exchange_credits']; ?> 积分】
                     </p>
                 </div>
 
