@@ -13,9 +13,9 @@ class Exchange extends FrontendController
      */
     public function coupon()
     {
-       // $weixinUtil = new WeixinUtil();
+        $weixinUtil = new WeixinUtil();
         // 验证是否已授权
-       // $weixinUtil->authorize("exchange/coupon");
+        $weixinUtil->authorize("exchange/coupon");
 
         $coupons = (new CouponModel())->getAllCoupons();
         $this->view('exchange/coupon', array('coupons' => $coupons));
@@ -27,8 +27,7 @@ class Exchange extends FrontendController
      */
     public function getCoupon($couponId)
     {
-        //$openId = (new WeixinUtil())->getOpenId();
-        $openId = 'o0GaXwNref7wm0sdSUcSOyLJYjS8';
+        $openId = (new WeixinUtil())->getOpenId();
         if (!$openId)
             ResponseUtil::failure('错误的授权!');
 
