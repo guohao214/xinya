@@ -156,7 +156,7 @@ class OrderModel extends BaseModel
      * @param $openId
      * @return array
      */
-    public function getLastPayedOrder($openId)
+    public function getLastOrder($openId)
     {
         $this->db->from($this->table);
         $this->db->where(array('open_id' => $openId, 'disabled' => 0));
@@ -168,4 +168,11 @@ class OrderModel extends BaseModel
 
         return array_pop($result);
     }
+
+    public function readOne($orderId)
+    {
+        return (new CurdUtil($this))->
+        readOne(array('order_id' => $orderId, 'disabled' => 0));
+    }
+
 }

@@ -3,7 +3,9 @@ $(document).ready(function () {
     var $beauticianAvatar = $('.beautician-avatar img'),
         $appointmentDay = $('select[name="appointment-day"]'),
         $projectTime = parseInt($('[name="project_time"]').val()),
-        $confirmAppointment = $('.confirm-appointment');
+        $confirmAppointment = $('.confirm-appointment'),
+        $couponCode = $('[name="coupon_code"]'),
+        $coupon = $('[name="coupon"]');
     ;
 
     // 美容师滚动
@@ -44,6 +46,15 @@ $(document).ready(function () {
             }
         }
 
+    })
+
+    // 选择优惠
+    $couponCode.on('focus', function() {
+        $coupon.removeAttr('checked');
+    })
+
+    $coupon.on('click', function() {
+        $couponCode.val('');
     })
 
     // 确定预约
@@ -93,6 +104,10 @@ $(document).ready(function () {
         $redirectUrl += $day + '/' + encodeURIComponent($appointments.join(',')) + '/';
         $redirectUrl += $userNameVal + '/' + $phoneNumberVal;
 
+
+        // 优惠
+        $redirectUrl += '?coupon_code=' + $couponCode.val();
+        $redirectUrl += '&coupon_id=' + $('[name="coupon"]:checked').val()
         window.location.href = $redirectUrl;
     })
 

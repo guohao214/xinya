@@ -27,6 +27,20 @@ class CustomerModel extends BaseModel
     }
 
     /**
+     * 减去积分
+     * @param $openId
+     * @param $score
+     * @return mixed
+     */
+    public function subCredits($openId, $score)
+    {
+        $this->db->set('credits', "credits-{$score}", FALSE);
+        $this->db->where(array('open_id' => $openId));
+        $this->db->update($this->table);
+        return $this->db->affected_rows();
+    }
+
+    /**
      * 读取记录
      * @param $openId
      * @return mixed

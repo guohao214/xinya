@@ -1,10 +1,10 @@
 <?php $this->load->view('frontend/header'); ?>
 <link rel="stylesheet"
-      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/beautician.css?v=2016020209">
+      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/beautician.css?v=20160202091">
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/appointment.js?v=20160225"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/appointment.js?v=201602251"></script>
 <header>
     <h2>预约美容(提示：左右滑动可选择美容师)</h2>
 </header>
@@ -50,18 +50,43 @@
         </strong>
         <ul>
             <li>
-                <samp>联系人</samp>
+                <samp>联系人：</samp>
                 <span><input type="text" name="user_name" class="order-text"
                              value="<?php echo $lastOrder['user_name']; ?>"> </span>
             </li>
             <li>
                 <a href="#">
-                    <samp>手机号</samp>
+                    <samp>手机号：</samp>
                     <span><input type="tel" name="phone_number" class="order-text" maxlength="11"
                                  value="<?php echo $lastOrder['phone_number']; ?>"></span>
                 </a>
             </li>
         </ul>
+
+
+        <strong>
+            <span class="F16">使用优惠码</span>
+        </strong>
+        <ul>
+            <li>
+                <samp>优惠码：</samp>
+                <span><input type="text" name="coupon_code" class="order-text"></span>
+            </li>
+        </ul>
+        <?php if ($coupons): ?>
+        <strong>
+            <span class="F16">使用优惠券</span>
+        </strong>
+        <ul>
+            <?php foreach($coupons as $coupon): ?>
+            <li class="use-coupon">
+                <input type="radio" name="coupon" value="<?php echo $coupon['customer_coupon_id']; ?>">
+                <?php echo $coupon['coupon_name']; ?>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+
         <a class="confirm-appointment payment colorW F16">确定预约</a>
     </div>
 </div>

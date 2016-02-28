@@ -148,11 +148,64 @@ class Cart extends FrontendController
         //$endTime = date('H:i', $timeStamp);
 
 
+        // 处理优惠
+        $couponId = $this->input->get('coupon_id', true) + 0;
+        $couponCode = $this->input->get('coupon_code', true) + 0;
+        $customerCouponModel = new CustomerCouponModel();
+        $couponCodeModel = new CouponCodeModel();
+        $today = date('Y-m-d');
+
+        if ($couponId) {
+            $couponCode = '';
+            $coupon = $customerCouponModel->readOneById($couponId);
+            // 判断是否能使用
+            if ($coupon['is_use'] == 1)
+                $this->message('选择的优惠券已被使用！');
+
+            // 是否到领取时间
+            if ($today < $coupon['start_time'])
+                $this->message('优惠券未到使用时间！');
+
+            if ($today > $coupon['expire_time'])
+                $this->message('优惠券已到期！');
+
+        } else if ($couponCode) {
+            $couponId = '';
+            $queryCouponCode = $couponCodeModel->readOneByCode($couponCode);
+            if (!$queryCouponCode)
+                $this->message('优惠码不存在！');
+
+            // 是否到使用时间
+            if ($today < $queryCouponCode['start_time'])
+                $this->message('优惠码未到使用时间！');
+
+            // 是有已过期
+            if ($today > $queryCouponCode['expire_time'])
+                $this->message('优惠码已到期！');
+
+        } else {
+        }
+
         //**********处理下单************//
         $projectId = (new CartUtil())->cart();
 
         if (empty($projectId) || $projectId <= 0) {
             $this->message('预约项目为空！');
+        }
+
+        $orderProjectModel = new OrderProjectModel();
+        // 获得购物车的项目
+        $project = (new ProjectModel())->readOne($projectId);
+
+        // 判断订单金额是否可以使用优惠券
+        $totalFee = $project['price'];
+        if ($couponId) {
+            if ($totalFee < $coupon['use_rule'])
+                $this->message('当前订单金额不足' . $coupon['use_rule'] . '元，不能使用此优惠券');
+        } else if ($couponCode) {
+            if ($totalFee < $queryCouponCode['use_rule'])
+                $this->message('当前订单金额不足' . $queryCouponCode['use_rule'] . '元，不能使用此优惠码');
+        } else {
         }
 
         // 生成订单号, 有重复订单号则重新生成，直到不重复为止
@@ -162,17 +215,22 @@ class Cart extends FrontendController
             $orderNo = StringUtil::generateOrderNo();
         }
 
-        $orderProjectModel = new OrderProjectModel();
+        // 优惠
+        if ($couponId) {
+            // 使用优惠码， 抵消金额
+            $totalFee -= $coupon['counteract_amount'];
+        } else if ($couponCode) {
+            $totalFee *= $queryCouponCode['discount'];
+        } else {
+        }
 
-        // 获得购物车的项目
-        $project = (new ProjectModel())->readOne($projectId);
 
         // 订单数据
         $orderData = array(
             'order_no' => $orderNo,
             'shop_id' => $shopId,
             'create_time' => DateUtil::now(),
-            'total_fee' => $project['price'],
+            'total_fee' => $totalFee,
             'open_id' => $openId,
             'order_status' => OrderModel::ORDER_NOT_PAY,
             'beautician_id' => $beauticianId,
@@ -180,10 +238,22 @@ class Cart extends FrontendController
             'appointment_start_time' => $startTime,
             'appointment_end_time' => $endTime,
             'user_name' => $userName,
-            'phone_number' => $phoneNumber
+            'phone_number' => $phoneNumber,
+            'use_coupon_id' => $couponId,
+            'use_coupon_code' => $couponCode
         );
 
         // 事务开始
+        $this->db->trans_start();
+
+        // 设置优惠券已使用
+        if ($couponId)
+            $customerCouponModel->useCoupon($couponId, $openId);
+        else if ($couponCode) {
+            $couponCodeModel->addUseTimes($couponCode);
+        } else {
+        }
+
         $insertOrderNo = (new CurdUtil($orderModel))->create($orderData);
         if ($insertOrderNo) {
             $orderProjectData = array(
@@ -199,7 +269,6 @@ class Cart extends FrontendController
             $this->message('提交订单失败，请重试！');
         }
 
-        $this->db->trans_start();
         (new CurdUtil($orderProjectModel))->create($orderProjectData);
 
         $this->db->trans_complete();
@@ -212,7 +281,7 @@ class Cart extends FrontendController
             // 清空购物车
             (new CartUtil())->emptyCart();
             // 跳到 订单显示
-            ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
+             ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
         }
     }
 }

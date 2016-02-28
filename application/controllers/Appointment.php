@@ -38,10 +38,15 @@ class Appointment extends FrontendController
             // 跳转到 选择 美容师
             $beauticians = (new BeauticianModel())->getAllBeauticians();
             $openId = $weixinUtil->getOpenId();
-            $lastOrder = (new OrderModel())->getLastPayedOrder($openId);
+            $lastOrder = (new OrderModel())->getLastOrder($openId);
             $days = DateUtil::buildDays();
+
+            // 查询优惠券
+            $coupons = (new CustomerCouponModel())->getCustomerNotUseCouponList($openId);
+
             $this->load->view('frontend/appointment/beautician',
-                array('beauticians' => $beauticians, 'project' => $project, 'shopId' => $shopId, 'days' => $days, 'lastOrder' => $lastOrder));
+                array('beauticians' => $beauticians, 'project' => $project, 'shopId' => $shopId,
+                    'days' => $days, 'lastOrder' => $lastOrder, 'coupons' => $coupons));
         } else {
             // 跳转到选择店铺
             $returnUrl = urlencode(UrlUtil::createUrl('appointment/index'));
@@ -74,10 +79,11 @@ class Appointment extends FrontendController
 
         // 查询休息时间
         $beauticianRest = (new CurdUtil(new BeauticianRestModel()))
-            ->readOne(
+            ->readAll(
+                'beautician_rest_id desc',
                 array('beautician_id' => $beautician_id,
                     'disabled' => 0,
-                    'rest_day' => $day), 'beautician_rest_id desc');
+                    'rest_day' => $day));
 
         // 获得工作时间
         $workTime = new WorkTimeUtil();
@@ -89,12 +95,14 @@ class Appointment extends FrontendController
         // 美容师制定日期休息时间段
         // 当值为0时， 说明不能预约
         if ($beauticianRest) {
-            $beauticianRestAppointmentTimes = DateUtil::generateAppointmentTime($day,
-                $beauticianRest['start_time'], $beauticianRest['end_time']);
+            foreach($beauticianRest as $_beauticianRest) {
+                $beauticianRestAppointmentTimes = DateUtil::generateAppointmentTime($day,
+                    $_beauticianRest['start_time'], $_beauticianRest['end_time']);
 
-            foreach ($appointmentTimes as $k => $time) {
-                if (array_key_exists($k, $beauticianRestAppointmentTimes))
-                    $appointmentTimes[$k] = 0;
+                foreach ($appointmentTimes as $k => $time) {
+                    if (array_key_exists($k, $beauticianRestAppointmentTimes))
+                        $appointmentTimes[$k] = 0;
+                }
             }
         }
 
@@ -163,4 +171,5 @@ class Appointment extends FrontendController
 
         ResponseUtil::executeSuccess('成功', $render);
     }
+
 }

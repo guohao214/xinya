@@ -20,7 +20,7 @@ class Order extends BackendController
         if ($shopId == 0)
             unset($_GET['shop_id']);
         else
-            $this->db->where_in('shop_id',array(0, $shopId));
+            $this->db->where_in('shop_id', array(0, $shopId));
 
         // 获得查询参数， 查询参数都为like模糊查询
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
@@ -76,8 +76,20 @@ class Order extends BackendController
         if (!$order_id)
             $this->message('订单ID不能为空！');
 
+        $orderModel = new OrderModel();
+        // 获得订单
+        $order = $orderModel->readOne($order_id);
+        if (!$order)
+            ResponseUtil::failure('取消订单失败!');
+
+        // 获得积分ID
+        $couponId = $order['use_coupon_id'];
+        if ($couponId)
+            (new CustomerCouponModel())->refundCoupon($couponId, $order['open_id']);
+
         if ((new CurdUtil($this->orderModel))->update(array('order_id' => $order_id),
-            array('order_status' => OrderModel::ORDER_CANCEL, 'complete_time' => DateUtil::now())))
+            array('order_status' => OrderModel::ORDER_CANCEL, 'complete_time' => DateUtil::now()))
+        )
             $this->message('订单已取消！');
         else
             $this->message('处理失败！');

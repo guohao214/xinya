@@ -125,4 +125,15 @@ class DateUtil
 
         return $weeks[$w];
     }
+
+    /**
+     * 当前的日期大于参数
+     * @param $day
+     * @return bool
+     */
+    public static function gtDay($day)
+    {
+        return date('Y-m-d') > $day;
+    }
+
 } 

@@ -51,18 +51,6 @@ class UserCenter extends FrontendController
             'shops' => $shops, 'offset' => $offset, 'shopAddress' => $shopAddress));
     }
 
-
-    public function xinya($alias)
-    {
-        $article = (new CurdUtil(new ArticleModel()))
-            ->readOne(array('alias_name' => $alias, 'disabled' => 0));
-
-        if (!$article)
-            $this->message('信息不存在!');
-
-        $this->view('article/index', array('article' => $article));
-    }
-
     /**
      * 取消订单
      * @param $orderId
@@ -78,12 +66,41 @@ class UserCenter extends FrontendController
 
         $orderId += 0;
 
+        $orderModel = new OrderModel();
+        // 获得订单
+        $order = $orderModel->readOne($orderId);
+        if (!$order)
+            ResponseUtil::failure('取消订单失败!');
+
+        // 获得积分ID
+        $couponId = $order['use_coupon_id'];
+        if ($couponId)
+            (new CustomerCouponModel())->refundCoupon($couponId, $openId);
+
         //取消订单
         if ((new CurdUtil(new OrderModel()))->update(array('order_id' => $orderId, 'open_id' => $openId),
             array('order_status' => OrderModel::ORDER_CANCEL))
-        )
+        ) {
             ResponseUtil::executeSuccess('订单取消成功！');
-        else
+        } else
             ResponseUtil::failure('取消订单失败!');
+    }
+
+    /**
+     * 领取的优惠券
+     * @param $offset
+     */
+    public function coupon($offset = 0)
+    {
+        $openId = (new WeixinUtil())->getOpenId();
+        if (!$openId)
+            $this->message('未授权访问！');
+
+        $customerCoupon = new CustomerCouponModel();
+        $coupons = $customerCoupon->getCustomerCouponList($openId, $offset);
+        $couponsCount = $customerCoupon->getCustomerCouponCount($openId);
+        $pages = (new PaginationUtil($couponsCount, 'user-center'))->pagination();
+
+        $this->view('userCenter/coupon', array('coupons' => $coupons, 'pages' => $pages));
     }
 }

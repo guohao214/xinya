@@ -834,8 +834,10 @@ a#bind {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 251px;
-    z-index: 10000;
+    height: 100%;
+    z-index: 999;
+    border-top: 1px solid #FF8CB3;
+    overflow: scroll;
 }
 
 /*关闭按钮*/
@@ -873,7 +875,7 @@ a#bind {
 
 .pay strong {
     display: block;
-    border-top: 1px solid #FF8CB3;
+
     height: 50px;
     margin: 0 10px;
     border-bottom: 1px solid #ececec;
@@ -897,14 +899,22 @@ a#bind {
 }
 
 .pay ul {
-    margin: 10px;
+    margin: 0px 10px 10px 10px;
 }
 
 .pay ul li {
     line-height: 50px;
+    /*border-bottom: 1px solid #ececec;*/
+}
+
+.pay ul li:last-child {
     border-bottom: 1px solid #ececec;
 }
 
+
+.pay ul li.use-coupon {
+    line-height: 40px;
+}
 .pay ul li span {
     font-size: 14px;
     line-height: 50px;
@@ -925,13 +935,15 @@ a#bind {
     display: block;
     padding: 10px;
     width: 80%;
-    position: absolute;
+    position: relative;
     bottom: 10px;
-    left: 10%;
+    /*left: 10%;*/
     text-align: center;
     background: #FF8CB3;
     -webkit-border-radius: 5px;
     color: white;
+    margin:0px auto;
+    margin-top:30px;
 }
 
 /*提示*/
