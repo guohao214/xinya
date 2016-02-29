@@ -4,7 +4,7 @@
 </div>
 <div class="search-wrap">
     <div class="search-content">
-        <form action="<?php echo UrlUtil::createBackendUrl('project/index'); ?>?" method="get">
+        <form action="<?php echo UrlUtil::createBackendUrl('customer/index'); ?>?" method="get">
             <table class="search-tab">
                 <tr>
                     <th width="70">微信昵称:</th>
