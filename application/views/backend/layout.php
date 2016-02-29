@@ -55,6 +55,7 @@
                         <li><a href="<?php echo UrlUtil::createBackendUrl('slider/index') ?>"><i class="icon-font">&#xe033;</i>幻灯片/福利管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('coupon/index') ?>"><i class="icon-font">&#xe028;</i>优惠券管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('couponCode/index') ?>"><i class="icon-font">&#xe026;</i>优惠码管理</a></li>
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('exchangeGoods/index') ?>"><i class="icon-font">&#xe032;</i>兑换商品管理</a></li>
                         <?php endif; ?>
                     </ul>
                 </li>

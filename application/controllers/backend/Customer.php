@@ -17,9 +17,10 @@ class Customer extends BackendController
     public function index($limit = '')
     {
         // 获得查询参数， 查询参数都为like模糊查询
-        $where = RequestUtil::buildLikeQueryParams();
+        $where = RequestUtil::buildLikeQueryParamsWithDisabled();
         $this->db->select('*');
         $customers = (new CurdUtil($this->customerModel))->readLimit($where, $limit, 'customer_id desc');
+        echo $this->db->last_query();
         $customersCount = (new CurdUtil($this->customerModel))->count($where);
         $pages = (new PaginationUtil($customersCount))->pagination();
 
