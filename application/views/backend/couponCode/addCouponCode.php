@@ -20,8 +20,8 @@
             <tr>
                 <th><i class="require-red">*</i>优惠码：</th>
                 <td>
-                    <input class="common-text required" name="coupon_code"
-                           value="<?php echo set_value('coupon_code'); ?>" size="20" type="text">
+                    <input class="common-text required" name="coupon_code" maxlength="6"
+                           value="<?php echo set_value('coupon_code'); ?>" size="20" type="text">（6位）
                 </td>
             </tr>
 
