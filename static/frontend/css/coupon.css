@@ -110,10 +110,10 @@
 }
 
 .get-coupon span {
-    font-size:18px !important;
-    border:1px solid #CCC;
-    padding: 5px 8px;
-    background-color: #62c462;
+    font-size:14px !important;
+    /*border:1px solid #CCC;*/
+    padding: 5px 20px;
+    background-color: #FF8CB3;
     border-radius: 6px;
 }
 
@@ -197,4 +197,17 @@
 
 .stamp-user {
     height: 145px !important;
+}
+
+.tab_wrap {
+}
+
+.tabs li {
+    border:0px;
+    margin-left:30px;
+    padding: 0px 15px;
+}
+
+.tabs li a {
+    line-height:50px;
 }

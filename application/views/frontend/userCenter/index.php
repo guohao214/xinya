@@ -5,9 +5,23 @@
 <section>
     <ul class="my_page_mainbody">
         <li>
-            <a>
-<!--                <div></div>-->
-                当前积分：<?php echo (int)$customer['credits']; ?>
+            <a href="<?php echo UrlUtil::createUrl('exchange/coupon'); ?>">
+                <div></div>
+                我的积分(<?php echo (int)$customer['credits']; ?>)
+            </a>
+        </li>
+
+        <li>
+            <a href="<?php echo UrlUtil::createUrl('userCenter/coupon'); ?>">
+                <div></div>
+                我的优惠券
+            </a>
+        </li>
+
+        <li>
+            <a href="<?php echo UrlUtil::createUrl('userCenter/exchangeGoods'); ?>">
+                <div></div>
+                我的兑换商品
             </a>
         </li>
 

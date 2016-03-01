@@ -242,7 +242,7 @@ class WeixinUtil
     public function authorize($returnUrl)
     {
         if (!$returnUrl)
-            get_instance()->message('授权回掉地址为空！');
+            get_instance()->message('授权回调地址为空！');
 
         // 如果是微信授权后返回
         if (isset($_GET['code'])) {

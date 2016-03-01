@@ -14,7 +14,6 @@ class UserCenter extends FrontendController
         $weixinUtil = new WeixinUtil();
         $weixinUtil->authorize("userCenter/index");
         $openId = $weixinUtil->getOpenId();
-
         $customer = (new CustomerModel())->readOne($openId);
         $this->view('userCenter/index', array('customer' => $customer));
     }
@@ -102,5 +101,21 @@ class UserCenter extends FrontendController
         $pages = (new PaginationUtil($couponsCount, 'user-center'))->pagination();
 
         $this->view('userCenter/coupon', array('coupons' => $coupons, 'pages' => $pages));
+    }
+
+    public function exchangeGoods($offset = 0)
+    {
+        $openId = (new WeixinUtil())->getOpenId();
+        if (!$openId)
+            $this->message('未授权访问！');
+
+        $customerExchangeGoodsModel = new CustomerExchangeGoodsModel();
+        $exchangeGoods = $customerExchangeGoodsModel->getCustomerExchangeGoodsList($openId, $offset);
+        $exchangeGoodsCount = $customerExchangeGoodsModel->getCustomerExchangeGoodsCount($openId);
+        $pages = (new PaginationUtil($exchangeGoodsCount, 'user-center'))->pagination();
+        $shops = (new ShopModel())->getAllShopAddress();
+
+        $this->view('userCenter/exchangeGoods',
+            array('exchangeGoods' => $exchangeGoods, 'pages' => $pages, 'shops' => $shops));
     }
 }

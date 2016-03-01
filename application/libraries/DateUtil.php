@@ -136,4 +136,12 @@ class DateUtil
         return date('Y-m-d') > $day;
     }
 
+
+    public static function getOnlyDay($date)
+    {
+        $time = strtotime($date);
+
+        return date('Y-m-d', $time);
+    }
+
 } 

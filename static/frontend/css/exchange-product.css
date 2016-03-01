@@ -1,0 +1,43 @@
+.tabs li {
+    border: 0px;
+    margin-left: 30px;
+    padding: 0px 15px;
+}
+
+.tabs li a {
+    line-height: 50px;
+}
+
+.do-exchange {
+    font-size: 14px !important;
+    /*border: 1px solid #CCC;*/
+    padding: 5px 20px;
+    background-color: #FF8CB3;
+    border-radius: 6px;
+    color: white;
+}
+
+.item {
+    margin: 15px 0px;
+}
+
+.exchange {
+    margin: 15px 0px;
+    font-size: 14px;
+}
+
+.item dd .effects {
+    color: #acacac;
+    overflow: visible;
+    margin: 5px 0;
+    /* text-overflow: ellipsis; */
+     white-space:normal;
+}
+
+.item dd .price {
+    font-weight: normal;
+}
+
+#divMsg {
+    height: 260px;
+}

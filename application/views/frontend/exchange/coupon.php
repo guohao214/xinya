@@ -1,11 +1,22 @@
 <link rel="stylesheet"
-      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/coupon.css">
+      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/coupon.css?v=20160301">
 <script type="text/javascript"
-        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/get-coupon.js"></script>
+        src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/get-coupon.js?v=20160301"></script>
 <header>
-    <h2>兑换优惠券</h2>
+    <a class="prev j_prePage" href="javascript:window.history.back();"></a>
+    <h2>积分兑换</h2>
 </header>
 <section>
+    <div class="tab_wrap">
+        <ul class="tabs j_scroll" id="iScroll0" style="">
+            <li class="current">
+                <a href="<?php echo UrlUtil::createUrl("exchange/coupon"); ?>"><i></i>兑换优惠券</a>
+            </li>
+            <li class="">
+                <a href="<?php echo UrlUtil::createUrl("exchange/exchangeGoods"); ?>"><i></i>兑换商品</a>
+            </li>
+        </ul>
+    </div>
     <?php if ($coupons): ?>
         <?php foreach ($coupons as $coupon): ?>
             <div class="stamp stamp01">
