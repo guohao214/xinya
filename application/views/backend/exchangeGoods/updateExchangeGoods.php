@@ -53,13 +53,13 @@
                 </td>
             </tr>
 
-            <tr>
-                <th><i class="require-red">*</i>发布数量：</th>
-                <td>
-                    <input class="common-text required" name="total_number"
-                           value="<?php echo $exchangeGoods['total_number']; ?>" size="20" type="text">
-                </td>
-            </tr>
+<!--            <tr>-->
+<!--                <th><i class="require-red">*</i>发布数量：</th>-->
+<!--                <td>-->
+<!--                    <input class="common-text required" name="total_number"-->
+<!--                           value="--><?php //echo $exchangeGoods['total_number']; ?><!--" size="20" type="text">-->
+<!--                </td>-->
+<!--            </tr>-->
 
             <tr>
                 <th><i class="require-red">*</i>开始时间：</th>
