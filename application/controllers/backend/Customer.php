@@ -20,7 +20,6 @@ class Customer extends BackendController
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
         $this->db->select('*');
         $customers = (new CurdUtil($this->customerModel))->readLimit($where, $limit, 'customer_id desc');
-        echo $this->db->last_query();
         $customersCount = (new CurdUtil($this->customerModel))->count($where);
         $pages = (new PaginationUtil($customersCount))->pagination();
 
