@@ -3,7 +3,7 @@
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/get-coupon.js?v=20160301"></script>
 <header>
-    <a class="prev j_prePage" href="javascript:window.history.back();"></a>
+    <a class="prev j_prePage" href="<?php echo UrlUtil::createUrl('userCenter/index');?>"></a>
     <h2>积分兑换</h2>
 </header>
 <section>
