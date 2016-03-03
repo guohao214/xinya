@@ -198,7 +198,7 @@ class Cart extends FrontendController
         $project = (new ProjectModel())->readOne($projectId);
 
         // 判断订单金额是否可以使用优惠券
-        $totalFee = $project['price'];
+        $totalFee = $originalTotalFee = $project['price'];
         if ($couponId) {
             if ($totalFee < $coupon['use_rule'])
                 $this->message('当前订单金额不足' . $coupon['use_rule'] . '元，不能使用此优惠券');
@@ -230,6 +230,7 @@ class Cart extends FrontendController
             'order_no' => $orderNo,
             'shop_id' => $shopId,
             'create_time' => DateUtil::now(),
+            'original_total_fee' => $originalTotalFee,
             'total_fee' => $totalFee,
             'open_id' => $openId,
             'order_status' => OrderModel::ORDER_NOT_PAY,
