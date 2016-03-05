@@ -47,6 +47,9 @@
                         <li><a href="<?php echo UrlUtil::createBackendUrl('order/index') ?>"><i class="icon-font">
                                     &#xe005;</i>订单管理</a></li>
 
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('offlineOrder/index') ?>"><i class="icon-font">
+                                    &#xe005;</i>线下预约订单</a></li>
+
                         <?php if (UserUtil::isAdmin()): ?>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('user/index') ?>"><i class="icon-font">
                                     &#xe014;</i>用户管理</a></li>

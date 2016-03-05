@@ -58,6 +58,8 @@
                             <td><?php echo $project['price']; ?> 元</td>
                             <td><?php echo $project['create_time']; ?></td>
                             <td>
+                                <a class="link-update btn btn-info"
+                                   href="<?php echo UrlUtil::createBackendUrl('offlineAppointment/index/' . $project['project_id']); ?>">预约</a>
                                 <a class="link-update btn btn-warning"
                                    href="<?php echo UrlUtil::createBackendUrl('project/updateProject/' . $project['project_id'] ."/{$limit}"); ?>">修改</a>
                                 <a class="link-del btn btn-danger"

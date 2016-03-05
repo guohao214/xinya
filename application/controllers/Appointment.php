@@ -95,7 +95,7 @@ class Appointment extends FrontendController
         // 美容师制定日期休息时间段
         // 当值为0时， 说明不能预约
         if ($beauticianRest) {
-            foreach($beauticianRest as $_beauticianRest) {
+            foreach ($beauticianRest as $_beauticianRest) {
                 $beauticianRestAppointmentTimes = DateUtil::generateAppointmentTime($day,
                     $_beauticianRest['start_time'], $_beauticianRest['end_time']);
 
@@ -126,6 +126,20 @@ class Appointment extends FrontendController
             foreach ($appointmentTimes as $k => $time) {
                 if ($k < $now)
                     $appointmentTimes[$k] = 0;
+            }
+        }
+
+        // 查询线下预约
+        $offlineOrders = (new OfflineOrderModel())->getOrderByBeauticianIdAndAppointmentDay($beautician_id, $day);
+        if ($offlineOrders) {
+            foreach ($offlineOrders as $offlineOrder) {
+                $orderAppointmentTime = DateUtil::generateAppointmentTime($offlineOrder['appointment_day'],
+                    $offlineOrder['appointment_start_time'], $offlineOrder['appointment_end_time']);
+
+                foreach ($appointmentTimes as $k => $time) {
+                    if (array_key_exists($k, $orderAppointmentTime))
+                        $appointmentTimes[$k] = 0;
+                }
             }
         }
 
