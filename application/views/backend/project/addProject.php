@@ -60,6 +60,26 @@
             </tr>
 
             <tr>
+                <th><i class="require-red">*</i>使用优惠券：</th>
+                <td>
+                    <select name="can_use_coupon" class="select">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>使用优惠码：</th>
+                <td>
+                    <select name="can_use_coupon_code" class="select">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
                 <th><i class="require-red">*</i>缩略图：</th>
                 <td><input name="pic" id="" type="file" class="common-text"></td>
             </tr>

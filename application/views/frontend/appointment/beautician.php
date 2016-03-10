@@ -63,7 +63,7 @@
             </li>
         </ul>
 
-
+        <?php if ($project['can_use_coupon_code']): ?>
         <strong>
             <span class="F16">使用优惠码</span>
         </strong>
@@ -73,6 +73,8 @@
                 <span><input type="text" name="coupon_code" class="order-text"></span>
             </li>
         </ul>
+        <?php endif; ?>
+
         <?php if ($coupons): ?>
         <strong>
             <span class="F16">使用优惠券</span>

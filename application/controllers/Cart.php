@@ -199,10 +199,10 @@ class Cart extends FrontendController
 
         // 判断订单金额是否可以使用优惠券
         $totalFee = $originalTotalFee = $project['price'];
-        if ($couponId) {
+        if ($couponId && $project['can_use_coupon']) {
             if ($totalFee < $coupon['use_rule'])
                 $this->message('当前订单金额不足' . $coupon['use_rule'] . '元，不能使用此优惠券');
-        } else if ($couponCode) {
+        } else if ($couponCode && $project['can_use_coupon_code']) {
             if ($totalFee < $queryCouponCode['use_rule'])
                 $this->message('当前订单金额不足' . $queryCouponCode['use_rule'] . '元，不能使用此优惠码');
         } else {
@@ -216,14 +216,13 @@ class Cart extends FrontendController
         }
 
         // 优惠
-        if ($couponId) {
+        if ($couponId && $project['can_use_coupon']) {
             // 使用优惠码， 抵消金额
             $totalFee -= $coupon['counteract_amount'];
-        } else if ($couponCode) {
+        } else if ($couponCode && $project['can_use_coupon_code']) {
             $totalFee *= $queryCouponCode['discount'];
         } else {
         }
-
 
         // 订单数据
         $orderData = array(
@@ -248,9 +247,9 @@ class Cart extends FrontendController
         $this->db->trans_start();
 
         // 设置优惠券已使用
-        if ($couponId)
+        if ($couponId && $project['can_use_coupon'])
             $customerCouponModel->useCoupon($couponId, $openId);
-        else if ($couponCode) {
+        else if ($couponCode && $project['can_use_coupon_code']) {
             $couponCodeModel->addUseTimes($couponCode);
         } else {
         }
@@ -282,7 +281,7 @@ class Cart extends FrontendController
             // 清空购物车
             (new CartUtil())->emptyCart();
             // 跳到 订单显示
-             ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
+            ResponseUtil::redirect(UrlUtil::createUrl('order/pay/' . $orderNo));
         }
     }
 }

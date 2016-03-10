@@ -41,8 +41,11 @@ class Appointment extends FrontendController
             $lastOrder = (new OrderModel())->getLastOrder($openId);
             $days = DateUtil::buildDays();
 
-            // 查询优惠券
-            $coupons = (new CustomerCouponModel())->getCustomerNotUseCouponList($openId);
+            $coupons = array();
+            if ($project['can_use_coupon']) {
+                // 查询优惠券
+                $coupons = (new CustomerCouponModel())->getCustomerNotUseCouponList($openId);
+            }
 
             $this->load->view('frontend/appointment/beautician',
                 array('beauticians' => $beauticians, 'project' => $project, 'shopId' => $shopId,
