@@ -32,6 +32,9 @@
             <div class="result-list">
                 <a href="<?php echo UrlUtil::createBackendUrl('project/addProject') ?>">
                     <i class="icon-font"></i>新增项目</a>
+
+                <a href="<?php echo UrlUtil::createBackendUrl('ProjectProperty/projectForNewUserList') ?>">
+                    <i class="icon-font">&#xe006;</i>管理新用户专享项目</a>
             </div>
         </div>
         <div class="result-content">

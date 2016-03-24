@@ -27,6 +27,10 @@ class Appointment extends FrontendController
         if (!$projectId)
             $this->message('预约项目不存在！');
 
+        $openId = $weixinUtil->getOpenId();
+        if ((new ProjectPropertyModel())->projectOnlyForNewUser($projectId, $openId))
+            $this->message('此美容项目只针对新用户！');
+
         //是否已经选择了店铺，并且店铺是有效的
         $shops = (new ShopModel())->getAllShops();
         if (is_numeric($shopId) && array_key_exists($shopId, $shops)) {
@@ -37,10 +41,9 @@ class Appointment extends FrontendController
 
             // 跳转到 选择 美容师
             $beauticians = (new BeauticianModel())->getAllBeauticians();
-            $openId = $weixinUtil->getOpenId();
+
             $lastOrder = (new OrderModel())->getLastOrder($openId);
             $days = DateUtil::buildDays();
-
             $coupons = array();
             if ($project['can_use_coupon']) {
                 // 查询优惠券

@@ -100,6 +100,7 @@ class Cart extends FrontendController
         if (!(new ShopModel())->isValidShopId($shopId))
             $this->message('门店信息错误，请检查！');
 
+
         // 检查美容师
         if (!(new BeauticianModel())->isValidBeautician($beauticianId))
             $this->message('美容师信息错误，请检查！');
@@ -192,6 +193,11 @@ class Cart extends FrontendController
         if (empty($projectId) || $projectId <= 0) {
             $this->message('预约项目为空！');
         }
+
+
+        if ((new ProjectPropertyModel())->projectOnlyForNewUser($projectId, $openId))
+            $this->message('此美容项目只针对新用户！');
+
 
         $orderProjectModel = new OrderProjectModel();
         // 获得购物车的项目

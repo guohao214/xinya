@@ -15,6 +15,19 @@ class Project extends BackendController
         $this->projectModel->deleteProjectsCache();
     }
 
+    public function readAllProjectByCategory($categoryId)
+    {
+        $projects = (new CurdUtil($this->projectModel))
+            ->readAll('project_id desc', array('category_id' => $categoryId));
+
+        $html = '';
+        foreach ($projects as $project) {
+            $html .= "<option value={$project['project_id']}>{$project['project_name']}</option>";
+        }
+
+        ResponseUtil::json($html);
+    }
+
 
     public function index($limit = '')
     {
@@ -30,7 +43,7 @@ class Project extends BackendController
 
         $this->view('project/index', array('projects' => $projects, 'shops' => $shops, 'limit' => $limit + 0,
             'pages' => $pages, 'categories' => $categories, 'params' => RequestUtil::getParams(),
-        'categoryId' => $categoryId));
+            'categoryId' => $categoryId));
     }
 
     public function deleteProject($project_id, $limit = 0)
@@ -56,9 +69,9 @@ class Project extends BackendController
                     $params['project_cover'] = $upload;
 
                 if ((new CurdUtil($this->projectModel))->update(array('project_id' => $project_id), $params))
-                    $this->message('修改项目成功!', 'project/updateProject/' . $project_id ."/{$limit}");
+                    $this->message('修改项目成功!', 'project/updateProject/' . $project_id . "/{$limit}");
                 else
-                    $this->message('修改项目失败!', 'project/updateProject/' . $project_id ."/{$limit}");
+                    $this->message('修改项目失败!', 'project/updateProject/' . $project_id . "/{$limit}");
             }
 
         }
