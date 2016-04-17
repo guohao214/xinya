@@ -60,6 +60,23 @@
                            name="order_sort" size="10" type="text">（数字越大，拍最前面）</td>
             </tr>
 
+
+            <tr>
+                <th><i class="require-red">*</i>规格名：</th>
+                <td><input class="common-text" value="<?php echo $project['specification']; ?>"
+                           name="specification" size="15" type="text"></td>
+            </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>首页展示：</th>
+                <td>
+                    <select name="on_index" class="select">
+                        <option value="1"<?php echo ($project['on_index'] == 1) ? 'selected' :''; ?>>是</option>
+                        <option value="0"<?php echo ($project['on_index'] == 0) ? 'selected' :''; ?>>否</option>
+                    </select>
+                </td>
+            </tr>
+
             <tr>
                 <th><i class="require-red">*</i>使用优惠券：</th>
                 <td>

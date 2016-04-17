@@ -92,12 +92,19 @@ class Project extends BackendController
         if (RequestUtil::isPost()) {
             if ($this->projectModel->rules()->run()) {
                 $params = RequestUtil::postParams();
+                $mainProjectId = $params['main_project_id'];
+                unset($params['main_project_id']);
 
                 $params['project_cover'] = UploadUtil::commonUpload(array('upload/resize_200x200',
                     'upload/resize_600x600', 'upload/resize_100x100'));
 
                 $insertId = (new CurdUtil($this->projectModel))->
                 create(array_merge($params, array('create_time' => DateUtil::now())));
+
+                // 关联项目
+                if ($mainProjectId) {
+                   (new CurdUtil(new ProjectRelationModel()))->create(array('main_project_id' => $mainProjectId, 'relation_project_id' => $insertId));
+                }
 
                 if ($insertId)
                     $this->message('新增项目成功!', 'project/index');

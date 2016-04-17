@@ -63,7 +63,7 @@ class ProjectModel extends BaseModel
         $projects = $this->getCache($this->cacheName);
         if (!$projects) {
             $sql = "select a.*, b.category_id, b.category_name from project as a left join "
-                . "category as b on a.category_id=b.category_id where a.disabled=0 and b.disabled=0 "
+                . "category as b on a.category_id=b.category_id where a.disabled=0 and a.on_index = 1 and b.disabled=0 "
                 . "order by b.order_sort desc,a.order_sort desc;";
 
             $projects = (new CurdUtil(this))->query($sql);
@@ -115,4 +115,4 @@ class ProjectModel extends BaseModel
         return $this->allProjects();
     }
 
-} 
+}

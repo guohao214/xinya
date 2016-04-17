@@ -18,10 +18,10 @@ $(document).ready(function() {
             url:'/backend/project/readAllProjectByCategory/' + $categoryId,
             dataType:'json',
             beforeSend: function() {
-                $project.children('option').remove();
+                $project.children('option').not(':first').remove();
             },
             success: function(data) {
-                $project.html(data);
+                $project.append(data);
             },
             error: function() {
                 alert('获取项目失败！');

@@ -48,6 +48,20 @@ class Project extends FrontendController
 
         $this->outputCache();
 
-        $this->load->view('frontend/project/detail', array('project' => $project, 'shopId' => $shopId));
+        $mainProjectId = $this->input->get('mpId') + 0;
+
+        $mainProject = array();
+
+        if (!$mainProjectId)
+            $mainProjectId = $projectId;
+
+        $mainProject = (new ProjectModel())->readOne($mainProjectId);
+        $mainProject['relation_project_id'] = $mainProject['main_project_id']  = $mainProject['project_id'];
+
+        // 获得不在首页的关联的项目
+        $relationProjects = (new ProjectRelationModel())->getAllRelationProjects($mainProjectId);
+        array_unshift($relationProjects, $mainProject);
+        $this->load->view('frontend/project/detail',
+            array('project' => $project, 'shopId' => $shopId, 'relationProjects' => $relationProjects));
     }
 }
