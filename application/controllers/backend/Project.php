@@ -62,12 +62,23 @@ class Project extends BackendController
         if (RequestUtil::isPost()) {
             if ($this->projectModel->rules()->run()) {
                 $params = RequestUtil::postParams();
+
+                $mainProjectId = $params['main_project_id'] + 0;
+                $resetMainProjectId = $params['reset_main_project_id'] + 0;
+
+                unset($params['main_project_id'], $params['reset_main_project_id']);
+                // 执行更新操作
+                if (($mainProjectId != $resetMainProjectId) && $resetMainProjectId > 0) {
+                    (new ProjectRelationModel())->updateRelation($project_id, $resetMainProjectId);
+                }
+
                 $upload = UploadUtil::commonUpload(array('upload/resize_200x200',
                     'upload/resize_600x600', 'upload/resize_100x100'));
 
                 if ($upload)
                     $params['project_cover'] = $upload;
 
+                $params['update_time'] = DateUtil::now();
                 if ((new CurdUtil($this->projectModel))->update(array('project_id' => $project_id), $params))
                     $this->message('修改项目成功!', 'project/updateProject/' . $project_id . "/{$limit}");
                 else
@@ -82,8 +93,15 @@ class Project extends BackendController
         if (!$project)
             $this->message('项目不存在或者已被删除！', "project/index/{$limit}");
 
+        // 获得关联信息
+        $mainProject = $relationProject = array();
+        $relationProject = (new ProjectRelationModel())->getMainRelationProject($project_id);
+        if($relationProject['main_project_id']) {
+            $mainProject =$this->projectModel->readOne($relationProject['main_project_id']);
+        }
+
         $this->view('project/updateProject', array('categories' => $categories, 'project' => $project,
-            'shops' => $shops, 'limit' => $limit));
+            'shops' => $shops, 'limit' => $limit, 'mainProject' => $mainProject, 'relationProject' => $relationProject));
 
     }
 

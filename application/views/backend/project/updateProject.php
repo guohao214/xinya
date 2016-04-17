@@ -1,3 +1,4 @@
+<script src="<?php echo get_instance()->config->base_url(); ?>static/backend/js/projectProperty-newUser.js"></script>
 <div class="crumb-wrap">
     <div class="crumb-list"><i class="icon-font"></i>
         <a href="<?php echo UrlUtil::createBackendUrl('project/index') ?>">首页</a>
@@ -65,6 +66,30 @@
                 <th><i class="require-red">*</i>规格名：</th>
                 <td><input class="common-text" value="<?php echo $project['specification']; ?>"
                            name="specification" size="15" type="text"></td>
+            </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>已关联到项目：</th>
+                <td>
+                    <label><?php echo $mainProject['project_name']; ?></label>
+                    <input type="hidden" name="main_project_id" value="<?php echo $relationProject['main_project_id']; ?>">
+                </td>
+            </tr>
+
+            <tr>
+                <th><i class="require-red">*</i>关联到项目：</th>
+                <td>
+                    <select class="select" id="category" style="float: left;">
+                        <option value="">选择项目分类</option>
+                        <?php foreach ($categories as $key => $category): ?>
+                            <option value="<?php echo $key; ?>"><?php echo $category; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select class="select" name="reset_main_project_id" id="project_id" style="float: left;margin-left: 15px;">
+                        <option value="">关联到项目</option>
+                    </select>
+                </td>
             </tr>
 
             <tr>
