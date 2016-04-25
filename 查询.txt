@@ -1,0 +1,3 @@
+select sum(total_fee) as fee , left(create_time,7) as tt from `order` as a where a.disabled=0 and a.order_status='已支付' group by tt desc;
+
+insert into customer select null, open_id,'', '',  sum(total_fee) as total_fees from `order` where order_status='已支付' and disabled=0 and total_fee>1 group by open_id desc;
