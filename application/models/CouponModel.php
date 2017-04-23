@@ -76,6 +76,4 @@ class CouponModel extends BaseModel
         $this->db->update($this->table);
         return $this->db->affected_rows();
     }
-
-
 } 

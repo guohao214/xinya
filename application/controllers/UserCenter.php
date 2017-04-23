@@ -41,7 +41,7 @@ class UserCenter extends FrontendController
             $orderCounts = array_pop($orderCounts);
 
         $orderCounts = (isset($orderCounts['rowCounts'])) ? $orderCounts['rowCounts'] : 0;
-        $pages = (new PaginationUtil($orderCounts, 'user-center'))->pagination();
+        $pages = (new PaginationUtil($orderCounts, 'user_center'))->pagination();
 
         $shopModel = new ShopModel();
         $shops = $shopModel->getAllShops();
@@ -98,7 +98,7 @@ class UserCenter extends FrontendController
         $customerCoupon = new CustomerCouponModel();
         $coupons = $customerCoupon->getCustomerCouponList($openId, $offset);
         $couponsCount = $customerCoupon->getCustomerCouponCount($openId);
-        $pages = (new PaginationUtil($couponsCount, 'user-center'))->pagination();
+        $pages = (new PaginationUtil($couponsCount, 'user_center'))->pagination();
 
         $this->view('userCenter/coupon', array('coupons' => $coupons, 'pages' => $pages));
     }
@@ -112,7 +112,7 @@ class UserCenter extends FrontendController
         $customerExchangeGoodsModel = new CustomerExchangeGoodsModel();
         $exchangeGoods = $customerExchangeGoodsModel->getCustomerExchangeGoodsList($openId, $offset);
         $exchangeGoodsCount = $customerExchangeGoodsModel->getCustomerExchangeGoodsCount($openId);
-        $pages = (new PaginationUtil($exchangeGoodsCount, 'user-center'))->pagination();
+        $pages = (new PaginationUtil($exchangeGoodsCount, 'user_center'))->pagination();
         $shops = (new ShopModel())->getAllShopAddress();
 
         $this->view('userCenter/exchangeGoods',

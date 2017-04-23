@@ -1,0 +1,36 @@
+section {
+}
+section:first-of-type {
+    padding:49px 0 10px;
+}
+section:not(:first-of-type) {
+    padding:10px 0 0px
+}
+
+section:last-of-type {
+    padding-top: 0px;
+}
+
+section.detail {
+    padding:49px 0 10px;
+}
+
+.weui-grids {
+    background-color: white;
+}
+.weui-grid {
+}
+.weui-grid .weui-grid__icon {
+    width: auto;
+    font-size: 23px;
+    text-align: center;
+    color: #2e6ab1;
+}
+
+.weui-media-box__thumb {
+    border-radius:50%;
+}
+
+.weui-media-box__desc {
+    line-height: normal;
+}

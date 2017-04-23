@@ -115,4 +115,15 @@ class ProjectModel extends BaseModel
         return $this->allProjects();
     }
 
+    public function getProjectsByCategoryId($categoryId)
+    {
+        $curd = (new CurdUtil($this));
+        return $curd->readLimit(
+            array('disabled' => 0, 'category_id' => $categoryId),
+            0,
+            'project_id desc',
+            'projectPagination'
+        );
+    }
+
 }

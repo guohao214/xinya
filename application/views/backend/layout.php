@@ -64,6 +64,17 @@
                 </li>
                 <?php if (UserUtil::isAdmin()): ?>
                 <li>
+                    <a href="#"><i class="icon-font">&#xe018;</i>创客管理</a>
+                    <ul class="sub-menu">
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('earningsPercent/index') ?>">
+                                <i class="icon-font">&#xe046;</i>设置提成</a></li>
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('withDrawDeposit/index') ?>">
+                                <i class="icon-font">&#xe045;</i>提现管理</a></li>
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('EarningsOrder/index') ?>"><i class="icon-font">&#xe014;</i>提成订单管理</a></li>
+                        <!--<li><a href=""><i class="icon-font">&#xe045;</i>数据还原</a></li>-->
+                    </ul>
+                </li>
+                <li>
                     <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
                     <ul class="sub-menu">
                         <!--<li><a href="<?php echo UrlUtil::createBackendUrl('setting/cleanCache') ?>"><i
@@ -74,6 +85,7 @@
                         <!--<li><a href=""><i class="icon-font">&#xe045;</i>数据还原</a></li>-->
                     </ul>
                 </li>
+
                 <?php endif; ?>
             </ul>
         </div>

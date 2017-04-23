@@ -205,6 +205,20 @@ class Beautician extends BackendController
 
         $workTime = $workTimeUtil->getBeauticianWorkTime();
         $beauticianWorkTime = $workTime[$beauticianId];
+
+        // 默认时间
+        if (!$beauticianWorkTime) {
+            $beauticianWorkTime = array(
+                0 => 3,
+                1 => 2,
+                2 => 5,
+                3 => 3,
+                4 => 3,
+                5 => 2,
+                6 => 2,
+            );
+        }
+
         $timeSetting = $this->timeSetting;
         $beautician = (new BeauticianModel())->readOne($beauticianId);
         $this->view('beautician/updateBeauticianWorkTime',

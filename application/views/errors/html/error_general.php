@@ -4,7 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Error</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
+<title>提示</title>
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }
@@ -57,7 +59,8 @@ p {
 </head>
 <body>
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
+<!--		<h1>--><?php //echo $heading; ?><!--</h1>-->
+		<h1><?php echo '提示'; ?></h1>
 		<?php echo $message; ?>
 	</div>
 </body>

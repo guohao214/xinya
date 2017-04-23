@@ -83,7 +83,7 @@ class OrderModel extends BaseModel
      */
     public function getUserOrders($openId, $orderStatus = 0, $offset = 0)
     {
-        $paginationConfig = ConfigUtil::loadConfig('user-center');
+        $paginationConfig = ConfigUtil::loadConfig('user_center');
         $rows = $paginationConfig['per_page'];
 
         $sql = "select a.*, b.*, c.name as beautician_name, a.order_status+0 as order_sign from `order` as a"

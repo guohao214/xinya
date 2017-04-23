@@ -29,7 +29,7 @@ class Project extends BackendController
     }
 
 
-    public function index($limit = '')
+    public function index($limit = 0)
     {
         $where = RequestUtil::buildLikeQueryParamsWithDisabled();
 
@@ -55,6 +55,27 @@ class Project extends BackendController
             $this->message('删除项目成功！', "project/index/{$limit}");
         else
             $this->message('删除项目失败！', "project/index/{$limit}");
+    }
+
+    /**
+     * 首页展示
+     * @param $projectId
+     * @param $limit
+     * @param $onIndex
+     */
+    public function onIndex($projectId, $limit, $onIndex)
+    {
+        $onIndex = ($onIndex) ? 0 : 1;
+
+        if (!$projectId)
+            $this->message('项目ID不能为空！');
+
+        if ((new CurdUtil($this->projectModel))->update(
+            array('project_id' => $projectId), array('on_index' => $onIndex))
+        )
+            $this->message('修改成功！', "project/index/{$limit}");
+        else
+            $this->message('修改失败！', "project/index/{$limit}");
     }
 
     public function updateProject($project_id, $limit = 0)
@@ -96,8 +117,8 @@ class Project extends BackendController
         // 获得关联信息
         $mainProject = $relationProject = array();
         $relationProject = (new ProjectRelationModel())->getMainRelationProject($project_id);
-        if($relationProject['main_project_id']) {
-            $mainProject =$this->projectModel->readOne($relationProject['main_project_id']);
+        if ($relationProject['main_project_id']) {
+            $mainProject = $this->projectModel->readOne($relationProject['main_project_id']);
         }
 
         $this->view('project/updateProject', array('categories' => $categories, 'project' => $project,
@@ -121,7 +142,7 @@ class Project extends BackendController
 
                 // 关联项目
                 if ($mainProjectId) {
-                   (new CurdUtil(new ProjectRelationModel()))->create(array('main_project_id' => $mainProjectId, 'relation_project_id' => $insertId));
+                    (new CurdUtil(new ProjectRelationModel()))->create(array('main_project_id' => $mainProjectId, 'relation_project_id' => $insertId));
                 }
 
                 if ($insertId)

@@ -77,7 +77,8 @@ class CustomerModel extends BaseModel
         return (new CurdUtil($this))->create($data);
     }
 
-    public function update($openId, $nickName, $avatar, $city, $province, $sex) {
+    public function update($openId, $nickName, $avatar, $city, $province, $sex)
+    {
         $data = array(
             'nick_name' => $nickName,
             'avatar' => $avatar,
@@ -88,5 +89,20 @@ class CustomerModel extends BaseModel
         );
 
         return (new CurdUtil($this))->update(array('open_id' => $openId), $data);
+    }
+
+    /**
+     * 查找用户
+     * @param $openIds
+     */
+    public function findCustomer($openIds)
+    {
+        $openIds = "'" . join("','", $openIds) . "'";
+
+        $sql = "select count(*) as count_open_ids from {$this->table} where open_id in ({$openIds});";
+
+        $data = (new CurdUtil($this))->query($sql);
+
+        return $data[0]['count_open_ids'];
     }
 }

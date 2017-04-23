@@ -5,6 +5,7 @@ $(document).ready(function () {
     var $pathName = window.location.pathname;
     try {
         var $firstPath = $pathName.replace(/^\/+/, '').split('/').shift();
+        $firstPath = $firstPath.toLowerCase();
     } catch (e) {
         return '';
     }
@@ -12,11 +13,13 @@ $(document).ready(function () {
     var $path = '';
     $('footer a').each(function () {
         $path = $(this).attr('data-path');
+        if ($path) {
+            $path = $path.toLowerCase();
+            if ($firstPath === $path) {
+                $('.cur').removeClass('cur');
+                $(this).addClass('cur');
 
-        if ($firstPath === $path) {
-            $('.cur').removeClass('cur');
-            $(this).addClass('cur');
-
+            }
         }
     })
 

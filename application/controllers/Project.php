@@ -19,8 +19,8 @@ class Project extends FrontendController
         // 此处需要做缓存
         $projects = (new ProjectModel())->allProjectsGroupByCategoryId();
         $shops = (new ShopModel())->getAllShops();
-        $categories = (new CategoryModel())->getAllCategories();
 
+        $categories = (new CategoryModel())->getAllCategories();
         $sliderModel = new SliderModel();
         $hdpSliders = $sliderModel->getAllSlider(SliderModel::SLIDER_TYPE_HDP);
         $fllSliders = $sliderModel->getAllSlider(SliderModel::SLIDER_TYPE_FLL);
@@ -30,6 +30,16 @@ class Project extends FrontendController
         $this->view('project/index', array('shops' => $shops, 'projects' => $projects,
             'categories' => $categories, 'shopId' => $shopId, 'hdpSliders' => $hdpSliders,
             'fllSliders' => $fllSliders));
+    }
+
+    public function projectList($categoryId)
+    {
+        $categoryId += 0;
+        $categories = (new CategoryModel())->getAllCategories();
+        $categoryName = $categories[$categoryId];
+        $projects = (new ProjectModel())->getProjectsByCategoryId($categoryId);
+        $this->view('project/projectList',
+            array('projects' => $projects, 'categoryName' => $categoryName));
     }
 
     public function detail($projectId, $shopId = '')
@@ -56,7 +66,7 @@ class Project extends FrontendController
             $mainProjectId = $projectId;
 
         $mainProject = (new ProjectModel())->readOne($mainProjectId);
-        $mainProject['relation_project_id'] = $mainProject['main_project_id']  = $mainProject['project_id'];
+        $mainProject['relation_project_id'] = $mainProject['main_project_id'] = $mainProject['project_id'];
 
         // 获得不在首页的关联的项目
         $relationProjects = (new ProjectRelationModel())->getAllRelationProjects($mainProjectId);

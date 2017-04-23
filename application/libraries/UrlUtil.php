@@ -31,4 +31,9 @@ class UrlUtil
         $pattern = '~^http[s]?://\w+\.xinyameirong\.com~';
         return preg_match($pattern, $url);
     }
+
+    public static function getBaseUrl()
+    {
+        return get_instance()->config->base_url();
+    }
 }

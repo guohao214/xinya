@@ -24,6 +24,10 @@ abstract class BaseController extends CI_Controller
 
     public function message($message, $returnBack = '')
     {
+//        $this->load->view('frontend/noContent', array('message' => $message));
+//        exit;
+//        show_error($message);
+//        exit;
         if ($returnBack)
             $returnBack = UrlUtil::createUrl($returnBack);
 

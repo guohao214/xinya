@@ -277,6 +277,27 @@ class Cart extends FrontendController
 
         (new CurdUtil($orderProjectModel))->create($orderProjectData);
 
+
+        // 创建分享订单
+        $shareFrom = ShareUtil::getShareFrom();
+        if (is_array($shareFrom))
+            array_pop($shareFrom);
+        else
+            $shareFrom = [];
+
+        //
+        $makerOrderModel = new MakerOrderModel();
+        for ($i = 0; $i < count($shareFrom); $i++) {
+            $data['mk_open_id'] = $shareFrom[$i];
+            $data['buyer_open_id'] = $openId;
+            $data['order_no'] = $orderNo;
+            $data['order_amount'] = $totalFee;
+            $data['order_earnings_percent'] = EarningsPercentUtil::getPercent($totalFee);
+
+            $makerOrderModel->create($data);
+        }
+
+
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {

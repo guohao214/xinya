@@ -32,11 +32,11 @@
     </div>
 <?php endif; ?>
     <div id="categories">
-        <div class="categories-list">
-            <?php foreach ($categories as $key => $category): ?>
-                <a class="category" data-val="<?php echo $key; ?>"><?php echo $category; ?></a>
-            <?php endforeach; ?>
-        </div>
+<!--        <div class="categories-list">-->
+<!--            --><?php //foreach ($categories as $key => $category): ?>
+<!--                <a class="category" data-val="--><?php //echo $key; ?><!--">--><?php //echo $category; ?><!--</a>-->
+<!--            --><?php //endforeach; ?>
+<!--        </div>-->
     </div>
     <div class="items">
         <?php foreach ($projects as $key => $project): ?>

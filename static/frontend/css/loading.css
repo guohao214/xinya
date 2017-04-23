@@ -22,6 +22,12 @@
     z-index: 9999;
 }
 
+#load img {
+    position: relative;
+    left: 18px;
+    top: 10px;
+}
+
 #message {
     display: none;
     position: fixed;

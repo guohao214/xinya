@@ -17,6 +17,31 @@ class FrontendController extends BaseController
     }
 
     /**
+     * 获得分享js
+     * @param $currentUrl
+     */
+    public function wechatShare()
+    {
+        $scheme = $_SERVER['REQUEST_SCHEME'] ? $_SERVER['REQUEST_SCHEME'] : 'http';
+        $scheme .= '://';
+
+        $httpHost = $_SERVER['HTTP_HOST']
+            ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']
+                ? $_SERVER['SERVER_NAME'] : 'www.xinyameirong.com';
+
+        $currentUrl = $scheme . $httpHost . $_SERVER['REQUEST_URI'];
+
+        $shareJsParams = (new WxShareUtil())->getShareParams($currentUrl);
+
+        // 获得头像
+        $this->load->view('frontend/wechatShare', array('shareJsParams' => $shareJsParams));
+    }
+
+    public function noContent($message) {
+        $this->load->view('frontend/noContent', array('message' => $message));
+    }
+
+    /**
      * 用于前台 layout布局的view操作
      * @param $view
      * @param array $vars

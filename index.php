@@ -9,6 +9,7 @@ session_start();
 
 
 define('DOCUMENT_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
+define('APP_PATH', __DIR__);
 define('UPLOAD_FOLDER', 'upload');
 
 $_SERVER['CI_ENV'] = 'production';

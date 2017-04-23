@@ -120,6 +120,7 @@ class Order extends FrontendController
 
         // 更新订单信息
         $this->db->trans_start();
+
         $orderModel->payed($orderNo, $wxOrderNo);
 
         // 更新积分
@@ -128,6 +129,9 @@ class Order extends FrontendController
         $customer = $customerModel->readOne($openId);
         if ($customer)
             $customerModel->addCredits($openId, $score);
+
+        // 更新分享来源订单
+        (new MakerOrderModel())->setOrderPayed($order['order_no']);
 
         // 事物完成
         $this->db->trans_complete();
