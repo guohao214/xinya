@@ -13,19 +13,18 @@ class Makers extends FrontendController
     public function __construct()
     {
         parent::__construct();
-
-        $wechat = new WeixinUtil();
-        $this->openId = $wechat->getOpenId();
-
-        if (!$this->openId)
-            $wechat->authorize("makers/index");
     }
 
     public function index()
     {
         $this->pageTitle = '创客管理';
-        $openId = $this->openId;
+        $wechat = new WeixinUtil();
+        $this->openId = $wechat->getOpenId();
 
+        if (!$this->openId)
+            $wechat->authorize("makers/index");
+
+        $openId = $this->openId;
         $customer = (new CustomerModel())->readOne($openId);
         if (!$customer)
             show_error('查询失败，请重试');
