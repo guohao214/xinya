@@ -24,7 +24,7 @@ class Makers extends FrontendController
         if (!$this->openId)
             $wechat->authorize("makers/index");
 
-        $openId = $this->openId;
+        $this->openId = $openId =  $wechat->getOpenId();
         $customer = (new CustomerModel())->readOne($openId);
         if (!$customer)
             show_error('查询失败，请重试');

@@ -280,14 +280,15 @@ class Cart extends FrontendController
 
         // 创建分享订单
         $shareFrom = ShareUtil::getShareFrom();
-        if (is_array($shareFrom))
-            array_pop($shareFrom);
-        else
+        if (!is_array($shareFrom))
             $shareFrom = [];
 
         //
         $makerOrderModel = new MakerOrderModel();
         for ($i = 0; $i < count($shareFrom); $i++) {
+            if ($shareFrom[$i] == $openId)
+                continue;
+            
             $data['mk_open_id'] = $shareFrom[$i];
             $data['buyer_open_id'] = $openId;
             $data['order_no'] = $orderNo;
