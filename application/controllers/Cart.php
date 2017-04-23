@@ -288,7 +288,7 @@ class Cart extends FrontendController
         for ($i = 0; $i < count($shareFrom); $i++) {
             if ($shareFrom[$i] == $openId)
                 continue;
-            
+
             $data['mk_open_id'] = $shareFrom[$i];
             $data['buyer_open_id'] = $openId;
             $data['order_no'] = $orderNo;
