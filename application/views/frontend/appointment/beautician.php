@@ -1,6 +1,6 @@
 <?php $this->load->view('frontend/header'); ?>
 <link rel="stylesheet"
-      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/beautician.css?v=20160202091">
+      href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/beautician.css?v=20170423">
 <script type="text/javascript"
         src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/iscroll.js"></script>
 <script type="text/javascript"

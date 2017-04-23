@@ -103,7 +103,7 @@
 
 #appointment-times {
     width: 300px;
-    height: 300px;
+    height: 350px;
     padding-bottom: 100px;
     margin: 0px auto;
     text-align: center !important;
@@ -118,7 +118,7 @@
     height: 40px;;
     width: 60px;
     border: 1px solid #CCC;
-    margin:5px;
+    margin:10px 5px;
     text-align: center;
     line-height: 30px !important;
     border-radius: 6px;
