@@ -14,7 +14,7 @@ class EncryptUtil
     {
 
         if ($operation == 'DECODE')
-            $string = base64_decode($string);
+            $string = base64_decode(urldecode($string));
 
         $str = '';          // 处理后的字符串
         $keylen = strlen(self::ENCRYPT_KEY); // 密钥长度
@@ -31,7 +31,7 @@ class EncryptUtil
         if ($operation == 'DECODE')
             return $str;
         else
-            return base64_encode($str);
+            return urlencode(base64_encode($str));
 
     }
 

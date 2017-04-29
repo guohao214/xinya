@@ -18,8 +18,7 @@
         <span>订单</span>
     </a>
 <!--    <a href="--><?php //echo UrlUtil::createUrl('makers/index'); ?><!--" data-path="makers">-->
-<!--        <i class="icon iconfont icon-makers"style="background:none;padding-right: 0;-->
-<!--        color: #7d7d7d;box-sizing: border-box;padding-top: 7px;">&#xe652;</i>-->
+<!--        <i></i>-->
 <!--        <span>创客中心</span>-->
 <!--    </a>-->
     <a href="<?php echo UrlUtil::createUrl('userCenter/index'); ?>" data-path="userCenter">

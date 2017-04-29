@@ -282,11 +282,14 @@ class Cart extends FrontendController
         $shareFrom = ShareUtil::getShareFrom();
         if (!is_array($shareFrom))
             $shareFrom = [];
-
         //
         $makerOrderModel = new MakerOrderModel();
         for ($i = 0; $i < count($shareFrom); $i++) {
             if ($shareFrom[$i] == $openId)
+                continue;
+
+
+            if ($shareFrom[$i] == '')
                 continue;
 
             $data['mk_open_id'] = $shareFrom[$i];

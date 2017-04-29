@@ -9,6 +9,12 @@ class ShareUtil
         return $_SESSION[self::SESSION_SHARE_NAME];
     }
 
+    public static function clearShareForm()
+    {
+        $_SESSION[self::SESSION_SHARE_NAME] = null;
+        unset($_SESSION[self::SESSION_SHARE_NAME]);
+    }
+
     public static function setShareFrom($shareFrom)
     {
         $_SESSION[self::SESSION_SHARE_NAME] = $shareFrom;
@@ -25,12 +31,16 @@ class ShareUtil
                     $item = EncryptUtil::encrypt($item);
             });
 
-            $shareParams = join('/', $shareForm);
+            $shareParams['f'] = array_shift($shareForm);
+            $shareParams['s'] = array_shift($shareForm);
+            $shareParams['b'] = array_shift($shareForm);
 
         } else {
-            $shareParams = EncryptUtil::encrypt($openId);
+            $shareParams['f'] = EncryptUtil::encrypt($openId);
         }
 
-        return UrlUtil::createUrl("makers/share/{$shareParams}");
+        $shareParams = http_build_query($shareParams);
+
+        return UrlUtil::createUrl("makers/share?{$shareParams}");
     }
 }

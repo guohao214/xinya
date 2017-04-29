@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/css.css?v=20170423">
+    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/css.css?v=20170429">
     <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/default.css">
-    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/loading.css?v=20170423">
-    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/slider.css?v=20170423">
+    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/loading.css?v=20170429">
+    <link rel="stylesheet" href="<?php echo get_instance()->config->base_url(); ?>static/frontend/css/slider.css?v=20170429">
     <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/js.js?v=20170423"></script>
+    <script type="text/javascript" src="<?php echo get_instance()->config->base_url(); ?>static/frontend/js/js.js?v=20170429"></script>
 </head>
 <script>
     document_root = '/';

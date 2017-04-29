@@ -157,8 +157,13 @@ class Makers extends FrontendController
      * @param string $secondStage 第二级分享
      * @param string $buyerOpenId
      */
-    public function share($firstStage, $secondStage = '', $buyerOpenId = '')
+    public function share()
     {
+        $params = RequestUtil::getParams();
+        $firstStage = $params['f'];
+        $secondStage = $params['s'];
+        $buyerOpenId = $params['b'];
+
         $openId = $this->openId;
 
         $shareForm = array($firstStage, $secondStage, $buyerOpenId);
