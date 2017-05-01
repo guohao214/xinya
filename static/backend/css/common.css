@@ -283,7 +283,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .topbar-wrap {
     height: 50px;
     line-height: 50px;
-    background: #1A1A1A;
+    background: cadetblue;
 }
 
 .topbar-logo-wrap {
@@ -342,6 +342,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     padding: 0 20px;
     display: inline;
     zoom: 1;
+    color: white;
 }
 
 .top-info-list li a:hover {

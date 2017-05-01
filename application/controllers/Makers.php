@@ -14,15 +14,20 @@ class Makers extends FrontendController
     {
         parent::__construct();
 
-        $wechat = new WeixinUtil();
-        $this->openId = $wechat->getOpenId();
+        $weChat = new WeixinUtil();
+        $this->openId = $weChat->getOpenId();
 
         $instance = get_instance();
         $segments = $instance->uri->segments;
+        $segments = join($segments, '/');
+        $url = $segments . '?' . http_build_query($_GET);
         if (!$this->openId)
-            $wechat->authorize(join($segments, '/'));
+            $weChat->authorize($url);
     }
 
+    /**
+     * 创客首页
+     */
     public function index()
     {
         $this->pageTitle = '创客管理';
@@ -153,9 +158,8 @@ class Makers extends FrontendController
     }
 
     /**
-     * @param $firstStage  第一级分享
-     * @param string $secondStage 第二级分享
-     * @param string $buyerOpenId
+     * 分享来源
+     * @return  string
      */
     public function share()
     {
@@ -191,7 +195,8 @@ class Makers extends FrontendController
     /**
      * 收款账号
      */
-    public function applyWithdrawDepositAccount() {
+    public function applyWithdrawDepositAccount()
+    {
         $openId = $this->openId;
         $params = RequestUtil::getParams();
 
@@ -207,7 +212,11 @@ class Makers extends FrontendController
 
     }
 
-    public function deleteWithdrawDepositAccount() {
+    /**
+     * 删除提现账号
+     */
+    public function deleteWithdrawDepositAccount()
+    {
         $params = RequestUtil::getParams();
 
         $id = $params['id'] + 0;
@@ -220,11 +229,14 @@ class Makers extends FrontendController
             ResponseUtil::failure('删除提现账号失败');
     }
 
+    /**
+     * 我的分享二维码
+     */
     public function myShareQrCode()
     {
         $shareUrl = ShareUtil::getShareUrl();
         $customer = (new CustomerModel())->readOne($this->openId);
-        
+
         $this->view('makers/shareQrCode', array(
             'shareUrl' => $shareUrl,
             'customerName' => $customer['nick_name']
