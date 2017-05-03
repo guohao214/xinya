@@ -163,6 +163,9 @@ class Makers extends FrontendController
      */
     public function share()
     {
+        // 删除
+        ShareUtil::clearShareForm();
+
         $params = RequestUtil::getParams();
         $firstStage = $params['f'];
         $secondStage = $params['s'];
@@ -175,7 +178,6 @@ class Makers extends FrontendController
             if ($item)
                 $item = EncryptUtil::decrypt($item);
         });
-
         $shareForm[] = $openId;
         $shareForm = array_filter(array_unique($shareForm));
 

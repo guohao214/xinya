@@ -13,6 +13,8 @@ class EarningsPercent extends BackendController
             $data = [];
             $amounts = $params['amount'];
             $percents = $params['percent'];
+            $percents1 = $params['percent1'];
+
             foreach ($amounts as $key => $amount) {
                 if ($amount==0 || $amount == '')
                     continue;
@@ -20,7 +22,10 @@ class EarningsPercent extends BackendController
                 if ($percents[$key] == '' || $percents[$key] == 0)
                     continue;
 
-                $data[$amount] = number_format($percents[$key] / 100, 3);
+                $data[$amount] = array(
+                    number_format($percents[$key] / 100, 3),
+                    number_format($percents1[$key] / 100, 3),
+                );
             }
 
             EarningsPercentUtil::saveEarningsPercent($data);

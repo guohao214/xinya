@@ -23,7 +23,9 @@
                 <td>
                     订单金额大于等于 <input class="common-text required" name="amount[]"
                                     value="" size="10" type="text"> 元，
-                    提成为 <input class="common-text required" name="percent[]"
+                    一级提成为 <input class="common-text required" name="percent[]"
+                               value="" size="10" type="text"> %，
+                    二级提成为 <input class="common-text required" name="percent1[]"
                                value="" size="10" type="text"> %
 
                     &nbsp;&nbsp;&nbsp;<a class="btn-delete btn-danger btn" href="<?php echo UrlUtil::createBackendUrl('EarningsPercent/deleteEarningPercent/' . $amount); ?>">删除</a>
@@ -34,8 +36,10 @@
                     <td>
                         订单金额大于等于 <input class="common-text required" name="amount[]"
                                         value="<?php echo $amount; ?>" size="10" type="text"> 元，
-                        提成为 <input class="common-text required" name="percent[]"
-                                   value="<?php echo $percent * 100 ?>" size="10" type="text"> %
+                        一级提成为 <input class="common-text required" name="percent[]"
+                                   value="<?php echo $percent[0] * 100 ?>" size="10" type="text"> %，
+                        二级提成为 <input class="common-text required" name="percent1[]"
+                                   value="<?php echo $percent[1] * 100 ?>" size="10" type="text"> %
 
                         &nbsp;&nbsp;&nbsp;<a class="btn-delete btn-danger btn" href="<?php echo UrlUtil::createBackendUrl('EarningsPercent/deleteEarningPercent/' . $amount); ?>">删除</a>
                     </td>

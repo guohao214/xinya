@@ -757,8 +757,9 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 }
 
 .error {
-    text-align: center;
+    /*text-align: center;*/
     color:red;
+    font-weight:bold;
     padding:5px 0px;
 }
 
