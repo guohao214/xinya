@@ -16,21 +16,41 @@ class Project extends FrontendController
         if ($shopId)
             $shopId = $shopId + 0;
 
-        // 此处需要做缓存
-        $projects = (new ProjectModel())->allProjectsGroupByCategoryId();
-        $shops = (new ShopModel())->getAllShops();
-
-        $categories = (new CategoryModel())->getAllCategories();
         $sliderModel = new SliderModel();
         $hdpSliders = $sliderModel->getAllSlider(SliderModel::SLIDER_TYPE_HDP);
         $fllSliders = $sliderModel->getAllSlider(SliderModel::SLIDER_TYPE_FLL);
 
+        $_GET['page'] = 1;
+        $renderProject = $this->getProjects(true);
+
         $this->outputCache();
 
-        $this->view('project/index', array('shops' => $shops, 'projects' => $projects,
-            'categories' => $categories, 'shopId' => $shopId, 'hdpSliders' => $hdpSliders,
-            'fllSliders' => $fllSliders));
+        $this->view('project/index', array('shopId' => $shopId, 'hdpSliders' => $hdpSliders,
+            'fllSliders' => $fllSliders, 'renderProject' => $renderProject));
     }
+
+    /**
+     * 获得产品列表
+     */
+    public function getProjects($return = false)
+    {
+        $params = RequestUtil::getParams();
+        $page = $params['page'] + 0;
+
+        $pagination = ConfigUtil::loadConfig('ajax_pagination');
+        $offset = $pagination['per_page'] * $page;
+
+        $projects = (new CurdUtil(new ProjectModel()))
+                        ->readLimit(array('disabled' => 0), $offset, 'project_id desc', 'ajax_pagination');
+
+        if ($return)
+        return $this->load->view('frontend/project/_list.php',
+            array('projects' => $projects, 'page' => $page, 'shopId' => 0), $return);
+        else
+            $this->load->view('frontend/project/_list.php',
+                array('projects' => $projects, 'page' => $page, 'shopId' => 0));
+    }
+
 
     public function projectList($categoryId)
     {

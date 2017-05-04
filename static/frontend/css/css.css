@@ -217,11 +217,15 @@ section {
 .items {
     background: #fff;
     overflow: hidden;
+    margin-top: 3px;
 }
 
 .itemlist {
     position: relative;
     background: white;
+}
+.items .item:last-child {
+    margin-bottom: 30px;
 }
 
 .item {
