@@ -36,9 +36,11 @@ class Project extends FrontendController
     {
         $params = RequestUtil::getParams();
         $page = $params['page'] + 0;
+        if ($page < 1)
+            $page = 1;
 
         $pagination = ConfigUtil::loadConfig('ajax_pagination');
-        $offset = $pagination['per_page'] * $page;
+        $offset = $pagination['per_page'] * ($page-1);
 
         $projects = (new CurdUtil(new ProjectModel()))
                         ->readLimit(array('disabled' => 0), $offset, 'project_id desc', 'ajax_pagination');

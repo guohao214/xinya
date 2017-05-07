@@ -13,7 +13,9 @@ class EarningsOrder extends BackendController
     public function index($offset = 0)
     {
         $earningsOrders = (new EarningsOrderModel())->getList($offset);
-        $pages = (new PaginationUtil(30))->pagination();
+        $orderCount = (new EarningsOrderModel())->getCount();
+        $orderCount = $orderCount[0]['count_orders'];
+        $pages = (new PaginationUtil($orderCount))->pagination();
         $this->view('earningsOrder/index', array('orders' => $earningsOrders, 'pages' => $pages,
             'params' => RequestUtil::getParams(),  'limit' => $offset));
     }

@@ -17,10 +17,10 @@
         <i></i>
         <span>订单</span>
     </a>
-<!--    <a href="--><?php //echo UrlUtil::createUrl('makers/index'); ?><!--" data-path="makers">-->
-<!--        <i></i>-->
-<!--        <span>创客中心</span>-->
-<!--    </a>-->
+    <a href="<?php echo UrlUtil::createUrl('makers/index'); ?>" data-path="makers">
+        <i></i>
+        <span>创客中心</span>
+    </a>
     <a href="<?php echo UrlUtil::createUrl('userCenter/index'); ?>" data-path="userCenter">
         <i></i>
         <span>我的</span>

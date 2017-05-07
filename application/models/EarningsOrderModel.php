@@ -19,4 +19,19 @@ class EarningsOrderModel
 
         return (new CurdUtil(new CI_Model()))->query($sql);
     }
+
+    public function getCount()
+    {
+        $sql ="select count(*) as `count_orders`  
+                from mk_order as `a` 
+                left join `order` as `b` 
+                on a.order_no=b.order_no 
+                left join order_project as `c` 
+                on b.order_id=c.order_id 
+                left join customer as `d` 
+                on a.buyer_open_id = d.open_id
+                 where b.disabled = 0;";
+
+        return (new CurdUtil(new CI_Model()))->query($sql);
+    }
 }
