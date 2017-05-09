@@ -23,6 +23,51 @@ class Makers extends FrontendController
         $url = $segments . '?' . http_build_query($_GET);
         if (!$this->openId)
             $weChat->authorize($url);
+
+        // 判断创客是否存在
+        if (!(new MakerModel())->isExists($this->openId)) {
+            $_segments= explode('/', $segments);
+            if ($_segments[1] != 'apply')
+                ResponseUtil::redirect(UrlUtil::createUrl('makers/apply'));
+        }
+    }
+
+    /**
+     * 申请为推广大使
+     */
+    public function apply()
+    {
+        if (RequestUtil::isAjax()) {
+            $data['open_id'] = $this->openId;
+            if ((new MakerModel())->create($data))
+                ResponseUtil::executeSuccess('申请成功，请等待审核');
+            else
+                ResponseUtil::failure('申请失败,请重试');
+            exit;
+        }
+
+
+        $maker = (new MakerModel())->readOne($this->openId);
+        if ($maker) {
+            if ($maker['status'] == 0) {
+                $this->message('您的申请已经提交，请等待审核');
+                exit;
+            } else {
+                ResponseUtil::redirect(UrlUtil::createUrl('makers/index'));
+            }
+        }
+
+
+        $minAmount = 999;
+        $amount = (new OrderModel())->calcAmountByOpenId($this->openId);
+        if ($amount < $minAmount) {
+            // 判断是否有资格成为推广大使
+            $message = '您当前的线上消费金额为:' . $amount . '元<br>';
+            $message .= '要成为推广大使， 线上消费金额必须满' . $minAmount . '元';
+            $this->message($message);
+        } else {
+            $this->view('makers/apply', array('minAmount' => $minAmount));
+        }
     }
 
     /**

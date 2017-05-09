@@ -175,4 +175,29 @@ class OrderModel extends BaseModel
         readOne(array('order_id' => $orderId, 'disabled' => 0));
     }
 
+    /**
+     * 获得消费金额
+     * @param $openId
+     * @return float
+     */
+    public function calcAmountByOpenId($openId)
+    {
+        $payedStatus = self::ORDER_PAYED;
+        $consumedStatus = self::ORDER_CONSUMED;
+
+        $sql = "select sum(total_fee) as total_fee 
+                  from `order` 
+                  where open_id='{$openId}' 
+                  and (order_status={$payedStatus} or order_status={$consumedStatus})  
+                  and disabled=0;";
+
+        $result = (new CurdUtil($this))->query($sql);
+
+        if ($result && $result[0]['total_fee'])
+            return $result[0]['total_fee'];
+        else
+            return 0;
+
+    }
+
 }

@@ -69,6 +69,25 @@ class CurdUtil
         return array_pop($result);
     }
 
+    public function one($where = array(), $order = '', $select = '*')
+    {
+        if (empty($where))
+            $where = '1=1';
+
+        if ($order)
+            $this->db->order_by($order);
+
+        $this->db->select($select, false);
+
+        $this->model->beforeRead();
+        $query = $this->db->get_where($this->table, $where, 1, 0);
+        $this->model->afterRead();
+
+        $result = $this->result($query);
+
+        return array_pop($result);
+    }
+
     public function readAll($order = '', $where = array())
     {
         if (!empty($order))
