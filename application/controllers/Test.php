@@ -19,8 +19,8 @@ class Test extends FrontendController
     }
 
     public function percent() {
-        var_dump(EarningsPercentUtil::getPercent(200));
-        var_dump(EarningsPercentUtil::getPercent(10000));
+//        var_dump(EarningsPercentUtil::getPercent(200));
+        var_dump(EarningsPercentUtil::getPercent(900));
     }
 
     public function clearShare()

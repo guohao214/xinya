@@ -71,6 +71,7 @@
                         <li><a href="<?php echo UrlUtil::createBackendUrl('withDrawDeposit/index') ?>">
                                 <i class="icon-font">&#xe045;</i>提现管理</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('EarningsOrder/index') ?>"><i class="icon-font">&#xe014;</i>提成订单管理</a></li>
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('makers/index') ?>"><i class="icon-font">&#xe014;</i>推广大使申请管理</a></li>
                         <!--<li><a href=""><i class="icon-font">&#xe045;</i>数据还原</a></li>-->
                     </ul>
                 </li>

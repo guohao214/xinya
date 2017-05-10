@@ -53,4 +53,32 @@ class MakerModel extends BaseModel
     public function getCustomers($openId, $offset = 0)
     {
     }
+
+    /**
+     * @param int $offset
+     * @return array
+     */
+    public function getList($offset = 0)
+    {
+        $limit = 10;
+
+        $sql = "select SQL_CALC_FOUND_ROWS a.*,b.nick_name, b.avatar 
+                  from maker as a 
+                  left join customer as b 
+                  on a.open_id = b.open_id 
+                  where a.disabled=0 limit {$offset}, {$limit}";
+
+        $rows = (new CurdUtil($this))->query($sql);
+        $count = (new CurdUtil($this))->query("select FOUND_ROWS() as `c_count`");
+        if ($count)
+            $count = $count[0]['c_count'];
+        else
+            $count = 0;
+
+
+        return array(
+            'list' => $rows,
+            'count' => $count
+        );
+    }
 }
