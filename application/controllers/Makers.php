@@ -206,43 +206,6 @@ class Makers extends FrontendController
     }
 
     /**
-     * 分享来源
-     * @return  string
-     */
-    public function share()
-    {
-        // 删除
-        ShareUtil::clearShareForm();
-
-        $params = RequestUtil::getParams();
-        $firstStage = $params['f'];
-        $secondStage = $params['s'];
-        $buyerOpenId = $params['b'];
-
-        $openId = $this->openId;
-
-        $shareForm = array($firstStage, $secondStage, $buyerOpenId);
-        array_walk($shareForm, function (&$item) {
-            if ($item)
-                $item = EncryptUtil::decrypt($item);
-        });
-        $shareForm[] = $openId;
-        $shareForm = array_filter(array_unique($shareForm));
-
-        $count = (new CustomerModel())->findCustomer($shareForm);
-        if ($count != count($shareForm))
-            show_error('来源用户不存在');
-
-        if (count($shareForm) > 3)
-            array_shift($shareForm);
-
-        ShareUtil::setShareFrom($shareForm);
-
-        // 返回到首页
-        ResponseUtil::redirect(UrlUtil::createUrl('project/index'));
-    }
-
-    /**
      * 收款账号
      */
     public function applyWithdrawDepositAccount()

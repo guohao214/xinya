@@ -44,6 +44,6 @@ class ShareUtil
 
         $shareParams = http_build_query($shareParams);
 
-        return UrlUtil::createUrl("makers/share?{$shareParams}");
+        return UrlUtil::createUrl("share/index?{$shareParams}");
     }
 }
