@@ -47,7 +47,7 @@
         position: fixed;
         left: 0;
         bottom: 0px;
-        height: 300px;
+        height: 400px;
         width: 100%;
         background-color: white;
         border-top:1px solid #ccc;
