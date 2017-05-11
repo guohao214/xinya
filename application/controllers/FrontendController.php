@@ -33,8 +33,15 @@ class FrontendController extends BaseController
 
         $shareJsParams = (new WxShareUtil())->getShareParams($currentUrl);
 
+
+        $shareTitle = '这是一个靠谱的美容店， 想更漂亮的快点进去！';
+        $shareDesc = '不期而遇美容欢迎您';
+        $shareUrl = ShareUtil::getShareUrl();
+
         // 获得头像
-        $this->load->view('frontend/wechatShare', array('shareJsParams' => $shareJsParams));
+        $this->load->view('frontend/wechatShare',
+            array('shareJsParams' => $shareJsParams, 'shareTitle' => $shareTitle,
+                    'shareDesc' => $shareDesc, 'shareUrl' => $shareUrl));
     }
 
     public function noContent($message) {

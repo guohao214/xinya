@@ -21,9 +21,12 @@ class ShareUtil
     }
 
     public static function getShareUrl() {
-        $shareForm = self::getShareFrom();
         $openId = (new WeixinUtil())->getOpenId();
 
+        if (!(new MakerModel())->isExists($openId))
+            return UrlUtil::createUrl('project/index');
+
+        $shareForm = self::getShareFrom();
         if ($shareForm) {
             // 加密
             array_walk($shareForm, function (&$item) {
