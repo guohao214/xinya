@@ -9,7 +9,7 @@
 class Makers extends FrontendController
 {
     public $openId = '';
-    const APPLY_MAKERS_MIN_AMOUNT = 999;
+    const APPLY_MAKERS_MIN_AMOUNT = 0;
 
     public function __construct()
     {
@@ -43,6 +43,9 @@ class Makers extends FrontendController
         if (RequestUtil::isAjax()) {
             $data['open_id'] = $this->openId;
             $data['amount'] = $amount;
+            if ($amount >= self::APPLY_MAKERS_MIN_AMOUNT)
+              $data['status'] = 1;
+
             if ((new MakerModel())->create($data))
                 ResponseUtil::executeSuccess('申请成功，请等待审核');
             else
@@ -63,14 +66,15 @@ class Makers extends FrontendController
 
 
         $minAmount = self::APPLY_MAKERS_MIN_AMOUNT;
-        if ($amount < $minAmount) {
-            // 判断是否有资格成为推广大使
-            $message = '您当前的线上消费金额为:' . $amount . '元<br>';
-            $message .= '要成为推广大使， 线上消费金额必须满' . $minAmount . '元';
-            $this->message($message);
-        } else {
-            $this->view('makers/apply', array('minAmount' => $minAmount));
-        }
+        $this->view('makers/apply', array('minAmount' => $minAmount));
+//        if ($amount < $minAmount) {
+//            // 判断是否有资格成为推广大使
+//            $message = '您当前的线上消费金额为:' . $amount . '元<br>';
+//            $message .= '要成为推广大使， 线上消费金额必须满' . $minAmount . '元';
+//            $this->message($message);
+//        } else {
+//            $this->view('makers/apply', array('minAmount' => $minAmount));
+//        }
     }
 
     /**

@@ -21,7 +21,7 @@
 <header><h2>申请成为推广大使</h2></header>
 <section class="detail">
     <div class="wrapper">
-        <span>您的消费已满<?php echo $minAmount; ?>元<br>请点击下面的按钮申请成为推广大使</span>
+        <span>请点击下面的按钮申请成为推广大使</span>
         <a href="javascript:;" class="weui-btn weui-btn_primary" id="confirm-submit">确定申请</a>
     </div>
 </section>
