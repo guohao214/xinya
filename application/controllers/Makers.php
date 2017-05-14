@@ -9,7 +9,7 @@
 class Makers extends FrontendController
 {
     public $openId = '';
-    const APPLY_MAKERS_MIN_AMOUNT = 0;
+    const APPLY_MAKERS_MIN_AMOUNT = 999;
 
     public function __construct()
     {
