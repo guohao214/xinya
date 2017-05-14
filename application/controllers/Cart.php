@@ -285,9 +285,15 @@ class Cart extends FrontendController
         //
         $makerOrderModel = new MakerOrderModel();
         $percents = EarningsPercentUtil::getPercent($totalFee);
-        for ($i = 0; $i < count($shareFrom); $i++) {
-            if ($shareFrom[$i] == $openId)
-                continue;
+
+        $_shareForm = array();
+
+        for($i = 0; $i < count($shareFrom); $i++) {
+          if ($shareFrom[$i] != $openId)
+            $_shareForm[] = $shareFrom[$i];
+        }
+
+        for ($i = 0; $i < count($_shareForm); $i++) {
 
             if ($shareFrom[$i] == '')
                 continue;
@@ -305,7 +311,6 @@ class Cart extends FrontendController
 
             $makerOrderModel->create($data);
         }
-
 
         $this->db->trans_complete();
 
