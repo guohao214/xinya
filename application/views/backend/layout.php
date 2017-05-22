@@ -78,8 +78,8 @@
                 <li>
                     <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
                     <ul class="sub-menu">
-                        <!--<li><a href="<?php echo UrlUtil::createBackendUrl('setting/cleanCache') ?>"><i
-                                    class="icon-font">&#xe037;</i>清理缓存</a></li>-->
+                        <li><a href="<?php echo UrlUtil::createBackendUrl('manage/weChatOrderRemind') ?>"><i
+                                    class="icon-font">&#xe040;</i>发送预约到期提醒</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('tool/index') ?>">
                                 <i class="icon-font">&#xe046;</i>数据备份</a></li>
                         <li><a href="<?php echo UrlUtil::createBackendUrl('workTime/index') ?>"><i class="icon-font">&#xe017;</i>工作时间设置</a></li>
